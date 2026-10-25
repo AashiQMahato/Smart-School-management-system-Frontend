@@ -29,24 +29,17 @@
     color: #fff;
   }
 
-  /* ruled exercise-book paper with a margin line */
+  /* ruled exercise-book paper */
   .ssl-auth__aside::before {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background:
-      linear-gradient(
-        90deg,
-        transparent 39px,
-        rgb(232 97 63 / 0.35) 39px 40px,
-        transparent 40px
-      ),
-      repeating-linear-gradient(
-        180deg,
-        transparent 0 35px,
-        rgb(255 255 255 / 0.04) 35px 36px
-      );
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0 35px,
+      rgb(255 255 255 / 0.04) 35px 36px
+    );
   }
 }
 
@@ -283,6 +276,13 @@
 
 .ssl-field[data-invalid="true"] .ssl-field__control:focus-within {
   box-shadow: 0 0 0 4px rgb(220 38 38 / 0.12);
+}
+
+/* the control shows the focus ring, so the input itself must not */
+.ssl .ssl-field__control input:focus,
+.ssl .ssl-field__control input:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 .ssl-field__control input {
