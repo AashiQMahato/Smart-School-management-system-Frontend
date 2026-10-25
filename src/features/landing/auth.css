@@ -1,0 +1,406 @@
+/* =====================================================================
+   Sign-in page — builds on the tokens and atoms in landing.css
+   ===================================================================== */
+
+.ssl-auth {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- brand panel (desktop only) ---------- */
+.ssl-auth__aside {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ssl-auth {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .ssl-auth__aside {
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--ssl-ink);
+    color: #fff;
+  }
+
+  /* ruled exercise-book paper with a margin line */
+  .ssl-auth__aside::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        90deg,
+        transparent 39px,
+        rgb(232 97 63 / 0.35) 39px 40px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        180deg,
+        transparent 0 35px,
+        rgb(255 255 255 / 0.04) 35px 36px
+      );
+  }
+}
+
+.ssl-auth__aside-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+  padding: 40px clamp(48px, 5vw, 72px) 32px;
+  overflow-y: auto;
+}
+
+.ssl-auth__brand,
+.ssl-auth__brand-mobile {
+  align-self: flex-start;
+  border-radius: 10px;
+}
+
+.ssl-auth__pitch {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.ssl-auth__pitch .ssl-eyebrow {
+  color: #93b4ff;
+}
+
+.ssl-auth__title {
+  font-size: clamp(2.2rem, 1.2rem + 2.2vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 740;
+  text-wrap: balance;
+}
+
+.ssl-auth__title span {
+  color: #93b4ff;
+}
+
+.ssl-auth__lead {
+  max-width: 42ch;
+  color: #b8c3d3;
+  font-size: 1.05rem;
+}
+
+.ssl-auth__roles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 520px;
+}
+
+.ssl-auth__roles li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-top: 2px solid var(--role);
+}
+
+.ssl-auth__roles b {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 640;
+}
+
+.ssl-auth__roles small {
+  display: block;
+  margin-top: 2px;
+  color: #98a6ba;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.ssl-auth__role-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--role);
+  color: #fff;
+}
+
+.ssl-auth__aside-foot {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: #7d8ca1;
+}
+
+/* ---------- form panel ---------- */
+.ssl-auth__main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 40px;
+}
+
+.ssl-auth__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: clamp(32px, 8vh, 72px);
+}
+
+.ssl-auth__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  margin-right: -10px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ssl-ink-2);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.ssl-auth__back:hover {
+  color: var(--ssl-ink);
+  background: rgb(14 26 43 / 0.05);
+}
+
+.ssl-auth__back svg {
+  transition: transform 0.25s var(--ssl-ease);
+}
+
+.ssl-auth__back:hover svg {
+  transform: translateX(-2px);
+}
+
+.ssl-auth__card {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ssl-auth__head {
+  display: grid;
+  gap: 6px;
+}
+
+.ssl-auth__head p {
+  color: var(--ssl-muted);
+}
+
+.ssl-auth__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  animation: ssl-fade 0.3s var(--ssl-ease) both;
+}
+
+.ssl-auth__notice svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+.ssl-auth__notice--error {
+  background: #fdeeee;
+  color: #991b1b;
+  border: 1px solid #f7caca;
+}
+
+.ssl-auth__notice--info {
+  background: #eaf0fe;
+  color: #1e40af;
+  border: 1px solid #c9d8fb;
+}
+
+.ssl-auth__form {
+  display: grid;
+  gap: 18px;
+}
+
+.ssl-field {
+  display: grid;
+  gap: 7px;
+}
+
+.ssl-field label {
+  font-size: 0.88rem;
+  font-weight: 620;
+  color: var(--ssl-ink-2);
+}
+
+.ssl-field__control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 6px 0 14px;
+  border-radius: 13px;
+  background: var(--ssl-surface);
+  border: 1px solid var(--ssl-line-2);
+  color: var(--ssl-muted);
+  box-shadow: var(--ssl-shadow-sm);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.ssl-field__control:hover {
+  border-color: #b9b4aa;
+}
+
+.ssl-field__control:focus-within {
+  border-color: var(--ssl-blue);
+  box-shadow: 0 0 0 4px rgb(37 99 235 / 0.14);
+  color: var(--ssl-blue);
+}
+
+.ssl-field[data-invalid="true"] .ssl-field__control {
+  border-color: #dc2626;
+}
+
+.ssl-field[data-invalid="true"] .ssl-field__control:focus-within {
+  box-shadow: 0 0 0 4px rgb(220 38 38 / 0.12);
+}
+
+.ssl-field__control input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ssl-ink);
+}
+
+.ssl-field__control input::placeholder {
+  color: #9aa3b0;
+}
+
+.ssl-field__reveal {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ssl-muted);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.ssl-field__reveal:hover {
+  background: var(--ssl-sunken);
+  color: var(--ssl-ink);
+}
+
+.ssl-field__error,
+.ssl-field__hint {
+  font-size: 0.84rem;
+  animation: ssl-fade 0.25s var(--ssl-ease) both;
+}
+
+.ssl-field__error {
+  color: #b91c1c;
+}
+
+.ssl-field__hint {
+  color: #a35a04;
+}
+
+.ssl-auth__submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.ssl-auth__submit:disabled {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+@keyframes ssl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ssl-spin {
+  animation: ssl-spin 0.8s linear infinite;
+}
+
+.ssl-auth__help {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--ssl-surface);
+  border: 1px dashed var(--ssl-line-2);
+  font-size: 0.9rem;
+}
+
+.ssl-auth__help b {
+  font-weight: 640;
+}
+
+.ssl-auth__help p {
+  margin-top: 4px;
+  color: var(--ssl-muted);
+}
+
+@media (min-width: 640px) {
+  .ssl-auth__main {
+    padding: 28px 32px 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ssl-auth__main {
+    justify-content: center;
+    padding: 40px 48px;
+  }
+
+  .ssl-auth__top {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    width: auto;
+    margin: 0;
+  }
+
+  .ssl-auth__brand-mobile {
+    display: none;
+  }
+
+  .ssl-auth__card {
+    padding: 40px;
+    border-radius: 24px;
+    background: var(--ssl-surface);
+    border: 1px solid var(--ssl-line);
+    box-shadow: var(--ssl-shadow-lg);
+  }
+}
