@@ -47,20 +47,6 @@ html {
 }
 
 /* ========================================
-   GLASS EFFECTS
-======================================== */
-.glass-navbar {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: saturate(180%) blur(12px);
-  -webkit-backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-/* ========================================
    ANT DESIGN OVERRIDES
 ======================================== */
 .ant-table-wrapper {

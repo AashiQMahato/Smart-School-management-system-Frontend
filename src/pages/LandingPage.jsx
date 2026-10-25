@@ -1,23 +1,32 @@
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import HeroSection from "../components/sections/HeroSection";
-import AboutSection from "../components/sections/AboutSection";
-import ProblemsSection from "../components/sections/ProblemsSection";
-import FeaturesSection from "../components/sections/FeaturesSection";
-import UserRolesSection from "../components/sections/UserRolesSection";
-import ContactSection from "../components/sections/ContactSection";
+import "../features/landing/landing.css";
+import Navbar from "../features/landing/components/Navbar";
+import Hero from "../features/landing/components/Hero";
+import Features, {
+  BenefitsStrip,
+} from "../features/landing/components/Features";
+import Roles from "../features/landing/components/Roles";
+import ProductDemo from "../features/landing/components/ProductDemo";
+import HowItWorks from "../features/landing/components/HowItWorks";
+import WhyChoose from "../features/landing/components/WhyChoose";
+import FinalCta from "../features/landing/components/FinalCta";
+import Footer from "../features/landing/components/Footer";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden">
-      <Header />
-      <main className="w-full pt-16">
-        <HeroSection />
-        <AboutSection />
-        <ProblemsSection />
-        <FeaturesSection />
-        <UserRolesSection />
-        <ContactSection />
+    <div className="ssl">
+      <a href="#main" className="ssl-skip">
+        Skip to content
+      </a>
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <BenefitsStrip />
+        <Features />
+        <Roles />
+        <ProductDemo />
+        <HowItWorks />
+        <WhyChoose />
+        <FinalCta />
       </main>
       <Footer />
     </div>
