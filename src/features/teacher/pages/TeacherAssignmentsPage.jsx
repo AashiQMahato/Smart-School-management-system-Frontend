@@ -133,7 +133,7 @@ const TeacherAssignmentsPage = () => {
   return (
     <div className="min-h-screen">
       {/* Modern Header with Gradient */}
-      <div className="relative overflow-hidden bg-linear-to-r from-blue-400 via-indigo-500 to-purple-400 text-white rounded-xl">
+      <div className="relative overflow-hidden bg-[var(--ssl-ink)] text-white rounded-xl">
         <div className="absolute inset-0 bg-black opacity-5"></div>
         <div
           className="absolute inset-0"
@@ -143,15 +143,15 @@ const TeacherAssignmentsPage = () => {
           }}></div>
 
         <div className="relative px-6 py-4 ">
-          <div className="flex items-start justify-between mb-6">
+          <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
        
-              <h1 className="text-3xl font-bold mb-2 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2 tracking-tight">
                 Assignment Management
               </h1>
         
             <button
               onClick={() => setIsModalOpen(true)}
-              className="group flex items-center gap-2 px-6 py-3.5 bg-white text-blue-400 rounded-2xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl font-semibold">
+              className="group flex items-center gap-2 px-5 py-3 bg-white text-slate-900 rounded-xl hover:bg-blue-50 transition-colors font-semibold">
               <div className="p-1 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
                 <Plus size={20} strokeWidth={2.5} />
               </div>

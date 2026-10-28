@@ -19,7 +19,7 @@ export const SimpleBarChart = ({ data, height = 200 }) => {
           </span>
           <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden">
             <div
-              className="h-full bg-linear-to-r from-indigo-500 to-indigo-600 rounded-full flex items-center justify-end px-3 transition-all duration-500"
+              className="h-full bg-indigo-600 rounded-full flex items-center justify-end px-3 transition-all duration-500"
               style={{ width: `${(item.value / maxValue) * 100}%` }}>
               <span className="text-xs font-bold text-white">{item.value}</span>
             </div>
@@ -74,14 +74,14 @@ export const StatCard = ({
   title,
   value,
   icon,
-  gradient = "from-blue-500 to-blue-600",
+  gradient = "bg-blue-600",
   trend,
   subtitle,
   emoji,
 }) => {
   return (
     <div
-      className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-linear-to-br ${gradient} text-white rounded-2xl overflow-hidden p-6 relative`}>
+      className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${gradient} text-white rounded-2xl overflow-hidden p-6 relative`}>
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-4">
           <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
@@ -148,14 +148,14 @@ export const SubjectCard = ({ subject, marks, maxMarks, grade, trend }) => {
   const percentage = ((marks / maxMarks) * 100).toFixed(0);
   const getGradeColor = (grade) => {
     const colors = {
-      "A+": "from-emerald-500 to-emerald-600",
-      A: "from-green-500 to-green-600",
-      "B+": "from-blue-500 to-blue-600",
-      B: "from-cyan-500 to-cyan-600",
-      "C+": "from-yellow-500 to-yellow-600",
-      C: "from-amber-500 to-amber-600",
-      D: "from-orange-500 to-orange-600",
-      F: "from-rose-500 to-rose-600",
+      "A+": "bg-emerald-600",
+      A: "bg-green-600",
+      "B+": "bg-blue-600",
+      B: "bg-cyan-600",
+      "C+": "bg-yellow-600",
+      C: "bg-amber-600",
+      D: "bg-orange-600",
+      F: "bg-rose-600",
     };
     return colors[grade] || colors.B;
   };
@@ -170,7 +170,7 @@ export const SubjectCard = ({ subject, marks, maxMarks, grade, trend }) => {
           </p>
         </div>
         <div
-          className={`w-14 h-14 rounded-xl bg-linear-to-br ${getGradeColor(grade)} flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
+          className={`w-14 h-14 rounded-xl ${getGradeColor(grade)} flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
           {grade}
         </div>
       </div>

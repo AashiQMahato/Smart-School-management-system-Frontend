@@ -122,7 +122,7 @@ export function AISummaryPanel({ summary, className = "" }) {
   if (!summary) return null;
   return (
     <div
-      className={`rounded-2xl bg-linear-to-br from-blue-50 to-indigo-50 border border-blue-100 p-6 ${className}`}>
+      className={`rounded-2xl bg-blue-50 border border-blue-100 p-6 ${className}`}>
       <div className="flex items-start gap-3">
         <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
           <BulbOutlined className="text-lg text-blue-600" />
@@ -221,12 +221,12 @@ export function RecommendationsList({
 // ───────────────────────────────────────────────────────
 export function StatCard({ label, value, suffix, trend, color = "blue" }) {
   const colors = {
-    blue: "from-blue-500 to-blue-600",
-    green: "from-emerald-500 to-emerald-600",
-    amber: "from-amber-500 to-amber-600",
-    red: "from-red-500 to-red-600",
-    purple: "from-purple-500 to-purple-600",
-    indigo: "from-indigo-500 to-indigo-600",
+    blue: "bg-blue-600",
+    green: "bg-emerald-600",
+    amber: "bg-amber-600",
+    red: "bg-red-600",
+    purple: "bg-violet-600",
+    indigo: "bg-indigo-600",
   };
   return (
     <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">

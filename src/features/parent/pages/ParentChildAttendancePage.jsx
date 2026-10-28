@@ -250,9 +250,9 @@ const ParentChildAttendancePage = () => {
         : "#ef4444";
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-slate-50 via-white to-blue-50 min-h-screen">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-linear-to-r from-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl border border-indigo-400/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">

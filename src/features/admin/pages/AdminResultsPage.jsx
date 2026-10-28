@@ -819,7 +819,7 @@ const AdminResultsPage = () => {
   ];
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-rose-50 via-white to-orange-50 min-h-screen">
+    <div className="space-y-6">
       {/* Gradient Header */}
       <div className="bg-rose-500 rounded-3xl p-8 text-white shadow-2xl border border-rose-500/20">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">

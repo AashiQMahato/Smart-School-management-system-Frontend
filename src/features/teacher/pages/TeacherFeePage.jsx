@@ -337,7 +337,7 @@ export default function TeacherFeePage() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="bg-linear-to-r from-blue-700 via-blue-600 to-indigo-600 px-6 pt-10 pb-16">
+      <div className="bg-blue-600 px-6 pt-10 pb-16">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
@@ -531,7 +531,7 @@ export default function TeacherFeePage() {
         {detailStudent && (
           <div>
             {/* Modal header */}
-            <div className="bg-linear-to-r from-blue-600 to-indigo-600 px-6 py-5">
+            <div className="bg-blue-600 px-6 py-5">
               <h2 className="text-lg font-black text-white">
                 {detailStudent.student?.userId?.name ||
                   detailStudent.student?.name}

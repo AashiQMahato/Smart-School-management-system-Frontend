@@ -45,11 +45,11 @@ const MyChildrenPage = () => {
   }, []);
 
   const AVATAR_COLORS = [
-    "from-purple-500 to-indigo-600",
-    "from-blue-500 to-cyan-600",
-    "from-emerald-500 to-teal-600",
-    "from-amber-500 to-orange-600",
-    "from-rose-500 to-pink-600",
+    "bg-violet-600",
+    "bg-blue-600",
+    "bg-emerald-600",
+    "bg-amber-600",
+    "bg-rose-600",
   ];
 
   const quickActions = (childId) => [
@@ -82,9 +82,9 @@ const MyChildrenPage = () => {
   ];
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-purple-50 via-white to-purple-50 min-h-screen">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-linear-to-r from-purple-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl border border-purple-400/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -126,7 +126,7 @@ const MyChildrenPage = () => {
             <div
               key={i}
               className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden animate-pulse">
-              <div className="h-36 bg-linear-to-r from-slate-100 to-slate-200" />
+              <div className="h-36 bg-slate-50" />
               <div className="p-6 space-y-4">
                 <div className="grid grid-cols-4 gap-2">
                   {[1, 2, 3, 4].map((j) => (
@@ -180,7 +180,7 @@ const MyChildrenPage = () => {
                 className="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
                 {/* Hero banner */}
                 <div
-                  className={`bg-linear-to-br ${colorClass} p-6 text-white relative overflow-hidden`}>
+                  className={`${colorClass} p-6 text-white relative overflow-hidden`}>
                   <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white" />
                     <div className="absolute bottom-0 left-0 w-20 h-20 rounded-full bg-white" />

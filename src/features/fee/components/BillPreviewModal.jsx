@@ -138,7 +138,7 @@ export default function BillPreviewModal({
               padding: "20mm",
             }}>
             {/* Header Section */}
-            <div className="bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-lg p-6 mb-6 shadow-sm">
+            <div className="bg-[var(--ssl-ink)] text-white rounded-lg p-6 mb-6 shadow-sm">
               <div className="flex items-start justify-between">
                 <div>
                   <h1 className="text-2xl font-bold mb-2">{SCHOOL_NAME}</h1>

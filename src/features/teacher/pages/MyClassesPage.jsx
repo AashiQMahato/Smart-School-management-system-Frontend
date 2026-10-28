@@ -352,7 +352,7 @@ const MyClassesPage = () => {
             key={classData.id}
             className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 rounded-2xl overflow-hidden border-0"
             style={{
-              background: `linear-gradient(135deg, ${getGradientColors(index)} 0%, ${getGradientColors(index, true)} 100%)`,
+              background: getGradientColors(index),
             }}>
             {/* Class Header */}
             <div className="flex justify-between items-start mb-4">
@@ -495,7 +495,7 @@ const MyClassesPage = () => {
         {selectedClass && (
           <div className="space-y-4">
             {/* Class Info */}
-            <Card className="bg-linear-to-br from-indigo-50 to-purple-50">
+            <Card className="bg-indigo-50">
               <Row gutter={[16, 16]}>
                 <Col span={12}>
                   <div className="text-sm text-gray-600">Academic Year</div>
@@ -600,18 +600,18 @@ const MyClassesPage = () => {
 };
 
 // Helper function to get gradient colors
-const getGradientColors = (index, isSecondary = false) => {
-  const gradients = [
-    ["#6366f1", "#8b5cf6"], // Indigo to Purple
-    ["#ec4899", "#f43f5e"], // Pink to Rose
-    ["#3b82f6", "#06b6d4"], // Blue to Cyan
-    ["#10b981", "#14b8a6"], // Emerald to Teal
-    ["#f59e0b", "#f97316"], // Amber to Orange
-    ["#8b5cf6", "#d946ef"], // Purple to Fuchsia
+const getGradientColors = (index) => {
+  // Solid card colours from the design palette (white text stays legible)
+  const colors = [
+    "#0e1a2b", // navy
+    "#2563eb", // blue
+    "#0f766e", // teal
+    "#4f46e5", // indigo
+    "#b45309", // amber
+    "#6d28d9", // violet
   ];
 
-  const gradientPair = gradients[index % gradients.length];
-  return isSecondary ? gradientPair[1] : gradientPair[0];
+  return colors[index % colors.length];
 };
 
 // Helper function to get avatar color

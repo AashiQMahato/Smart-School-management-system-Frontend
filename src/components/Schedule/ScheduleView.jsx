@@ -63,7 +63,7 @@ const isSmallScreen = () =>
 // Empty State Component
 const EmptyState = ({ title, subtitle, icon: Icon = Calendar }) => (
   <div className="flex flex-col items-center justify-center py-16 px-4">
-    <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-indigo-50 to-slate-100 flex items-center justify-center mb-6 shadow-sm">
+    <div className="w-20 h-20 rounded-2xl bg-indigo-50 flex items-center justify-center mb-6 shadow-sm">
       <Icon className="w-10 h-10 text-indigo-400" strokeWidth={1.5} />
     </div>
     <h3 className="text-xl font-semibold text-slate-800 mb-2">{title}</h3>
@@ -584,7 +584,7 @@ const ScheduleView = ({
         {/* Top Row */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-200">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-200">
               <Calendar className="w-5 h-5 text-white" />
             </div>
             <div>

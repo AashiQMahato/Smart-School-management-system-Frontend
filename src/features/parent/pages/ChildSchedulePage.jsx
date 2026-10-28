@@ -85,7 +85,7 @@ const ChildSelector = ({ children, selectedChild, onSelect }) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-3 px-5 py-3 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all min-w-55">
-        <div className="w-9 h-9 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-sm">
+        <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center shadow-sm">
           <GraduationCap className="w-5 h-5 text-white" />
         </div>
         <div className="flex-1 text-left">
@@ -123,7 +123,7 @@ const ChildSelector = ({ children, selectedChild, onSelect }) => {
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center shadow-sm ${
                       isSelected
-                        ? "bg-linear-to-br from-indigo-500 to-purple-600"
+                        ? "bg-indigo-600"
                         : "bg-slate-100"
                     }`}>
                     <GraduationCap
@@ -339,7 +339,7 @@ const ChildSchedulePage = () => {
 
       {/* Child Info Banner */}
       {selectedChildData && (
-        <div className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-6 text-white shadow-lg">
+        <div className="bg-[var(--ssl-ink)] rounded-2xl p-6 text-white">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/30 shadow-xl">
               <GraduationCap className="w-8 h-8" />

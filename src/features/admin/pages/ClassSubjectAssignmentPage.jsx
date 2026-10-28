@@ -482,7 +482,7 @@ const ClassSubjectAssignmentPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 -m-6 p-6">
+    <div className="bg-slate-50">
       {/* Header Section - Sticky */}
       <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">

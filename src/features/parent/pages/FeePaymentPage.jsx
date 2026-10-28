@@ -175,7 +175,7 @@ const ParentFeePaymentPage = () => {
 
   if (loading) {
     return (
-      <div className="space-y-6 p-6 -m-6 min-h-screen bg-linear-to-br from-blue-50 via-white to-slate-50 animate-pulse">
+      <div className="space-y-6 animate-pulse">
         <div className="h-40 bg-slate-200 rounded-3xl" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
@@ -189,7 +189,7 @@ const ParentFeePaymentPage = () => {
 
   if (children.length === 0) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-slate-50 p-6 -m-6 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="text-center">
           <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
             <BankOutlined className="text-3xl text-blue-400" />
@@ -201,9 +201,9 @@ const ParentFeePaymentPage = () => {
   }
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-blue-50 via-white to-slate-50 min-h-screen">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl border border-blue-400/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -519,7 +519,7 @@ const ParentFeePaymentPage = () => {
         ) : (
           /* Payment Form */
           <div className="px-2">
-            <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white text-center mb-6">
+            <div className="bg-[var(--ssl-ink)] rounded-2xl p-6 text-white text-center mb-6">
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <CreditCardOutlined className="text-2xl" />
               </div>

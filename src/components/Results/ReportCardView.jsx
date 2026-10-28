@@ -27,7 +27,7 @@ const ReportCardView = ({ data, loading = false }) => {
       {/* Official Header */}
       <div className="border-2 border-indigo-200 rounded-2xl overflow-hidden">
         {/* School Banner */}
-        <div className="bg-linear-to-r from-indigo-700 to-purple-700 text-white px-8 py-6 text-center">
+        <div className="bg-indigo-600 text-white px-8 py-6 text-center">
           <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white/30">
             <span className="text-2xl font-black text-white">S</span>
           </div>

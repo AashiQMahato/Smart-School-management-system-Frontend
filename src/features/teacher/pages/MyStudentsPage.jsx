@@ -351,7 +351,7 @@ const MyStudentsPage = () => {
               key={student._id || student.id}
               className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 rounded-xl overflow-hidden border-0"
               style={{
-                background: `linear-gradient(135deg, ${getStudentCardGradient(index)} 0%, ${getStudentCardGradient(index, true)} 100%)`,
+                background: getStudentCardGradient(index),
               }}>
               <div className="text-center mb-4">
                 <Badge
@@ -492,7 +492,7 @@ const MyStudentsPage = () => {
             <Divider />
 
             {/* Student Information */}
-            <Card className="bg-gradient-to-br from-indigo-50 to-purple-50">
+            <Card className="bg-indigo-50">
               <Row gutter={[16, 16]}>
                 <Col span={12}>
                   <div className="text-sm text-gray-600 mb-1">
@@ -581,18 +581,18 @@ const MyStudentsPage = () => {
 };
 
 // Helper function to get gradient colors for student cards
-const getStudentCardGradient = (index, isSecondary = false) => {
-  const gradients = [
-    ["#6366f1", "#8b5cf6"], // Indigo to Purple
-    ["#3b82f6", "#06b6d4"], // Blue to Cyan
-    ["#10b981", "#14b8a6"], // Emerald to Teal
-    ["#f59e0b", "#f97316"], // Amber to Orange
-    ["#ec4899", "#f43f5e"], // Pink to Rose
-    ["#8b5cf6", "#d946ef"], // Purple to Fuchsia
+const getStudentCardGradient = (index) => {
+  // Solid card colours from the design palette (white text stays legible)
+  const colors = [
+    "#0e1a2b", // navy
+    "#2563eb", // blue
+    "#0f766e", // teal
+    "#4f46e5", // indigo
+    "#b45309", // amber
+    "#6d28d9", // violet
   ];
 
-  const gradientPair = gradients[index % gradients.length];
-  return isSecondary ? gradientPair[1] : gradientPair[0];
+  return colors[index % colors.length];
 };
 
 export default MyStudentsPage;
