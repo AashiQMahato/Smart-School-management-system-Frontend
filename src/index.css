@@ -1,4 +1,22 @@
 @import "tailwindcss";
+@import "./styles/tokens.css";
+
+/* Tailwind theme mapped onto the design tokens:
+   Inter everywhere, and the light neutrals (used for page backgrounds,
+   borders and dividers across the dashboards) warmed to match. */
+@theme {
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --color-slate-50: #f7f6f2;
+  --color-slate-100: #f1efea;
+  --color-slate-200: #e7e4de;
+  --color-slate-300: #d9d5cd;
+  --color-gray-50: #f7f6f2;
+  --color-gray-100: #f1efea;
+  --color-gray-200: #e7e4de;
+  --color-gray-300: #d9d5cd;
+}
 
 @layer base {
   body {
@@ -25,7 +43,7 @@ html {
 
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: #e2e8f0 transparent;
+  scrollbar-color: var(--ssl-line-2) transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -48,45 +66,15 @@ html {
 
 /* ========================================
    ANT DESIGN OVERRIDES
+   Most styling comes from the theme tokens in App.jsx; these cover
+   what the token API can't reach.
 ======================================== */
-.ant-table-wrapper {
-  border-radius: 0 0 16px 16px;
-}
-
-.ant-table-thead > tr > th {
-  background: #f8fafc !important;
-  font-weight: 600;
-  color: #475569;
-}
-
-.ant-table-tbody > tr:hover > td {
-  background: #f1f5f9 !important;
-}
-
 .ant-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--ssl-shadow-sm);
 }
 
-.ant-modal-content {
-  border-radius: 16px;
-}
-
-.ant-modal-header {
-  border-radius: 16px 16px 0 0;
-}
-
-.ant-dropdown-menu {
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.ant-notification-notice {
-  border-radius: 12px;
-}
-
-.ant-message-notice-content {
-  border-radius: 8px;
+.ant-dropdown .ant-dropdown-menu {
+  box-shadow: var(--ssl-shadow-md);
 }
 
 /* ========================================
@@ -127,7 +115,7 @@ html {
    ACCESSIBILITY
 ======================================== */
 *:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid var(--ssl-blue);
   outline-offset: 2px;
   border-radius: 8px;
 }
