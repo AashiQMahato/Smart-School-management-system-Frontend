@@ -1,225 +1,152 @@
 # Smart School Management System – Frontend
 
-A modern and responsive frontend for a **Smart School Management System** built with React, featuring role-based dashboards for **Admin, Teacher, Student, and Parent** with attendance, schedules, results, analytics, notifications, and AI-powered features.
+React frontend for **Smart School**, a school management system with a public landing page and role-based dashboards for **administrators, teachers, students and parents**.
 
-🌐 **Live Demo:**
-[Smart School Management System Frontend Demo](https://smart-school-management-system-frontend.onrender.com)
-
----
-
-## 🚀 Features
-
-### 👨‍💼 Admin Dashboard
-
-* User Management
-* Create Students, Teachers, Parents
-* Class & Subject Management
-* Schedule / Timetable Management
-* Attendance Monitoring
-* Fees Management
-* Notifications & Announcements
-* Reports & Analytics
-
-### 👨‍🏫 Teacher Dashboard
-
-* View Assigned Classes
-* Mark Attendance
-* Manage Student Marks
-* View Teaching Schedule
-* Student Progress Monitoring
-
-### 🎓 Student Dashboard
-
-* View Attendance
-* View Results & Grades
-* View Timetable
-* AI Assistant & Insights
-* Notifications
-
-### 👨‍👩‍👧 Parent Dashboard
-
-* Monitor Child Performance
-* View Attendance & Results
-* Fee Status Tracking
-* Child Timetable
-* Notifications
+🌐 **Live:** [smart-school-management-system-frontend-sieb.onrender.com](https://smart-school-management-system-frontend-sieb.onrender.com) · [smart-school-management-system-frontend.onrender.com](https://smart-school-management-system-frontend.onrender.com)
 
 ---
 
-## 🛠️ Tech Stack
+## Features by role
 
-### Frontend
+Every account is created by an administrator; there is no public sign-up. After login each user lands on the dashboard for their role and only sees what that role allows.
 
-* React.js
-* React Router
-* Axios
-* Tailwind CSS
-* Ant Design
-* Context API / State Management
+### Administrator
+- User management for teachers, students and parents; student enrollment
+- Parent–child linking
+- Classes, subjects, and class/subject teacher assignments
+- Weekly timetables
+- School-wide attendance overview
+- Results and report cards
+- Fee structures, collection and downloadable PDF bills
+- School calendar: exams, holidays, events, deadlines and announcements
+- AI analytics: class performance, weak subjects, students who may need support
 
-### Backend (API)
+### Teacher
+- Assigned classes, subjects and students
+- Mark attendance by class and review records
+- Create assignments and grade submissions
+- Enter marks and view results
+- Teaching schedule and school calendar
+- AI analytics for their classes
 
-* Node.js
-* Express.js
-* MongoDB
+### Student
+- Timetable, classes and subjects
+- Submit assignments and track their status
+- Attendance, results and fee status
+- School calendar and AI analytics
 
----
+### Parent
+- One view per linked child: attendance, timetable and class teacher contact
+- Results and grades
+- Fee status and payment history
+- School calendar and AI analytics
 
-## 🎨 UI Highlights
-
-* Modern responsive dashboard
-* Role-based sidebar navigation
-* Clean and minimal design
-* Mobile-friendly layouts
-* Dark / Light mode support
-* Reusable components
-* Professional timetable & attendance UI
-
----
-
-## 🔐 Authentication
-
-* Login-only authentication system
-* Admin-controlled user creation
-* Role-based access control
-* Secure protected routes
-
----
-
-## 📅 Core Modules
-
-* Authentication
-* User Management
-* Attendance System
-* Schedule / Timetable
-* Results & Marks
-* Notifications
-* Fee Management
-* AI Analytics
-* Student Monitoring
+**Planned (not built yet):** in-app messaging and a notification centre. Their routes currently show a placeholder page.
 
 ---
 
-## 📂 Project Structure
+## Design
+
+The landing page, sign-in page and dashboards share one design system:
+
+- **Tokens** in `src/styles/tokens.css`: warm off-white surfaces, navy text, and blue/indigo/teal/coral/amber accents, with Inter as the typeface
+- **Role colours:** admin red, teacher blue, student green, parent purple, applied through `data-role`
+- **Ant Design** themed from the same tokens in `App.jsx`, so every table, form, modal and tab matches
+- **Dashboard shell:** collapsible sidebar on desktop, which remembers its state, and a slide-in drawer below 1024px. The header shows the current page title.
+- **Accessibility:** keyboard-accessible navigation and tabs, visible focus, skip links, and support for `prefers-reduced-motion`
+- **Responsive** from 320px phones to large desktops
+
+---
+
+## Tech stack
+
+- React 19 + Vite (rolldown-vite)
+- React Router 7
+- Ant Design 6 and Tailwind CSS 4
+- Recharts (dashboard charts), lucide-react (icons)
+- Axios for API calls
+- jsPDF for downloadable fee bills
+
+Backend: Node.js, Express and MongoDB ([Smart-School-management-system-Backend](https://github.com/AashiQMahato/Smart-School-management-system-Backend)).
+
+---
+
+## Getting started
+
+Requires Node.js 20.19+ (or 22.12+) and a running backend.
 
 ```bash
-src/
-├── components/
-├── pages/
-├── layouts/
-├── routes/
-├── services/
-├── contexts/
-├── hooks/
-├── utils/
-├── assets/
-└── styles/
-```
-
----
-
-## ⚙️ Installation
-
-```bash
-# Clone repository
-git clone <your-repo-url>
-
-# Navigate to project
-cd frontend
-
-# Install dependencies
+git clone https://github.com/AashiQMahato/Smart-School-management-system-Frontend.git
+cd Smart-School-management-system-Frontend
 npm install
-
-# Start development server
-npm run dev
+cp .env.example .env   # then set VITE_API_BASE_URL
+npm run dev            # http://localhost:5173
 ```
 
+### Scripts
+
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the dev server                 |
+| `npm run build`   | Production build into `dist/`        |
+| `npm run preview` | Serve the production build locally   |
+| `npm run lint`    | Run ESLint                           |
+
+### Environment variables
+
+| Variable            | Description                                                                             |
+| ------------------- | --------------------------------------------------------------------------------------- |
+| `VITE_API_BASE_URL` | Backend API base URL including `/api`, e.g. `https://your-backend.onrender.com/api`. Defaults to `http://localhost:8080/api`. |
+
+The variable is read at **build time**, so rebuild after changing it.
+
+### Deploying
+
+Build with `npm run build` and serve `dist/` as a static site with a rewrite of all paths to `index.html`, because the app uses client-side routing.
+
+The backend only accepts requests from origins in its CORS allowlist. When you deploy the frontend to a new URL, add that URL to the backend's `CORS_ORIGINS` environment variable, or the browser will block API calls with a CORS error.
+
 ---
 
-## 🔑 Environment Variables
-
-Create a `.env` file:
-
-```env
-VITE_API_URL=your_backend_api_url
-```
-
----
-
-## 📱 Responsive Design
-
-The application is fully responsive and optimized for:
-
-* Desktop
-* Tablet
-* Mobile devices
-
----
-
-## 📊 System Workflow
+## Project structure
 
 ```text
-Login
-   ↓
-Role Identification
-   ↓
-Role-Based Dashboard
-   ↓
-Access Assigned Features
-   ↓
-Real-Time Data Fetching
+src/
+├── app/
+│   ├── layouts/       # AuthLayout, DashboardLayout + dashboard.css
+│   ├── providers/     # AuthProvider (session, login, logout)
+│   └── routes/        # PublicRoutes, PrivateRoute, RoleRoute guards
+├── components/        # Shared UI: Sidebar, Header, UI kit, Schedule,
+│                      # Calendar, Attendance, Results, Charts, Analytics
+├── config/            # API base URL
+├── context/           # SidebarContext
+├── features/
+│   ├── admin/         # Admin pages
+│   ├── teacher/       # Teacher pages
+│   ├── student/       # Student pages
+│   ├── parent/        # Parent pages
+│   ├── fee/           # Fee components and PDF generation
+│   └── landing/       # Public landing + sign-in components and styles
+├── hooks/             # useAuth
+├── pages/             # Landing, sign-in, settings, 404, unauthorized
+├── services/          # API clients, one per backend resource
+├── styles/            # Design tokens
+├── App.jsx            # Routes and Ant Design theme
+└── main.jsx
 ```
 
----
-
-## 🧠 Architecture Highlights
-
-* Clean role-based architecture
-* Reference-based MongoDB relations
-* Modular frontend structure
-* Scalable dashboard system
-* Reusable UI components
+Role pages are lazy-loaded per route, so each user only downloads the code for their dashboard.
 
 ---
 
-## 📌 Future Improvements
+## Contributing
 
-* Real-time chat system
-* Assignment & Homework module
-* Live notifications
-* AI-powered recommendations
-* Advanced analytics
-* Mobile application
+1. Create a branch: `git checkout -b feature-name`
+2. Make your change and run `npm run lint` and `npm run build`
+3. Open a pull request
 
 ---
 
-## 🤝 Contributing
-
-Contributions, feature suggestions, and improvements are welcome.
-
-```bash
-# Create branch
-git checkout -b feature-name
-
-# Commit changes
-git commit -m "Added new feature"
-
-# Push branch
-git push origin feature-name
-```
-
----
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-Developed for modern educational institution management using the MERN stack.
-
-Inspired by modern school ERP systems and role-based academic workflows. 
-
-[1]: https://blink.new/p/school-management-system-frontend-ss1wz7lt?utm_source=chatgpt.com "School Management System Frontend (Role-Based, Modular, Prod"
