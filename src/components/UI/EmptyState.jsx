@@ -1,19 +1,20 @@
 /**
- * EmptyState Component
- * Consistent empty state display
+ * EmptyState
+ * Consistent "nothing here yet" message with an optional action.
  */
 
-import { Empty, Button } from "antd";
+import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Inbox } from "lucide-react";
 
 /**
- * EmptyState
  * @param {object} props
  * @param {string} props.title - Empty state title
  * @param {string} props.description - Empty state description
  * @param {string} props.actionLabel - Action button label
  * @param {function} props.onAction - Action button handler
- * @param {React.ReactNode} props.image - Custom image/icon
+ * @param {React.ReactNode} props.image - Custom image/icon element
+ * @param {React.ReactNode} props.icon - Alias for image
  */
 const EmptyState = ({
   title = "No data found",
@@ -21,25 +22,24 @@ const EmptyState = ({
   actionLabel,
   onAction,
   image,
-}) => {
-  return (
-    <div className="py-12">
-      <Empty
-        image={image || Empty.PRESENTED_IMAGE_SIMPLE}
-        description={
-          <div className="text-center">
-            <h3 className="text-lg font-medium text-gray-900 mb-1">{title}</h3>
-            <p className="text-sm text-gray-500">{description}</p>
-          </div>
-        }>
-        {actionLabel && onAction && (
-          <Button type="primary" icon={<PlusOutlined />} onClick={onAction}>
-            {actionLabel}
-          </Button>
-        )}
-      </Empty>
-    </div>
-  );
-};
+  icon,
+}) => (
+  <div className="ssd-empty" role="status">
+    <span className="ssd-empty__icon" aria-hidden="true">
+      {image || icon || <Inbox size={20} />}
+    </span>
+    <b>{title}</b>
+    {description && <p>{description}</p>}
+    {actionLabel && onAction && (
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={onAction}
+        className="mt-3">
+        {actionLabel}
+      </Button>
+    )}
+  </div>
+);
 
 export default EmptyState;

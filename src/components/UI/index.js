@@ -14,3 +14,4 @@ export { default as SectionHeader } from "./SectionHeader";
 export { default as HeroBanner } from "./HeroBanner";
 export { default as InfoGrid } from "./InfoGrid";
 export { default as QuickActionCard } from "./QuickActionCard";
+export { default as Panel, PanelEmpty } from "./Panel";

@@ -1,58 +1,78 @@
 /**
- * QuickActionCard Component
- * Link card with icon, label, sublabel, and hover-lift animation
- * Used in dashboard quick-action grids
+ * QuickActionCard
+ * Link/button card with icon, label and sublabel for quick-action grids.
  */
 
 import { memo } from "react";
 import { Link } from "react-router-dom";
+
+const TONES = [
+  "blue",
+  "indigo",
+  "teal",
+  "green",
+  "coral",
+  "amber",
+  "red",
+  "violet",
+  "slate",
+];
+
+/* Older call sites pass a Tailwind gradient; map its first hue to a tone. */
+const TONE_ALIASES = {
+  emerald: "green",
+  purple: "violet",
+  orange: "amber",
+  rose: "coral",
+  pink: "coral",
+  cyan: "teal",
+  sky: "blue",
+  gray: "slate",
+};
+
+const toneFrom = (tone, gradient) => {
+  if (TONES.includes(tone)) return tone;
+  const hue = gradient?.match(/from-([a-z]+)/)?.[1];
+  return TONE_ALIASES[hue] || (TONES.includes(hue) ? hue : "blue");
+};
 
 const QuickActionCard = ({
   to,
   icon: Icon,
   label,
   sublabel,
-  gradient = "from-indigo-500 to-indigo-600",
-  iconBg = "bg-white/20",
+  tone,
+  gradient,
   className = "",
   onClick,
 }) => {
+  const classes = `ssd-action ssd-tone--${toneFrom(tone, gradient)} ${className}`;
   const content = (
-    <div
-      className={`
-        group p-5 bg-linear-to-br ${gradient}
-        rounded-2xl text-center text-white
-        shadow-lg hover:shadow-xl
-        transform hover:-translate-y-1 active:scale-[0.98]
-        transition-all duration-300 ease-out cursor-pointer
-        ${className}
-      `}>
+    <>
       {Icon && (
-        <div
-          className={`
-            w-12 h-12 ${iconBg} rounded-xl mx-auto mb-3
-            flex items-center justify-center
-            group-hover:scale-110 transition-transform duration-300
-          `}>
-          <Icon size={24} strokeWidth={2} className="text-white" />
-        </div>
+        <span className="ssd-action__icon">
+          <Icon size={19} aria-hidden="true" />
+        </span>
       )}
-      <div className="font-semibold text-sm">{label}</div>
-      {sublabel && <div className="text-xs text-white/70 mt-1">{sublabel}</div>}
-    </div>
+      <span>
+        <b>{label}</b>
+        {sublabel && <small>{sublabel}</small>}
+      </span>
+    </>
   );
 
   if (to) {
-    return <Link to={to}>{content}</Link>;
-  }
-  if (onClick) {
     return (
-      <button onClick={onClick} type="button" className="w-full text-left">
+      <Link to={to} className={classes}>
         {content}
-      </button>
+      </Link>
     );
   }
-  return content;
+  return (
+    <button type="button" onClick={onClick} className={classes}>
+      {content}
+    </button>
+  );
 };
 
 export default memo(QuickActionCard);

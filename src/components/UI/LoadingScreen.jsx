@@ -1,38 +1,41 @@
 /**
- * LoadingScreen Component
- * Full-screen loading indicator
+ * LoadingScreen
+ * Loading indicator. Inside the dashboard it fills the content area so
+ * the sidebar and header stay usable; pass fullScreen for a page overlay.
  */
 
 import { Spin } from "antd";
-import { FaGraduationCap } from "react-icons/fa";
+import { BrandMark } from "../../features/landing/components/primitives";
 
 /**
- * LoadingScreen
  * @param {object} props
  * @param {string} props.message - Loading message
- * @param {boolean} props.fullScreen - Full screen mode
+ * @param {boolean} props.fullScreen - Cover the whole viewport
  */
-const LoadingScreen = ({ message = "Loading...", fullScreen = true }) => {
+const LoadingScreen = ({ message = "Loading…", fullScreen = false }) => {
   const content = (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center animate-pulse">
-        <FaGraduationCap className="text-white text-3xl" />
-      </div>
-      <Spin size="large" />
-      <p className="text-gray-600 font-medium">{message}</p>
+    <div
+      className="flex flex-col items-center justify-center gap-4"
+      role="status"
+      aria-live="polite">
+      <BrandMark size={44} />
+      <Spin />
+      <p className="text-sm font-medium text-slate-500">{message}</p>
     </div>
   );
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--ssl-bg)]">
         {content}
       </div>
     );
   }
 
   return (
-    <div className="py-12 flex items-center justify-center">{content}</div>
+    <div className="flex min-h-[50vh] items-center justify-center py-12">
+      {content}
+    </div>
   );
 };
 
