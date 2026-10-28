@@ -150,9 +150,9 @@ const ClassesPage = () => {
   );
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-violet-50 via-white to-purple-50 min-h-screen">
+    <div className="space-y-6">
       {/* Gradient Header */}
-      <div className="bg-linear-to-r from-violet-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl border border-violet-500/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">

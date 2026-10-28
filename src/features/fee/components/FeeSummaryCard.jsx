@@ -97,7 +97,7 @@ export default function FeeSummaryCard({
       className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden ${cls || ""}`}>
       {/* Top gradient bar */}
       <div
-        className={`h-1.5 w-full ${isFullyPaid ? "bg-gradient-to-r from-emerald-400 to-emerald-600" : hasOverdue ? "bg-gradient-to-r from-red-400 to-amber-400" : "bg-gradient-to-r from-blue-400 to-indigo-600"}`}
+        className={`h-1.5 w-full ${isFullyPaid ? "bg-emerald-600" : hasOverdue ? "bg-red-500" : "bg-blue-600"}`}
       />
 
       <div className="p-6">

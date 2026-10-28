@@ -1,14 +1,13 @@
 /**
- * PageHeader Component
- * Consistent page header with title, breadcrumb, and actions
+ * PageHeader
+ * Page title, optional subtitle and breadcrumb, and actions.
  */
 
-import { Breadcrumb, Button } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
+import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 /**
- * PageHeader
  * @param {object} props
  * @param {string} props.title - Page title
  * @param {string} props.subtitle - Page subtitle (optional)
@@ -23,40 +22,30 @@ const PageHeader = ({
   actions,
   children,
 }) => {
+  const { getDashboardRoute } = useAuth();
+
   const breadcrumbItems = [
-    {
-      title: (
-        <Link to="/" className="flex items-center gap-1">
-          <HomeOutlined />
-          <span>Home</span>
-        </Link>
-      ),
-    },
-    ...breadcrumbs.map((item, index) => ({
+    { title: <Link to={getDashboardRoute()}>Dashboard</Link> },
+    ...breadcrumbs.map((item) => ({
       title: item.path ? <Link to={item.path}>{item.label}</Link> : item.label,
     })),
   ];
 
   return (
-    <div className="mb-6">
-      {/* Breadcrumb */}
+    <div className="ssd-page-head-wrap">
       {breadcrumbs.length > 0 && (
-        <Breadcrumb items={breadcrumbItems} className="mb-4" />
+        <Breadcrumb items={breadcrumbItems} className="mb-3" />
       )}
 
-      {/* Header Content */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="ssd-page-head">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-          {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
+          <h1>{title}</h1>
+          {subtitle && <p>{subtitle}</p>}
         </div>
-
-        {actions && (
-          <div className="flex flex-wrap items-center gap-2">{actions}</div>
-        )}
+        {actions && <div className="ssd-page-head__actions">{actions}</div>}
       </div>
 
-      {children && <div className="mt-4">{children}</div>}
+      {children && <div className="mb-6">{children}</div>}
     </div>
   );
 };

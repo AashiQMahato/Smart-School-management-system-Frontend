@@ -1,40 +1,31 @@
 /**
  * Admin Dashboard
- * Enhanced modern dashboard with classy, attractive design
+ * School-wide overview: headline counts, classes and their teachers,
+ * recent enrolments, and shortcuts to the main admin tasks.
  */
 
 import { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  List,
-  Avatar,
-  Tag,
-  Button,
-  Spin,
-  Empty,
-  message,
-  Statistic,
-  Progress,
-  Badge,
-} from "antd";
-import {
-  TeamOutlined,
-  UserOutlined,
-  BookOutlined,
-  DollarOutlined,
-  RiseOutlined,
-  CalendarOutlined,
-  BellOutlined,
-  ArrowRightOutlined,
-  UsergroupAddOutlined,
-  HomeOutlined,
-  TrophyOutlined,
-  CheckCircleOutlined,
-} from "@ant-design/icons";
+import { Skeleton, message } from "antd";
 import { Link } from "react-router-dom";
-import { StatCard, PageHeader } from "../../../components/UI";
+import {
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  ClipboardCheck,
+  GraduationCap,
+  Link2,
+  School,
+  UserCog,
+  UserPlus,
+  Users,
+  Book,
+} from "lucide-react";
+import {
+  HeroBanner,
+  Panel,
+  PanelEmpty,
+  QuickActionCard,
+} from "../../../components/UI";
 import {
   getAllStudents,
   getAllTeachers,
@@ -42,9 +33,23 @@ import {
 } from "../../../services/admin.service";
 import { getAllClasses } from "../../../services/class.service";
 
-/**
- * AdminDashboard Component - Modernized
- */
+const initials = (name = "") =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0])
+    .join("")
+    .toUpperCase() || "?";
+
+const STATUS_TONE = {
+  enrolled: "green",
+  active: "green",
+  graduated: "blue",
+  transferred: "amber",
+  suspended: "red",
+};
+
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -75,7 +80,7 @@ const AdminDashboard = () => {
             totalParents: statsRes.data.totalParents || 0,
           });
         }
-      } catch (error) {
+      } catch {
         console.warn(
           "Dashboard stats API not available, fetching individually",
         );
@@ -111,14 +116,6 @@ const AdminDashboard = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spin size="large" tip="Loading dashboard..." />
-      </div>
-    );
-  }
-
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -126,359 +123,300 @@ const AdminDashboard = () => {
     year: "numeric",
   });
 
+  const ratio =
+    stats.totalTeachers > 0
+      ? `${Math.round(stats.totalStudents / stats.totalTeachers)}:1`
+      : "—";
+  const perClass =
+    stats.totalClasses > 0
+      ? Math.round(stats.totalStudents / stats.totalClasses)
+      : "—";
+  const parentCoverage =
+    stats.totalStudents > 0
+      ? Math.min(
+          100,
+          Math.round((stats.totalParents / stats.totalStudents) * 100),
+        )
+      : 0;
+
+  const headline = [
+    {
+      label: "Students",
+      value: stats.totalStudents.toLocaleString(),
+      icon: GraduationCap,
+      tone: "blue",
+      to: "/admin/users/students",
+    },
+    {
+      label: "Teachers",
+      value: stats.totalTeachers.toLocaleString(),
+      icon: UserCog,
+      tone: "teal",
+      to: "/admin/users/teachers",
+    },
+    {
+      label: "Classes",
+      value: stats.totalClasses.toLocaleString(),
+      icon: School,
+      tone: "indigo",
+      to: "/admin/academics/classes",
+    },
+    {
+      label: "Parents",
+      value: stats.totalParents.toLocaleString(),
+      icon: Users,
+      tone: "violet",
+      to: "/admin/users/parents",
+    },
+  ];
+
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-slate-50 via-white to-slate-50 min-h-screen">
-      {/* Welcome Header - Enhanced */}
-      <div className="bg-linear-to-r from-indigo-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl border border-indigo-400/20">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Welcome Back, Admin! 👋
-            </h1>
-            <p className="text-indigo-100 text-lg">
-              Here's what's happening in your school today
-            </p>
-          </div>
-          <div className="hidden md:block">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/20">
-              <p className="text-sm text-indigo-100">Today</p>
-              <p className="text-lg font-semibold">{currentDate}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div className="flex items-start justify-between mb-5">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <TeamOutlined className="text-2xl" />
-            </div>
-            <span className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">
-              Students
-            </span>
-          </div>
-          <h3 className="text-4xl font-bold mb-1">
-            {stats.totalStudents.toLocaleString()}
-          </h3>
-          <p className="text-blue-100 text-sm font-medium">Total Students</p>
-        </div>
-
-        <div className="bg-linear-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div className="flex items-start justify-between mb-5">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <UserOutlined className="text-2xl" />
-            </div>
-            <span className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">
-              Faculty
-            </span>
-          </div>
-          <h3 className="text-4xl font-bold mb-1">{stats.totalTeachers}</h3>
-          <p className="text-emerald-100 text-sm font-medium">Total Teachers</p>
-        </div>
-
-        <div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div className="flex items-start justify-between mb-5">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <BookOutlined className="text-2xl" />
-            </div>
-            <span className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">
-              Active
-            </span>
-          </div>
-          <h3 className="text-4xl font-bold mb-1">{stats.totalClasses}</h3>
-          <p className="text-purple-100 text-sm font-medium">Total Classes</p>
-        </div>
-
-        <div className="bg-linear-to-br from-amber-500 to-amber-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div className="flex items-start justify-between mb-5">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <UsergroupAddOutlined className="text-2xl" />
-            </div>
-            <span className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">
-              Linked
-            </span>
-          </div>
-          <h3 className="text-4xl font-bold mb-1">{stats.totalParents}</h3>
-          <p className="text-amber-100 text-sm font-medium">Total Parents</p>
-        </div>
-      </div>
-
-      {/* Summary Strip */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center shrink-0">
-            <TeamOutlined className="text-2xl text-indigo-600" />
-          </div>
-          <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold">
-              Student–Teacher Ratio
-            </p>
-            <p className="text-2xl font-bold text-slate-900">
-              {stats.totalTeachers > 0
-                ? `${Math.round(stats.totalStudents / stats.totalTeachers)}:1`
-                : "—"}
-            </p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center shrink-0">
-            <BookOutlined className="text-2xl text-emerald-600" />
-          </div>
-          <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold">
-              Avg Students / Class
-            </p>
-            <p className="text-2xl font-bold text-slate-900">
-              {stats.totalClasses > 0
-                ? Math.round(stats.totalStudents / stats.totalClasses)
-                : "—"}
-            </p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex items-center gap-4">
-          <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center shrink-0">
-            <UsergroupAddOutlined className="text-2xl text-amber-600" />
-          </div>
-          <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold">
-              Parent Engagement
-            </p>
-            <p className="text-2xl font-bold text-slate-900">
-              {stats.totalStudents > 0
-                ? `${Math.round((stats.totalParents / stats.totalStudents) * 100)}%`
-                : "—"}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <Row gutter={[16, 16]}>
-        {/* Classes with Teachers */}
-        <Col xs={24} lg={12}>
-          <Card
-            className="shadow-md hover:shadow-lg transition-shadow rounded-2xl border-0"
-            title={
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                  <HomeOutlined className="text-xl text-purple-600" />
-                </div>
-                <span className="font-bold text-lg">Class Assignments</span>
-              </div>
-            }
-            extra={
-              <Link
-                to="/admin/academics/teacher-assignments"
-                className="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1">
-                Manage <ArrowRightOutlined />
-              </Link>
-            }>
-            {classesWithTeachers.length > 0 ? (
-              <List
-                dataSource={classesWithTeachers}
-                renderItem={(cls) => (
-                  <List.Item className="hover:bg-slate-50 rounded-lg px-3 transition-colors">
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-linear-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
-                          <BookOutlined className="text-purple-600 text-xl" />
-                        </div>
-                        <div>
-                          <div className="font-semibold text-slate-800">
-                            {cls.name}
-                          </div>
-                          <div className="text-sm text-slate-500">
-                            {cls.students?.length || 0} students enrolled
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        {cls.classTeacher ? (
-                          <Tag
-                            color="success"
-                            className="rounded-lg px-3 py-1 font-medium">
-                            <UserOutlined className="mr-1" />
-                            {cls.classTeacher.userId?.name ||
-                              cls.classTeacher.name ||
-                              "Teacher"}
-                          </Tag>
-                        ) : (
-                          <Tag
-                            color="warning"
-                            className="rounded-lg px-3 py-1 font-medium">
-                            No Teacher
-                          </Tag>
-                        )}
-                      </div>
-                    </div>
-                  </List.Item>
-                )}
-              />
-            ) : (
-              <Empty
-                description="No classes created yet"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
-            )}
-          </Card>
-        </Col>
-
-        {/* Recent Students */}
-        <Col xs={24} lg={12}>
-          <Card
-            className="shadow-md hover:shadow-lg transition-shadow rounded-2xl border-0"
-            title={
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <TeamOutlined className="text-xl text-blue-400" />
-                </div>
-                <span className="font-bold text-lg">Recent Students</span>
-              </div>
-            }
-            extra={
-              <Link
-                to="/admin/users/students"
-                className="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1">
-                View All <ArrowRightOutlined />
-              </Link>
-            }>
-            {recentStudents.length > 0 ? (
-              <List
-                dataSource={recentStudents}
-                renderItem={(student) => (
-                  <List.Item className="hover:bg-slate-50 rounded-lg px-3 transition-colors">
-                    <div className="flex items-center gap-3 w-full">
-                      <div className="w-12 h-12 bg-linear-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                        <UserOutlined className="text-blue-400 text-xl" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-slate-800">
-                          {student.userId?.name || "N/A"}
-                        </div>
-                        <div className="text-sm text-slate-500">
-                          {student.classId?.name || "No class"} • Roll:{" "}
-                          {student.rollNumber || "N/A"}
-                        </div>
-                      </div>
-                      <Tag
-                        color="blue"
-                        className="rounded-lg px-3 py-1 font-medium">
-                        {student.enrollmentStatus || "enrolled"}
-                      </Tag>
-                    </div>
-                  </List.Item>
-                )}
-              />
-            ) : (
-              <Empty
-                description="No students enrolled yet"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
-            )}
-          </Card>
-        </Col>
-      </Row>
-
-      {/* Quick Actions */}
-      <Card
-        title={
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
-              <RiseOutlined className="text-xl text-indigo-600" />
-            </div>
-            <span className="font-bold text-lg">Quick Actions</span>
-          </div>
+    <div>
+      <HeroBanner
+        eyebrow={currentDate}
+        title="School overview"
+        subtitle="Enrolment, staffing and classes at a glance, with shortcuts to everyday admin work."
+        rightContent={
+          <>
+            <Link
+              to="/admin/students/enroll"
+              className="ssd-btn ssd-btn--light">
+              <UserPlus size={16} aria-hidden="true" />
+              Enroll student
+            </Link>
+          </>
         }
-        className="shadow-md hover:shadow-lg transition-shadow rounded-2xl border-0">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <Link to="/admin/users/students">
-            <div className="group p-6 bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl text-center hover:from-blue-100 hover:to-blue-200 transition-all cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-1 duration-200">
-              <div className="w-14 h-14 mx-auto mb-4 bg-blue-400 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <TeamOutlined className="text-2xl text-white" />
-              </div>
-              <div className="font-bold text-slate-800 mb-1">
-                Manage Students
-              </div>
-              <div className="text-xs text-slate-600">Add & edit students</div>
-            </div>
-          </Link>
-          <Link to="/admin/users/teachers">
-            <div className="group p-6 bg-linear-to-br from-green-50 to-green-100 rounded-2xl text-center hover:from-green-100 hover:to-green-200 transition-all cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-1 duration-200">
-              <div className="w-14 h-14 mx-auto mb-4 bg-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <UserOutlined className="text-2xl text-white" />
-              </div>
-              <div className="font-bold text-slate-800 mb-1">
-                Manage Teachers
-              </div>
-              <div className="text-xs text-slate-600">Add & edit teachers</div>
-            </div>
-          </Link>
-          <Link to="/admin/users/parents">
-            <div className="group p-6 bg-linear-to-br from-amber-50 to-amber-100 rounded-2xl text-center hover:from-amber-100 hover:to-amber-200 transition-all cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-1 duration-200">
-              <div className="w-14 h-14 mx-auto mb-4 bg-amber-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <UsergroupAddOutlined className="text-2xl text-white" />
-              </div>
-              <div className="font-bold text-slate-800 mb-1">
-                Manage Parents
-              </div>
-              <div className="text-xs text-slate-600">Link to children</div>
-            </div>
-          </Link>
-          <Link to="/admin/academics/teacher-assignments">
-            <div className="group p-6 bg-linear-to-br from-purple-50 to-purple-100 rounded-2xl text-center hover:from-purple-100 hover:to-purple-200 transition-all cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-1 duration-200">
-              <div className="w-14 h-14 mx-auto mb-4 bg-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <BookOutlined className="text-2xl text-white" />
-              </div>
-              <div className="font-bold text-slate-800 mb-1">Assignments</div>
-              <div className="text-xs text-slate-600">Assign to classes</div>
-            </div>
-          </Link>
-        </div>
-      </Card>
+      />
 
-      {/* Secondary Actions */}
-      <Card
-        title={
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-cyan-100 rounded-xl flex items-center justify-center">
-              <CalendarOutlined className="text-xl text-cyan-600" />
-            </div>
-            <span className="font-bold text-lg">Academic Management</span>
-          </div>
-        }
-        className="shadow-md hover:shadow-lg transition-shadow rounded-2xl border-0">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <Link to="/admin/academics/classes">
-            <div className="p-5 bg-white border-2 border-indigo-100 rounded-xl text-center hover:border-indigo-300 hover:shadow-md transition-all cursor-pointer">
-              <HomeOutlined className="text-3xl text-indigo-600 mb-3" />
-              <div className="font-semibold text-slate-800 mb-1">Classes</div>
-              <div className="text-xs text-slate-500">Manage classes</div>
-            </div>
-          </Link>
-          <Link to="/admin/academics/subjects">
-            <div className="p-5 bg-white border-2 border-pink-100 rounded-xl text-center hover:border-pink-300 hover:shadow-md transition-all cursor-pointer">
-              <BookOutlined className="text-3xl text-pink-600 mb-3" />
-              <div className="font-semibold text-slate-800 mb-1">Subjects</div>
-              <div className="text-xs text-slate-500">Manage subjects</div>
-            </div>
-          </Link>
-          <Link to="/admin/academics/timetable">
-            <div className="p-5 bg-white border-2 border-cyan-100 rounded-xl text-center hover:border-cyan-300 hover:shadow-md transition-all cursor-pointer">
-              <CalendarOutlined className="text-3xl text-cyan-600 mb-3" />
-              <div className="font-semibold text-slate-800 mb-1">Schedule</div>
-              <div className="text-xs text-slate-500">Manage timetables</div>
-            </div>
-          </Link>
-          <Link to="/admin/attendance">
-            <div className="p-5 bg-white border-2 border-orange-100 rounded-xl text-center hover:border-orange-300 hover:shadow-md transition-all cursor-pointer">
-              <CheckCircleOutlined className="text-3xl text-orange-600 mb-3" />
-              <div className="font-semibold text-slate-800 mb-1">
-                Attendance
+      <div className="ssd-stats">
+        {headline.map((item) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.label}
+              to={item.to}
+              className={`ssd-stat ssd-tone--${item.tone}`}>
+              <div className="ssd-stat__top">
+                <span className="ssd-stat__icon">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
+                <ArrowRight
+                  size={16}
+                  className="text-slate-400"
+                  aria-hidden="true"
+                />
               </div>
-              <div className="text-xs text-slate-500">View reports</div>
-            </div>
-          </Link>
+              {loading ? (
+                <Skeleton.Input active size="small" />
+              ) : (
+                <span className="ssd-stat__value">{item.value}</span>
+              )}
+              <span className="ssd-stat__label">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div className="ssd-stats">
+        <div className="ssd-stat">
+          <span className="ssd-stat__label">Student–teacher ratio</span>
+          <span className="ssd-stat__value">{loading ? "…" : ratio}</span>
         </div>
-      </Card>
+        <div className="ssd-stat">
+          <span className="ssd-stat__label">Average students per class</span>
+          <span className="ssd-stat__value">{loading ? "…" : perClass}</span>
+        </div>
+        <div className="ssd-stat ssd-tone--violet">
+          <span className="ssd-stat__label">Parent accounts per student</span>
+          <span className="ssd-stat__value">
+            {loading ? "…" : `${parentCoverage}%`}
+          </span>
+          <div
+            className="ssd-meter mt-2"
+            role="progressbar"
+            aria-valuenow={parentCoverage}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Parent accounts per student">
+            <i style={{ "--w": `${parentCoverage}%` }} />
+          </div>
+        </div>
+      </div>
+
+      <div className="ssd-grid ssd-grid--2">
+        <Panel
+          icon={School}
+          tone="indigo"
+          title="Classes"
+          subtitle="Class teacher and enrolment"
+          link={{
+            to: "/admin/academics/teacher-assignments",
+            label: "Manage",
+          }}>
+          {loading ? (
+            <div className="p-5">
+              <Skeleton active paragraph={{ rows: 4 }} />
+            </div>
+          ) : classesWithTeachers.length > 0 ? (
+            <ul className="ssd-list">
+              {classesWithTeachers.map((cls) => {
+                const teacher =
+                  cls.classTeacher?.userId?.name || cls.classTeacher?.name;
+                return (
+                  <li key={cls._id || cls.name}>
+                    <span className="ssd-initials ssd-tone--indigo">
+                      {initials(cls.name)}
+                    </span>
+                    <div className="ssd-list__main">
+                      <b>{cls.name}</b>
+                      <small>
+                        {cls.students?.length || 0} students enrolled
+                      </small>
+                    </div>
+                    {teacher ? (
+                      <span className="ssd-chip ssd-tone--green">
+                        {teacher}
+                      </span>
+                    ) : (
+                      <span className="ssd-chip ssd-tone--amber">
+                        No class teacher
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <PanelEmpty
+              icon={School}
+              title="No classes yet"
+              text="Create classes to start assigning teachers and enrolling students."
+              action={{
+                to: "/admin/academics/classes",
+                label: "Create a class",
+              }}
+            />
+          )}
+        </Panel>
+
+        <Panel
+          icon={GraduationCap}
+          tone="blue"
+          title="Recent students"
+          subtitle="Latest enrolments"
+          link={{ to: "/admin/users/students", label: "View all" }}>
+          {loading ? (
+            <div className="p-5">
+              <Skeleton active avatar paragraph={{ rows: 4 }} />
+            </div>
+          ) : recentStudents.length > 0 ? (
+            <ul className="ssd-list">
+              {recentStudents.map((student) => {
+                const status = student.enrollmentStatus || "enrolled";
+                return (
+                  <li key={student._id}>
+                    <span className="ssd-initials ssd-tone--blue">
+                      {initials(student.userId?.name)}
+                    </span>
+                    <div className="ssd-list__main">
+                      <b>{student.userId?.name || "N/A"}</b>
+                      <small>
+                        {student.classId?.name || "No class"} · Roll{" "}
+                        {student.rollNumber || "N/A"}
+                      </small>
+                    </div>
+                    <span
+                      className={`ssd-chip ssd-tone--${STATUS_TONE[status] || "slate"}`}>
+                      {status}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <PanelEmpty
+              icon={GraduationCap}
+              title="No students enrolled"
+              text="Enrolled students will appear here."
+              action={{
+                to: "/admin/students/enroll",
+                label: "Enroll a student",
+              }}
+            />
+          )}
+        </Panel>
+      </div>
+
+      <section className="ssd-panel">
+        <header className="ssd-panel__head">
+          <div className="ssd-panel__title">
+            <div>
+              <h2>Quick actions</h2>
+              <p>Common administration tasks</p>
+            </div>
+          </div>
+        </header>
+        <div className="ssd-panel__body">
+          <div className="ssd-actions">
+            <QuickActionCard
+              to="/admin/students/enroll"
+              icon={UserPlus}
+              tone="blue"
+              label="Enroll student"
+              sublabel="Add a new student"
+            />
+            <QuickActionCard
+              to="/admin/users/teachers"
+              icon={UserCog}
+              tone="teal"
+              label="Teachers"
+              sublabel="Manage teaching staff"
+            />
+            <QuickActionCard
+              to="/admin/parents/mapping"
+              icon={Link2}
+              tone="violet"
+              label="Link parents"
+              sublabel="Connect parents to children"
+            />
+            <QuickActionCard
+              to="/admin/academics/teacher-assignments"
+              icon={Users}
+              tone="indigo"
+              label="Assign teachers"
+              sublabel="Classes and subjects"
+            />
+            <QuickActionCard
+              to="/admin/academics/classes"
+              icon={BookOpen}
+              tone="amber"
+              label="Classes"
+              sublabel="Manage classes"
+            />
+            <QuickActionCard
+              to="/admin/academics/subjects"
+              icon={Book}
+              tone="coral"
+              label="Subjects"
+              sublabel="Manage subjects"
+            />
+            <QuickActionCard
+              to="/admin/academics/timetable"
+              icon={CalendarDays}
+              tone="green"
+              label="Timetable"
+              sublabel="Build weekly schedules"
+            />
+            <QuickActionCard
+              to="/admin/attendance"
+              icon={ClipboardCheck}
+              tone="slate"
+              label="Attendance"
+              sublabel="View reports"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

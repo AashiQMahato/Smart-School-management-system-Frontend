@@ -1,7 +1,7 @@
 /**
  * SidebarContext
- * Centralized sidebar state management
- * Provides collapsed/expanded state, mobile drawer, and responsive behavior
+ * Desktop (>= 1024px): the sidebar is always shown and can be collapsed
+ * to icons; the choice is remembered. Below that it becomes a drawer.
  */
 
 import {
@@ -15,45 +15,56 @@ import { useLocation } from "react-router-dom";
 
 const SidebarContext = createContext(null);
 
-const BREAKPOINTS = {
-  mobile: 768,
-  tablet: 1024,
+const DESKTOP_QUERY = "(min-width: 1024px)";
+const STORAGE_KEY = "ssms_sidebar_collapsed";
+
+const readCollapsed = () => {
+  try {
+    return localStorage.getItem(STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
 };
 
 export const SidebarProvider = ({ children }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(readCollapsed);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => !window.matchMedia(DESKTOP_QUERY).matches,
+  );
   const location = useLocation();
 
-  // Responsive resize handler
-  const handleResize = useCallback(() => {
-    const width = window.innerWidth;
-    const mobile = width < BREAKPOINTS.mobile;
-    setIsMobile(mobile);
-
-    if (mobile || width < BREAKPOINTS.tablet) {
-      setCollapsed(true);
-    }
+  useEffect(() => {
+    const query = window.matchMedia(DESKTOP_QUERY);
+    const onChange = (e) => {
+      setIsMobile(!e.matches);
+      if (e.matches) setMobileOpen(false);
+    };
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
-
-  // Close mobile drawer on route change
-  useEffect(() => {
+  // Close the drawer after navigating (adjusting state during render,
+  // as React recommends, rather than in an effect)
+  const [lastPath, setLastPath] = useState(location.pathname);
+  if (lastPath !== location.pathname) {
+    setLastPath(location.pathname);
     setMobileOpen(false);
-  }, [location.pathname]);
+  }
 
   const toggleSidebar = useCallback(() => {
     if (isMobile) {
       setMobileOpen((prev) => !prev);
-    } else {
-      setCollapsed((prev) => !prev);
+      return;
     }
+    setCollapsed((prev) => {
+      try {
+        localStorage.setItem(STORAGE_KEY, prev ? "0" : "1");
+      } catch {
+        /* storage unavailable: keep the in-memory state */
+      }
+      return !prev;
+    });
   }, [isMobile]);
 
   const closeMobile = useCallback(() => {
@@ -74,6 +85,7 @@ export const SidebarProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSidebar = () => {
   const ctx = useContext(SidebarContext);
   if (!ctx) {

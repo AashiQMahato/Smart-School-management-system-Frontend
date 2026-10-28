@@ -39,10 +39,10 @@ const getAuthHeaders = () => ({
 });
 
 const ROLE_COLORS = {
-  teacher: { from: "from-blue-600", to: "to-blue-800", badge: "blue" },
-  student: { from: "from-emerald-600", to: "to-emerald-800", badge: "green" },
-  parent: { from: "from-purple-600", to: "to-purple-800", badge: "purple" },
-  admin: { from: "from-slate-700", to: "to-slate-900", badge: "default" },
+  teacher: { from: "bg-blue-600", to: "", badge: "blue" },
+  student: { from: "bg-emerald-600", to: "", badge: "green" },
+  parent: { from: "bg-violet-600", to: "", badge: "purple" },
+  admin: { from: "bg-slate-600", to: "", badge: "default" },
 };
 
 const ROLE_LABELS = {
@@ -130,7 +130,7 @@ export default function UserSettingsPage() {
     <div className="space-y-8">
       {/* Avatar hero */}
       <div
-        className={`rounded-2xl bg-linear-to-br ${theme.from} ${theme.to} p-6 flex items-center gap-5`}>
+        className={`rounded-2xl ${theme.from} ${theme.to} p-6 flex items-center gap-5`}>
         <div className="relative">
           <Avatar
             size={80}

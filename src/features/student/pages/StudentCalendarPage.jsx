@@ -105,7 +105,7 @@ const StudentCalendarPage = () => {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Next Exam Countdown */}
-        <div className="bg-linear-to-br from-red-50 to-red-100/50 rounded-2xl border border-red-200/50 p-5 relative overflow-hidden">
+        <div className="bg-red-50 rounded-2xl border border-red-200/50 p-5 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-20 h-20 bg-red-200/20 rounded-full -translate-y-6 translate-x-6" />
           <div className="flex items-center gap-2 mb-3">
             <div className="p-2 bg-white rounded-xl shadow-sm">
@@ -141,7 +141,7 @@ const StudentCalendarPage = () => {
         </div>
 
         {/* Next Assignment */}
-        <div className="bg-linear-to-br from-orange-50 to-orange-100/50 rounded-2xl border border-orange-200/50 p-5 relative overflow-hidden">
+        <div className="bg-orange-50 rounded-2xl border border-orange-200/50 p-5 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-20 h-20 bg-orange-200/20 rounded-full -translate-y-6 translate-x-6" />
           <div className="flex items-center gap-2 mb-3">
             <div className="p-2 bg-white rounded-xl shadow-sm">
@@ -180,7 +180,7 @@ const StudentCalendarPage = () => {
         </div>
 
         {/* Next Holiday */}
-        <div className="bg-linear-to-br from-green-50 to-green-100/50 rounded-2xl border border-green-200/50 p-5 relative overflow-hidden">
+        <div className="bg-green-50 rounded-2xl border border-green-200/50 p-5 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-20 h-20 bg-green-200/20 rounded-full -translate-y-6 translate-x-6" />
           <div className="flex items-center gap-2 mb-3">
             <div className="p-2 bg-white rounded-xl shadow-sm">

@@ -30,11 +30,11 @@ const getInitials = (name = "") =>
     .toUpperCase();
 
 const GRADIENT_PAIRS = [
-  ["from-violet-500 to-purple-600", "bg-violet-100 text-violet-700"],
-  ["from-blue-500 to-indigo-600", "bg-blue-100 text-blue-700"],
-  ["from-emerald-500 to-teal-600", "bg-emerald-100 text-emerald-700"],
-  ["from-rose-500 to-pink-600", "bg-rose-100 text-pink-700"],
-  ["from-amber-500 to-orange-600", "bg-amber-100 text-amber-700"],
+  ["bg-violet-600", "bg-violet-100 text-violet-700"],
+  ["bg-blue-600", "bg-blue-100 text-blue-700"],
+  ["bg-emerald-600", "bg-emerald-100 text-emerald-700"],
+  ["bg-rose-600", "bg-rose-100 text-pink-700"],
+  ["bg-amber-600", "bg-amber-100 text-amber-700"],
 ];
 
 const InfoRow = ({
@@ -105,7 +105,7 @@ const ChildCard = ({ child, index }) => {
       <div className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
         <div className="flex items-center gap-4 mb-4">
           <div
-            className={`w-14 h-14 rounded-2xl bg-linear-to-br ${pair[0]} flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0`}>
+            className={`w-14 h-14 rounded-2xl ${pair[0]} flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0`}>
             {getInitials(name)}
           </div>
           <div className="flex-1 min-w-0">
@@ -235,12 +235,12 @@ const ParentProfilePage = () => {
     : null;
 
   return (
-    <div className="bg-slate-50 -m-6 p-6 min-h-[60vh]">
+    <div className="min-h-[60vh]">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col sm:flex-row gap-5 sm:items-center sm:justify-between">
           <div className="flex items-center gap-4 min-w-0">
-            <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-violet-600 flex items-center justify-center text-white font-black text-lg shadow shrink-0">
               {initials}
             </div>
             <div className="min-w-0">

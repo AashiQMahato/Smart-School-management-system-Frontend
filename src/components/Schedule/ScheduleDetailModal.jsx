@@ -32,25 +32,25 @@ const EVENT_CONFIG = {
     icon: BookOpen,
     label: "Class Session",
     color: "indigo",
-    bgGradient: "from-blue-500 to-indigo-600",
+    bgGradient: "bg-blue-600",
   },
   exam: {
     icon: FileText,
     label: "Examination",
     color: "red",
-    bgGradient: "from-red-500 to-rose-600",
+    bgGradient: "bg-red-600",
   },
   meeting: {
     icon: Users,
     label: "Meeting",
     color: "purple",
-    bgGradient: "from-purple-500 to-violet-600",
+    bgGradient: "bg-violet-600",
   },
   activity: {
     icon: Target,
     label: "Activity",
     color: "emerald",
-    bgGradient: "from-emerald-500 to-green-600",
+    bgGradient: "bg-emerald-600",
   },
 };
 
@@ -187,7 +187,7 @@ const ScheduleDetailModal = ({
           {/* Header with gradient background */}
           <div
             className={`
-              relative px-6 pt-6 pb-16 bg-linear-to-br ${config.bgGradient}
+              relative px-6 pt-6 pb-16 ${config.bgGradient}
             `}>
             {/* Close Button */}
             <button

@@ -192,22 +192,72 @@ const ROLES = {
   PARENT: "parent",
 };
 
-// Ant Design theme configuration
+// Ant Design theme — mirrors the design tokens in styles/tokens.css
 const themeConfig = {
   token: {
-    colorPrimary: "#6366f1",
-    borderRadius: 8,
-    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    colorPrimary: "#2563eb",
+    colorInfo: "#2563eb",
+    colorSuccess: "#059669",
+    colorWarning: "#d97706",
+    colorError: "#dc2626",
+    colorLink: "#2563eb",
+    colorText: "#0e1a2b",
+    colorTextSecondary: "#5f6b7c",
+    colorTextTertiary: "#7c8696",
+    colorBorder: "#d9d5cd",
+    colorBorderSecondary: "#ece9e3",
+    colorBgLayout: "#faf9f6",
+    colorFillAlter: "#f7f6f2",
+    colorFillSecondary: "#f1efea",
+    borderRadius: 10,
+    borderRadiusLG: 14,
+    borderRadiusSM: 8,
+    controlHeight: 38,
+    fontFamily:
+      '"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
+    boxShadow:
+      "0 1px 2px rgb(14 26 43 / 0.04), 0 8px 24px -8px rgb(14 26 43 / 0.12)",
+    boxShadowSecondary:
+      "0 1px 2px rgb(14 26 43 / 0.04), 0 8px 24px -8px rgb(14 26 43 / 0.12)",
   },
   components: {
     Button: {
-      borderRadius: 8,
-    },
-    Input: {
-      borderRadius: 8,
+      fontWeight: 600,
+      primaryShadow: "0 6px 16px -8px rgb(37 99 235 / 0.6)",
+      defaultShadow: "none",
     },
     Card: {
-      borderRadius: 12,
+      headerFontSize: 15,
+      paddingLG: 22,
+    },
+    Table: {
+      headerBg: "#f7f6f2",
+      headerColor: "#334155",
+      headerSplitColor: "transparent",
+      rowHoverBg: "#faf9f6",
+      borderColor: "#ece9e3",
+      cellPaddingBlock: 14,
+    },
+    Tabs: {
+      itemSelectedColor: "#0e1a2b",
+      inkBarColor: "#2563eb",
+      titleFontSize: 14,
+    },
+    Modal: {
+      borderRadiusLG: 18,
+      titleFontSize: 17,
+    },
+    Tag: {
+      borderRadiusSM: 999,
+    },
+    Menu: {
+      itemBorderRadius: 10,
+      itemSelectedBg: "#eaf0fe",
+      itemSelectedColor: "#1d4ed8",
+    },
+    Segmented: {
+      itemSelectedBg: "#ffffff",
+      trackBg: "#f1efea",
     },
   },
 };

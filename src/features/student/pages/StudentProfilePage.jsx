@@ -109,8 +109,8 @@ const StudentProfilePage = () => {
 
   if (!studentProfile) {
     return (
-      <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-indigo-50 via-white to-purple-50 min-h-screen">
-        <div className="bg-linear-to-r from-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl">
+      <div className="space-y-6">
+        <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
           <h1 className="text-3xl font-black">My Profile</h1>
           <p className="text-indigo-200">View your profile information</p>
         </div>
@@ -160,9 +160,9 @@ const StudentProfilePage = () => {
         : "text-red-600";
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-indigo-50 via-white to-purple-50 min-h-screen">
+    <div className="space-y-6">
       {/* Hero Header */}
-      <div className="bg-linear-to-r from-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl border border-indigo-400/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center gap-6">
           {/* Avatar */}
           <div className="w-24 h-24 rounded-3xl bg-white/20 border-2 border-white/30 flex items-center justify-center shrink-0 shadow-xl">

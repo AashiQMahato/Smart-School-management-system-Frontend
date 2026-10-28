@@ -282,9 +282,9 @@ const UserManagementPage = () => {
   ];
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-slate-50 via-white to-blue-50 min-h-screen">
+    <div className="space-y-6">
       {/* Gradient Header */}
-      <div className="bg-linear-to-r from-slate-500 to-blue-900 rounded-3xl p-8 text-white shadow-2xl border border-slate-600/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">

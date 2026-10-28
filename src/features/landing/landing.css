@@ -1,36 +1,11 @@
 /* =====================================================================
    Smart School — public landing page
    Everything is scoped under .ssl / .ssl-* so the authenticated
-   dashboards (Ant Design + Tailwind) are unaffected.
+   dashboards (Ant Design + Tailwind) are unaffected. Design tokens
+   live in src/styles/tokens.css and are shared with the dashboards.
    ===================================================================== */
 
 .ssl {
-  /* surfaces & ink */
-  --ssl-bg: #faf9f6;
-  --ssl-surface: #ffffff;
-  --ssl-sunken: #f3f2ee;
-  --ssl-ink: #0e1a2b;
-  --ssl-ink-2: #334155;
-  --ssl-muted: #5f6b7c;
-  --ssl-line: #e7e4de;
-  --ssl-line-2: #d9d5cd;
-
-  /* accents */
-  --ssl-blue: #2563eb;
-  --ssl-indigo: #4f46e5;
-  --ssl-teal: #0d9488;
-  --ssl-coral: #e8613f;
-  --ssl-amber: #f2a516;
-
-  /* motion & depth */
-  --ssl-ease: cubic-bezier(0.22, 0.7, 0.18, 1);
-  --ssl-shadow-sm: 0 1px 2px rgb(14 26 43 / 0.05);
-  --ssl-shadow-md:
-    0 1px 2px rgb(14 26 43 / 0.04), 0 8px 24px -8px rgb(14 26 43 / 0.12);
-  --ssl-shadow-lg:
-    0 2px 4px rgb(14 26 43 / 0.04), 0 24px 60px -18px rgb(14 26 43 / 0.28);
-  --ssl-nav-h: 68px;
-
   font-family:
     "Inter",
     ui-sans-serif,
@@ -157,27 +132,6 @@
   --tone-ink: #a35a04;
 }
 
-/* role palette, consistent across hero chips, role panels and art */
-.ssl [data-role="admin"] {
-  --role: #dc2626;
-  --role-bg: #fdeeee;
-  --role-ink: #b91c1c;
-}
-.ssl [data-role="teacher"] {
-  --role: #2563eb;
-  --role-bg: #eaf0fe;
-  --role-ink: #1d4ed8;
-}
-.ssl [data-role="student"] {
-  --role: #059669;
-  --role-bg: #e5f6ef;
-  --role-ink: #047857;
-}
-.ssl [data-role="parent"] {
-  --role: #7c3aed;
-  --role-bg: #f2ecfe;
-  --role-ink: #6d28d9;
-}
 
 /* ---------- typography ---------- */
 .ssl-h1 {

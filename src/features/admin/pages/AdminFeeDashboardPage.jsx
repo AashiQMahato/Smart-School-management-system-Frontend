@@ -373,7 +373,7 @@ const AdminFeeDashboardPage = () => {
             value: `₹${(overall.totalAmount || 0).toLocaleString("en-IN")}`,
             sub: `${(overall.paidCount || 0) + (overall.unpaidCount || 0) + (overall.partialCount || 0) + (overall.overdueCount || 0)} fee records`,
             iconBg: "bg-blue-600",
-            cardBg: "from-blue-50 to-blue-100/50",
+            cardBg: "bg-blue-50",
             textColor: "text-blue-700",
             icon: <DollarOutlined className="text-white text-xl" />,
           },
@@ -382,7 +382,7 @@ const AdminFeeDashboardPage = () => {
             value: `₹${(overall.totalCollected || 0).toLocaleString("en-IN")}`,
             sub: `${collectionRate}% collection rate`,
             iconBg: "bg-emerald-600",
-            cardBg: "from-emerald-50 to-emerald-100/50",
+            cardBg: "bg-emerald-50",
             textColor: "text-emerald-700",
             icon: <CheckCircleOutlined className="text-white text-xl" />,
             trend: collectionRate >= 70 ? "up" : "down",
@@ -392,7 +392,7 @@ const AdminFeeDashboardPage = () => {
             value: `₹${(overall.totalPending || 0).toLocaleString("en-IN")}`,
             sub: `${(overall.unpaidCount || 0) + (overall.partialCount || 0)} unpaid/partial`,
             iconBg: "bg-amber-500",
-            cardBg: "from-amber-50 to-amber-100/50",
+            cardBg: "bg-amber-50",
             textColor: "text-amber-700",
             icon: <ClockCircleOutlined className="text-white text-xl" />,
           },
@@ -401,7 +401,7 @@ const AdminFeeDashboardPage = () => {
             value: overall.overdueCount || 0,
             sub: "require immediate attention",
             iconBg: "bg-red-600",
-            cardBg: "from-red-50 to-red-100/50",
+            cardBg: "bg-red-50",
             textColor: "text-red-700",
             icon: <WarningOutlined className="text-white text-xl" />,
           },
@@ -409,7 +409,7 @@ const AdminFeeDashboardPage = () => {
           ({ label, value, sub, iconBg, cardBg, textColor, icon, trend }) => (
             <Card
               key={label}
-              className={`border-0 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 bg-linear-to-br ${cardBg}`}>
+              className={`border-0 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 ${cardBg}`}>
               <div className="flex items-start justify-between">
                 <div
                   className={`w-12 h-12 ${iconBg} rounded-2xl flex items-center justify-center shadow-sm`}>
@@ -1102,7 +1102,7 @@ const AdminFeeDashboardPage = () => {
   // ═══════════════════════════════════════
   if (loading && !stats) {
     return (
-      <div className="min-h-screen bg-slate-50 -m-6 p-6">
+      <div className="bg-slate-50">
         <div className="grid grid-cols-4 gap-4 mb-6">
           {[1, 2, 3, 4].map((i) => (
             <Card key={i} className="border-0 shadow-sm">
@@ -1118,7 +1118,7 @@ const AdminFeeDashboardPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 -m-6 p-6">
+    <div className="bg-slate-50">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -1132,7 +1132,7 @@ const AdminFeeDashboardPage = () => {
                 Manage fee structures, track payments, and monitor collections
               </p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <Button icon={<ReloadOutlined />} onClick={fetchInitialData}>
                 Refresh
               </Button>

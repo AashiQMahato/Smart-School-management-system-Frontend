@@ -213,9 +213,9 @@ const ParentChildMappingPage = () => {
   );
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-purple-50 via-white to-indigo-50 min-h-screen">
+    <div className="space-y-6">
       {/* Gradient Header */}
-      <div className="bg-linear-to-r from-purple-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl border border-purple-500/20">
+      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
@@ -481,7 +481,7 @@ const ParentChildMappingPage = () => {
         }}
         footer={null}
         width={600}>
-        <div className="mb-4 p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-100">
+        <div className="mb-4 p-4 bg-violet-50 rounded-2xl border border-purple-100">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-purple-600 flex items-center justify-center font-black text-white text-base">
               {selectedParent?.userId?.name?.[0]?.toUpperCase() || "P"}
@@ -603,7 +603,7 @@ const ParentChildMappingPage = () => {
         width={500}>
         {selectedStudent && (
           <>
-            <div className="mb-4 p-4 bg-linear-to-r from-green-50 to-blue-50 rounded-2xl border border-green-100">
+            <div className="mb-4 p-4 bg-green-50 rounded-2xl border border-green-100">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center font-black text-white text-base">
                   {selectedStudent.userId?.name?.[0]?.toUpperCase() || "S"}

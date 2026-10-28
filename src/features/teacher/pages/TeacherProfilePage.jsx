@@ -136,7 +136,7 @@ const TeacherProfilePage = () => {
 
       {/* Profile Header */}
       <Card className="border-0 shadow-lg">
-        <div className="bg-linear-to-r from-blue-500 to-cyan-600 rounded-xl p-8 -m-6 mb-6">
+        <div className="bg-blue-600 rounded-xl p-8 -m-6 mb-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <Avatar
               size={120}

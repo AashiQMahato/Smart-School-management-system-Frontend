@@ -67,11 +67,11 @@ const QUICK_ACTIONS = (id) => [
 ];
 
 const AVATAR_COLORS = [
-  "from-purple-500 to-indigo-600",
-  "from-blue-500 to-cyan-600",
-  "from-emerald-500 to-teal-600",
-  "from-amber-500 to-orange-600",
-  "from-rose-500 to-pink-600",
+  "bg-violet-600",
+  "bg-blue-600",
+  "bg-emerald-600",
+  "bg-amber-600",
+  "bg-rose-600",
 ];
 
 const ChildDetailsPage = () => {
@@ -130,7 +130,7 @@ const ChildDetailsPage = () => {
   // Loading skeleton
   if (loading) {
     return (
-      <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-purple-50 via-white to-indigo-50 min-h-screen animate-pulse">
+      <div className="space-y-6 animate-pulse">
         <div className="h-52 bg-slate-200 rounded-3xl" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
@@ -146,7 +146,7 @@ const ChildDetailsPage = () => {
   }
 
   return (
-    <div className="space-y-6 p-6 -m-6 bg-linear-to-br from-purple-50 via-white to-indigo-50 min-h-screen">
+    <div className="space-y-6">
       {/* Back nav */}
       <div>
         <Link
@@ -186,7 +186,7 @@ const ChildDetailsPage = () => {
         <>
           {/* Hero Header */}
           <div
-            className={`bg-linear-to-r ${avatarGradient} rounded-3xl p-8 text-white shadow-2xl border border-white/20`}>
+            className={`${avatarGradient} rounded-3xl p-8 text-white shadow-2xl border border-white/20`}>
             <div className="flex flex-col md:flex-row md:items-center gap-6">
               {/* Avatar */}
               <div className="w-24 h-24 rounded-3xl bg-white/20 border-2 border-white/30 flex items-center justify-center shrink-0 shadow-xl">
