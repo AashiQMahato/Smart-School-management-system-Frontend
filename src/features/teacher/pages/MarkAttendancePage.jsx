@@ -23,7 +23,12 @@ import {
   UsergroupAddOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
-import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMyAssignments } from "../../../services/teacher.service";
 import {
@@ -313,62 +318,31 @@ const MarkAttendancePage = () => {
       </Card>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="border border-slate-200 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-              <UsergroupAddOutlined className="text-xl text-slate-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-slate-900">
-                {summary.total}
-              </div>
-              <div className="text-sm text-slate-500">Total Students</div>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border border-emerald-200 bg-emerald-50 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-              <CheckCircleOutlined className="text-xl text-emerald-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-emerald-700">
-                {summary.present}
-              </div>
-              <div className="text-sm text-emerald-600">Present</div>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border border-red-200 bg-red-50 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-              <CloseCircleOutlined className="text-xl text-red-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-red-700">
-                {summary.absent}
-              </div>
-              <div className="text-sm text-red-600">Absent</div>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border border-amber-200 bg-amber-50 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-              <ClockCircleOutlined className="text-xl text-amber-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-amber-700">
-                {summary.late}
-              </div>
-              <div className="text-sm text-amber-600">Late</div>
-            </div>
-          </div>
-        </Card>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard
+          title="Total Students"
+          value={summary.total}
+          icon={<UsergroupAddOutlined />}
+          tone="slate"
+        />
+        <StatCard
+          title="Present"
+          value={summary.present}
+          icon={<CheckCircleOutlined />}
+          tone="emerald"
+        />
+        <StatCard
+          title="Absent"
+          value={summary.absent}
+          icon={<CloseCircleOutlined />}
+          tone="red"
+        />
+        <StatCard
+          title="Late"
+          value={summary.late}
+          icon={<ClockCircleOutlined />}
+          tone="amber"
+        />
       </div>
 
       {/* Quick Actions */}

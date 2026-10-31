@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { BookOpen, Calendar, Clock, TrendingUp, RefreshCw } from "lucide-react";
+import { Button } from "antd";
 import { PageHeader, StatCard } from "../../../components/UI";
 import { ScheduleView } from "../../../components/Schedule";
 import scheduleService from "../../../services/schedule.service";
@@ -109,25 +110,22 @@ const MySchedulePage = () => {
 
   return (
     <div className="space-y-6 p-1">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">
-            My Teaching Schedule
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            View and manage your weekly class schedule
-          </p>
-        </div>
-        <button
-          onClick={fetchSchedule}
-          disabled={loading}
-          className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-          Refresh
-        </button>
-      </div>
+      <PageHeader
+        title="My Teaching Schedule"
+        subtitle="View and manage your weekly class schedule"
+        actions={
+          <Button
+            type="primary"
+            onClick={fetchSchedule}
+            disabled={loading}
+            icon={
+              <RefreshCw size={15} className={loading ? "animate-spin" : ""} />
+            }
+          >
+            Refresh
+          </Button>
+        }
+      />
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -4,7 +4,9 @@
  */
 
 import { useState } from "react";
-import { Spin, Button, Tag, Empty, Tooltip, Progress } from "antd";
+import { Spin, Button, Tag, Tooltip, Progress } from "antd";
+import { Sparkles } from "lucide-react";
+import { PageHeader, ErrorState, StatCard as SharedStatCard } from "../UI";
 import {
   ReloadOutlined,
   BulbOutlined,
@@ -66,26 +68,11 @@ export function AnalyticsLoading() {
 // ───────────────────────────────────────────────────────
 export function AnalyticsError({ message, onRetry }) {
   return (
-    <div className="flex flex-col items-center justify-center py-24 gap-4">
-      <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center">
-        <ExclamationCircleOutlined className="text-2xl text-red-500" />
-      </div>
-      <div className="text-center">
-        <p className="text-lg font-semibold text-slate-800">Analysis Failed</p>
-        <p className="text-sm text-slate-500 mt-1 max-w-md">
-          {message || "Something went wrong while generating insights."}
-        </p>
-      </div>
-      {onRetry && (
-        <Button
-          icon={<ReloadOutlined />}
-          onClick={onRetry}
-          type="primary"
-          className="bg-blue-600">
-          Retry Analysis
-        </Button>
-      )}
-    </div>
+    <ErrorState
+      title="Analysis Failed"
+      description={message || "Something went wrong while generating insights."}
+      onRetry={onRetry}
+    />
   );
 }
 
@@ -94,24 +81,21 @@ export function AnalyticsError({ message, onRetry }) {
 // ───────────────────────────────────────────────────────
 export function AnalyticsHeader({ title, subtitle, loading, onRefresh }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <ThunderboltOutlined className="text-blue-500" />
-          {title}
-        </h1>
-        {subtitle && <p className="text-sm text-slate-500 mt-1">{subtitle}</p>}
-      </div>
-      <Button
-        icon={<ReloadOutlined spin={loading} />}
-        onClick={onRefresh}
-        loading={loading}
-        type="default"
-        size="large"
-        className="shrink-0">
-        Refresh Insights
-      </Button>
-    </div>
+    <PageHeader
+      title={title}
+      subtitle={subtitle}
+      icon={Sparkles}
+      tone="fuchsia"
+      actions={
+        <Button
+          icon={<ReloadOutlined spin={loading} />}
+          onClick={onRefresh}
+          loading={loading}
+        >
+          Refresh Insights
+        </Button>
+      }
+    />
   );
 }
 
@@ -122,7 +106,8 @@ export function AISummaryPanel({ summary, className = "" }) {
   if (!summary) return null;
   return (
     <div
-      className={`rounded-2xl bg-blue-50 border border-blue-100 p-6 ${className}`}>
+      className={`rounded-2xl bg-blue-50 border border-blue-100 p-6 ${className}`}
+    >
       <div className="flex items-start gap-3">
         <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
           <BulbOutlined className="text-lg text-blue-600" />
@@ -171,7 +156,8 @@ export function AlertCards({ alerts = [] }) {
         return (
           <div
             key={i}
-            className={`rounded-xl ${style.bg} border ${style.border} p-4`}>
+            className={`rounded-xl ${style.bg} border ${style.border} p-4`}
+          >
             <div className="flex items-start gap-3">
               <div className="mt-0.5">{style.icon}</div>
               <div>
@@ -219,46 +205,20 @@ export function RecommendationsList({
 // ───────────────────────────────────────────────────────
 // Stat Card (mini KPI)
 // ───────────────────────────────────────────────────────
+const STAT_TONES = { green: "emerald", purple: "violet" };
+
 export function StatCard({ label, value, suffix, trend, color = "blue" }) {
-  const colors = {
-    blue: "bg-blue-600",
-    green: "bg-emerald-600",
-    amber: "bg-amber-600",
-    red: "bg-red-600",
-    purple: "bg-violet-600",
-    indigo: "bg-indigo-600",
-  };
+  const shown =
+    suffix !== undefined && suffix !== null && suffix !== ""
+      ? `${value}${suffix === "%" ? "" : " "}${suffix}`
+      : value;
   return (
-    <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-        {label}
-      </p>
-      <div className="flex items-end gap-2">
-        <span className="text-2xl font-bold text-slate-900">{value}</span>
-        {suffix && (
-          <span className="text-sm text-slate-500 mb-0.5">{suffix}</span>
-        )}
-      </div>
-      {trend && (
-        <div className="mt-2 flex items-center gap-1 text-xs">
-          {trend === "up" || trend === "improving" ? (
-            <RiseOutlined className="text-emerald-500" />
-          ) : trend === "down" || trend === "declining" ? (
-            <FallOutlined className="text-red-500" />
-          ) : null}
-          <span
-            className={
-              trend === "up" || trend === "improving"
-                ? "text-emerald-600"
-                : trend === "down" || trend === "declining"
-                  ? "text-red-600"
-                  : "text-slate-500"
-            }>
-            {trend.charAt(0).toUpperCase() + trend.slice(1)}
-          </span>
-        </div>
-      )}
-    </div>
+    <SharedStatCard
+      title={label}
+      value={shown}
+      tone={STAT_TONES[color] || color}
+      badge={trend ? trend.charAt(0).toUpperCase() + trend.slice(1) : undefined}
+    />
   );
 }
 
@@ -371,7 +331,8 @@ export function RiskTable({ title, data = [], columns }) {
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="text-left py-3 px-4 text-xs font-bold text-slate-600 uppercase tracking-wide">
+                  className="text-left py-3 px-4 text-xs font-bold text-slate-600 uppercase tracking-wide"
+                >
                   {col.title}
                 </th>
               ))}
@@ -381,7 +342,8 @@ export function RiskTable({ title, data = [], columns }) {
             {data.map((row, i) => (
               <tr
                 key={i}
-                className="border-b border-slate-100 hover:bg-slate-50">
+                className="border-b border-slate-100 hover:bg-slate-50"
+              >
                 {columns.map((col) => (
                   <td key={col.key} className="py-3 px-4">
                     {col.render ? col.render(row[col.key], row) : row[col.key]}

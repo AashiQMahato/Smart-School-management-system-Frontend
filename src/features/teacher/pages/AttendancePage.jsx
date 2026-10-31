@@ -22,7 +22,7 @@ import {
   SaveOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, StatCard } from "../../../components/UI";
 import dayjs from "dayjs";
 
 const AttendancePage = () => {
@@ -121,7 +121,8 @@ const AttendancePage = () => {
           value={record.status}
           onChange={(e) => handleStatusChange(record.id, e.target.value)}
           optionType="button"
-          buttonStyle="solid">
+          buttonStyle="solid"
+        >
           <Radio.Button value="present" className="text-green-600!">
             <CheckCircleOutlined />
           </Radio.Button>
@@ -197,27 +198,24 @@ const AttendancePage = () => {
 
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <Card className="text-center">
-          <CheckCircleOutlined className="text-2xl text-green-500 mb-2" />
-          <div className="text-2xl font-bold text-green-600">
-            {summary.present}
-          </div>
-          <div className="text-sm text-gray-500">Present</div>
-        </Card>
-        <Card className="text-center">
-          <CloseCircleOutlined className="text-2xl text-red-500 mb-2" />
-          <div className="text-2xl font-bold text-red-600">
-            {summary.absent}
-          </div>
-          <div className="text-sm text-gray-500">Absent</div>
-        </Card>
-        <Card className="text-center">
-          <ClockCircleOutlined className="text-2xl text-yellow-500 mb-2" />
-          <div className="text-2xl font-bold text-yellow-600">
-            {summary.late}
-          </div>
-          <div className="text-sm text-gray-500">Late</div>
-        </Card>
+        <StatCard
+          title="Present"
+          value={summary.present}
+          icon={<CheckCircleOutlined />}
+          tone="emerald"
+        />
+        <StatCard
+          title="Absent"
+          value={summary.absent}
+          icon={<CloseCircleOutlined />}
+          tone="red"
+        />
+        <StatCard
+          title="Late"
+          value={summary.late}
+          icon={<ClockCircleOutlined />}
+          tone="amber"
+        />
       </div>
 
       {/* Attendance Table */}
@@ -230,10 +228,12 @@ const AttendancePage = () => {
             type="primary"
             icon={<SaveOutlined />}
             onClick={handleSave}
-            loading={loading}>
+            loading={loading}
+          >
             Save Attendance
           </Button>
-        }>
+        }
+      >
         <Table
           columns={columns}
           dataSource={students}

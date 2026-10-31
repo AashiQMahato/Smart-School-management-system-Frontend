@@ -19,35 +19,42 @@ import { Inbox } from "lucide-react";
  * @param {string} props.tone - Module colour for the icon tile
  */
 const EmptyState = ({
-  title = "No data found",
-  description = "There are no items to display.",
+  title,
+  description,
   actionLabel,
   onAction,
   image,
   icon,
   compact = false,
   tone,
-}) => (
-  <div
-    className={`ssd-empty ${compact ? "ssd-empty--compact" : ""} ${tone ? `ssd-tone--${tone}` : ""}`}
-    role="status"
-  >
-    <span className="ssd-empty__icon" aria-hidden="true">
-      {image || icon || <Inbox size={20} />}
-    </span>
-    <b>{title}</b>
-    {description && <p>{description}</p>}
-    {actionLabel && onAction && (
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={onAction}
-        className="mt-3"
-      >
-        {actionLabel}
-      </Button>
-    )}
-  </div>
-);
+}) => {
+  // Fall back to generic copy only when the caller gave neither line.
+  const heading = title ?? (description === undefined ? "No data found" : null);
+  const body =
+    description ??
+    (title === undefined ? "There are no items to display." : null);
+  return (
+    <div
+      className={`ssd-empty ${compact ? "ssd-empty--compact" : ""} ${tone ? `ssd-tone--${tone}` : ""}`}
+      role="status"
+    >
+      <span className="ssd-empty__icon" aria-hidden="true">
+        {image || icon || <Inbox size={20} />}
+      </span>
+      {heading && <b>{heading}</b>}
+      {body && <p>{body}</p>}
+      {actionLabel && onAction && (
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={onAction}
+          className="mt-3"
+        >
+          {actionLabel}
+        </Button>
+      )}
+    </div>
+  );
+};
 
 export default EmptyState;
