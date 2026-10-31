@@ -95,7 +95,7 @@ const StudentFeePage = () => {
   return (
     <div className="bg-slate-50 space-y-5">
       {/* Page Header */}
-      <div className="bg-[var(--ssl-ink)] rounded-2xl px-6 py-5 text-white">
+      <div className="bg-[var(--ssd-hero)] rounded-2xl px-6 py-5 text-white">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">

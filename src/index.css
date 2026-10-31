@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/tokens.css";
+@import "./styles/dark-palette.css";
 
 /* Tailwind theme mapped onto the design tokens:
    Inter everywhere, and the light neutrals (used for page backgrounds,
@@ -129,3 +130,30 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ========================================
+   DARK THEME FIXES
+   Tailwind's white is shared by bg-white and text-white, so it isn't
+   remapped in dark-palette.css; white surfaces are switched here
+   instead. Dark chips that carry white text stay dark.
+======================================== */
+html[data-theme="dark"] {
+  background: var(--ssl-bg);
+}
+
+[data-theme="dark"] :is(.bg-white, .bg-white\/95, .bg-white\/90, .bg-white\/80) {
+  background-color: var(--ssl-surface);
+}
+
+[data-theme="dark"] .hover\:bg-white:hover {
+  background-color: var(--ssl-sunken);
+}
+
+[data-theme="dark"] :is(.bg-slate-900, .bg-slate-800, .bg-gray-900, .bg-gray-800) {
+  background-color: #2b3b58;
+}
+
+[data-theme="dark"] :is(.border-white, .border-white\/50) {
+  border-color: var(--ssl-line);
+}
+

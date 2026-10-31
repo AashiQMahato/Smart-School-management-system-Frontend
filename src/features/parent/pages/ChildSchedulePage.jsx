@@ -339,7 +339,7 @@ const ChildSchedulePage = () => {
 
       {/* Child Info Banner */}
       {selectedChildData && (
-        <div className="bg-[var(--ssl-ink)] rounded-2xl p-6 text-white">
+        <div className="bg-[var(--ssd-hero)] rounded-2xl p-6 text-white">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/30 shadow-xl">
               <GraduationCap className="w-8 h-8" />

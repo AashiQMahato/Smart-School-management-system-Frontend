@@ -203,7 +203,7 @@ const ParentFeePaymentPage = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
+      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -519,7 +519,7 @@ const ParentFeePaymentPage = () => {
         ) : (
           /* Payment Form */
           <div className="px-2">
-            <div className="bg-[var(--ssl-ink)] rounded-2xl p-6 text-white text-center mb-6">
+            <div className="bg-[var(--ssd-hero)] rounded-2xl p-6 text-white text-center mb-6">
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <CreditCardOutlined className="text-2xl" />
               </div>

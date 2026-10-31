@@ -202,7 +202,7 @@ const ParentResultsPage = () => {
 
       <div className="">
         {/* Header */}
-        <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white mb-8">
+        <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold mb-1">Child Exam Results</h1>

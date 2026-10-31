@@ -227,6 +227,30 @@ export const getAttendanceSummary = async (params = {}) => {
 };
 
 /**
+ * Attendance totals for a class over a date range (admin, teacher)
+ * @param {Object} params - { classId, subjectId?, startDate?, endDate? }
+ * @returns {Promise} { data: { present, absent, late, excused, total,
+ *   totalStudents, attendancePercentage } }
+ */
+export const getAttendanceStats = async (params = {}) => {
+  try {
+    const queryParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) queryParams.append(key, value);
+    });
+    const response = await axios.get(
+      `${API_URL}/stats?${queryParams.toString()}`,
+      getAuthHeaders(),
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error fetching attendance stats",
+    );
+  }
+};
+
+/**
  * Helper to format date for API
  * @param {Date} date
  * @returns {string} YYYY-MM-DD format
