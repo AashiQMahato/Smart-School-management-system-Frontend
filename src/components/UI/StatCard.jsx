@@ -4,6 +4,7 @@
  * optional trend, sparkline and link.
  */
 
+import { isValidElement, createElement } from "react";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -15,7 +16,7 @@ import Sparkline from "./Sparkline";
  * @param {string} props.title - Label under the value
  * @param {number|string} props.value - Numbers animate; strings show as-is
  * @param {(n: number) => string} props.format - Formats numeric values
- * @param {React.ComponentType} props.icon - Lucide icon
+ * @param {React.ComponentType|React.ReactElement} props.icon - Lucide/antd icon component or element
  * @param {string} props.tone - Module colour (blue, violet, emerald, teal…)
  * @param {number} props.change - Percentage change (only when real data supports it)
  * @param {string} props.changeLabel
@@ -30,7 +31,7 @@ const StatCard = ({
   title,
   value,
   format = (n) => Math.round(n).toLocaleString("en-IN"),
-  icon: Icon,
+  icon,
   tone = "blue",
   change,
   changeLabel = "vs last month",
@@ -48,11 +49,14 @@ const StatCard = ({
   return (
     <Tag
       {...(to ? { to } : {})}
-      className={`ssd-stat ssd-stat--hover ssd-tone--${tone}`}>
+      className={`ssd-stat ssd-stat--hover ssd-tone--${tone}`}
+    >
       <div className="ssd-stat__top">
-        {Icon && (
+        {icon && (
           <span className="ssd-stat__icon">
-            <Icon size={19} aria-hidden="true" />
+            {isValidElement(icon)
+              ? icon
+              : createElement(icon, { size: 19, "aria-hidden": true })}
           </span>
         )}
         {badge ? (

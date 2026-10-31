@@ -26,7 +26,8 @@ const Sparkline = ({ values, width = 120, height = 40, className = "" }) => {
       className={className}
       viewBox={`0 0 ${width} ${height}`}
       preserveAspectRatio="none"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <defs>
         <linearGradient id={id} x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="var(--tone)" stopOpacity="0.22" />

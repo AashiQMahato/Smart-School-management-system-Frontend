@@ -2207,3 +2207,58 @@ a.ssd-stat:hover .ssd-stat__icon,
     animation: none !important;
   }
 }
+
+/* compact empty state (inside cards/tables) */
+.ssd-empty--compact {
+  padding: 18px 12px;
+}
+
+/* label/value row with icon tile */
+.ssd-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 2px 0;
+}
+
+.ssd-info--divided {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ssl-line);
+}
+
+.ssd-info--divided:last-child {
+  border-bottom: 0;
+}
+
+.ssd-info__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--tone-bg, var(--ssl-sunken));
+  color: var(--tone-ink, var(--ssl-muted));
+}
+
+.ssd-info__label {
+  margin: 0 0 2px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ssl-muted);
+}
+
+.ssd-info__value {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ssl-ink);
+  overflow-wrap: anywhere;
+}
+
+.ssd-info__none {
+  color: var(--ssl-muted);
+  font-weight: 500;
+}

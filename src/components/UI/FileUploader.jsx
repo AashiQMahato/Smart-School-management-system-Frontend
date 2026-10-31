@@ -123,7 +123,8 @@ const FileUploader = ({
               : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
           }
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-        `}>
+        `}
+      >
         <input
           ref={fileInputRef}
           type="file"
@@ -139,7 +140,8 @@ const FileUploader = ({
             className={`
             p-4 rounded-full transition-colors duration-300
             ${isDragging ? "bg-blue-100" : "bg-gray-100"}
-          `}>
+          `}
+          >
             <Upload
               size={32}
               className={isDragging ? "text-blue-400" : "text-gray-600"}
@@ -178,7 +180,8 @@ const FileUploader = ({
           {files.map((file, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors duration-200">
+              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors duration-200"
+            >
               <div className="flex items-center gap-3 flex-1 min-w-0">
                 <div className="p-2 bg-white rounded-lg text-gray-600">
                   {getFileIcon(file)}
@@ -199,7 +202,8 @@ const FileUploader = ({
                   removeFile(index);
                 }}
                 disabled={disabled}
-                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+              >
                 <X size={18} />
               </button>
             </div>

@@ -28,7 +28,8 @@ const SectionHeader = ({
       <div className="flex items-center gap-3 min-w-0">
         {Icon && (
           <div
-            className={`${size.box} ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
+            className={`${size.box} ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}
+          >
             <Icon size={size.icon} strokeWidth={2} aria-hidden="true" />
           </div>
         )}

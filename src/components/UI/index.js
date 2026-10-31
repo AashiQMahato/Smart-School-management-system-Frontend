@@ -19,3 +19,4 @@ export { default as ChartTooltip } from "./ChartTooltip";
 export { chartColor, CHART_TONES } from "./chartTheme";
 export { default as ErrorState } from "./ErrorState";
 export { default as SchoolIllustration } from "./SchoolIllustration";
+export { default as InfoRow } from "./InfoRow";

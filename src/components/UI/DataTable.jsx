@@ -109,7 +109,8 @@ const DataTable = ({
                 <Button
                   icon={<ReloadOutlined />}
                   onClick={onRefresh}
-                  loading={loading}>
+                  loading={loading}
+                >
                   Refresh
                 </Button>
               )}

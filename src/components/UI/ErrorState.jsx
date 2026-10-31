@@ -20,7 +20,8 @@ const ErrorState = ({
       <button
         type="button"
         className="ssd-btn ssd-btn--ghost mt-2"
-        onClick={onRetry}>
+        onClick={onRetry}
+      >
         <RefreshCw size={15} aria-hidden="true" />
         Try again
       </button>

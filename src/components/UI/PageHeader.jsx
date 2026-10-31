@@ -61,7 +61,8 @@ const PageHeader = ({
   return (
     <>
       <header
-        className={`ssd-ph ssd-tone--${resolvedTone} ${summary ? "ssd-ph--summary" : ""} ${className}`}>
+        className={`ssd-ph ssd-tone--${resolvedTone} ${summary ? "ssd-ph--summary" : ""} ${className}`}
+      >
         <div className="ssd-ph__main">
           <div className="ssd-ph__lead">
             {iconNode && (

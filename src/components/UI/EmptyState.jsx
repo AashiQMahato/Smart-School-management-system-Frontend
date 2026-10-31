@@ -15,6 +15,8 @@ import { Inbox } from "lucide-react";
  * @param {function} props.onAction - Action button handler
  * @param {React.ReactNode} props.image - Custom image/icon element
  * @param {React.ReactNode} props.icon - Alias for image
+ * @param {boolean} props.compact - Tighter padding for use inside cards and tables
+ * @param {string} props.tone - Module colour for the icon tile
  */
 const EmptyState = ({
   title = "No data found",
@@ -23,8 +25,13 @@ const EmptyState = ({
   onAction,
   image,
   icon,
+  compact = false,
+  tone,
 }) => (
-  <div className="ssd-empty" role="status">
+  <div
+    className={`ssd-empty ${compact ? "ssd-empty--compact" : ""} ${tone ? `ssd-tone--${tone}` : ""}`}
+    role="status"
+  >
     <span className="ssd-empty__icon" aria-hidden="true">
       {image || icon || <Inbox size={20} />}
     </span>
@@ -35,7 +42,8 @@ const EmptyState = ({
         type="primary"
         icon={<PlusOutlined />}
         onClick={onAction}
-        className="mt-3">
+        className="mt-3"
+      >
         {actionLabel}
       </Button>
     )}

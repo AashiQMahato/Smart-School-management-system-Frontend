@@ -96,7 +96,8 @@ const StatusBadge = ({ status, size = "md", showIcon = true }) => {
         ${config.textColor}
         ${config.borderColor}
         transition-all duration-200
-      `}>
+      `}
+    >
       {showIcon && <Icon size={iconSizes[size]} />}
       {config.label}
     </span>

@@ -8,7 +8,8 @@ const SchoolIllustration = ({ className = "ssd-illus" }) => (
     className={className}
     viewBox="0 0 168 120"
     fill="none"
-    aria-hidden="true">
+    aria-hidden="true"
+  >
     <rect
       x="18"
       y="104"

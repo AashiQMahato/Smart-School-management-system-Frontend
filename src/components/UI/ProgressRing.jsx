@@ -29,7 +29,8 @@ const ProgressRing = ({
       className={`ssd-ring ssd-tone--${tone}`}
       style={{ width: size, height: size }}
       role="img"
-      aria-label={`${label ?? `${Math.round(clamped)}%`} ${sublabel || ""}`.trim()}>
+      aria-label={`${label ?? `${Math.round(clamped)}%`} ${sublabel || ""}`.trim()}
+    >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <circle
           className="ssd-ring__track"
