@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="ChartColumn">
+  <rect width="48" height="48" rx="13" fill="#ea580c1f"/>
+  <g transform="translate(12 12)" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></g>
+</svg>

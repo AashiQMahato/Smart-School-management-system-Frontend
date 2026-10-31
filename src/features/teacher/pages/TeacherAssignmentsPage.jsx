@@ -133,7 +133,7 @@ const TeacherAssignmentsPage = () => {
   return (
     <div className="min-h-screen">
       {/* Modern Header with Gradient */}
-      <div className="relative overflow-hidden bg-[var(--ssl-ink)] text-white rounded-xl">
+      <div className="relative overflow-hidden bg-[var(--ssd-hero)] text-white rounded-xl">
         <div className="absolute inset-0 bg-black opacity-5"></div>
         <div
           className="absolute inset-0"

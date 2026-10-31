@@ -1,6 +1,9 @@
 /* =====================================================================
    Smart School design tokens
    Shared by the public pages (.ssl) and the dashboards (.ssd).
+   Dashboards also support dark mode: DashboardLayout sets
+   data-theme="dark" on <html>, which swaps the values below and
+   Tailwind's palette (see dark-palette.css).
    ===================================================================== */
 
 :root {
@@ -13,6 +16,13 @@
   --ssl-muted: #5f6b7c;
   --ssl-line: #e7e4de;
   --ssl-line-2: #d9d5cd;
+
+  /* brand mark and dark feature surfaces (banners, schedule button):
+     navy in both themes, so they are separate from text ink */
+  --ssl-brand: #0e1a2b;
+  --ssd-hero: #0e1a2b;
+  --ssd-hero-line: rgb(255 255 255 / 0.04);
+  --ssd-glass: rgb(250 249 246 / 0.82);
 
   /* accents */
   --ssl-blue: #2563eb;
@@ -31,24 +41,157 @@
   --ssl-nav-h: 68px;
 }
 
-/* role palette: admin red, teacher blue, student green, parent purple */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --ssl-bg: #0b1220;
+  --ssl-surface: #111a2b;
+  --ssl-sunken: #172238;
+  --ssl-ink: #e8edf4;
+  --ssl-ink-2: #c3cdda;
+  --ssl-muted: #8f9cb1;
+  --ssl-line: #212e46;
+  --ssl-line-2: #2d3d5a;
+
+  --ssd-hero: #15213a;
+  --ssd-hero-line: rgb(255 255 255 / 0.03);
+  --ssd-glass: rgb(11 18 32 / 0.78);
+
+  --ssl-blue: #4f8cff;
+  --ssl-indigo: #7c7cf7;
+  --ssl-teal: #2cc2b0;
+  --ssl-coral: #f07a5c;
+  --ssl-amber: #f5b53d;
+
+  --ssl-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --ssl-shadow-md:
+    0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -10px rgb(0 0 0 / 0.6);
+  --ssl-shadow-lg:
+    0 2px 4px rgb(0 0 0 / 0.3), 0 24px 60px -18px rgb(0 0 0 / 0.7);
+}
+
+/* role palette: admin red, teacher blue, student green, parent purple.
+   Tints are mixed against the surface/ink, so they work in both themes. */
+[data-role] {
+  --role-bg: color-mix(in oklab, var(--role) 11%, var(--ssl-surface));
+  --role-ink: color-mix(in oklab, var(--role) 78%, var(--ssl-ink));
+}
 [data-role="admin"] {
   --role: #dc2626;
-  --role-bg: #fdeeee;
-  --role-ink: #b91c1c;
 }
 [data-role="teacher"] {
   --role: #2563eb;
-  --role-bg: #eaf0fe;
-  --role-ink: #1d4ed8;
 }
 [data-role="student"] {
   --role: #059669;
-  --role-bg: #e5f6ef;
-  --role-ink: #047857;
 }
 [data-role="parent"] {
   --role: #7c3aed;
-  --role-bg: #f2ecfe;
-  --role-ink: #6d28d9;
+}
+[data-theme="dark"] [data-role="admin"],
+[data-theme="dark"][data-role="admin"] {
+  --role: #f05252;
+}
+[data-theme="dark"] [data-role="teacher"],
+[data-theme="dark"][data-role="teacher"] {
+  --role: #4f8cff;
+}
+[data-theme="dark"] [data-role="student"],
+[data-theme="dark"][data-role="student"] {
+  --role: #22c38e;
+}
+[data-theme="dark"] [data-role="parent"],
+[data-theme="dark"][data-role="parent"] {
+  --role: #9d6bff;
+}
+
+/* =====================================================================
+   Module colours — one hue per area of the app, used for nav icons,
+   stat cards and chart series. Same mixing rule as the roles.
+   ===================================================================== */
+[class*="ssd-tone--"] {
+  --tone-bg: color-mix(in oklab, var(--tone) 12%, var(--ssl-surface));
+  --tone-ink: color-mix(in oklab, var(--tone) 80%, var(--ssl-ink));
+  --tone-line: color-mix(in oklab, var(--tone) 28%, var(--ssl-line));
+}
+
+:root {
+  --c-blue: #4f8cff; /* students */
+  --c-indigo: #7c7cf7; /* dashboard, administration */
+  --c-violet: #9d6bff; /* teachers */
+  --c-pink: #f0609f; /* parents */
+  --c-emerald: #22c38e; /* attendance */
+  --c-green: #34c769;
+  --c-orange: #fb8a3c; /* exams, results */
+  --c-teal: #2cc2b0; /* finance */
+  --c-purple: #b46cf7; /* assignments */
+  --c-amber: #f5b53d; /* notifications, calendar */
+  --c-sky: #38b6f0; /* academics: classes, timetable */
+  --c-coral: #f07a5c;
+  --c-red: #f05252;
+  --c-fuchsia: #e060ee; /* AI analytics */
+  --c-slate: #94a3b8; /* settings */
+}
+
+[data-theme="dark"] {
+  --c-blue: #4f8cff;
+  --c-indigo: #7c7cf7;
+  --c-violet: #9d6bff;
+  --c-pink: #f0609f;
+  --c-emerald: #22c38e;
+  --c-green: #34c769;
+  --c-orange: #fb8a3c;
+  --c-teal: #2cc2b0;
+  --c-purple: #b46cf7;
+  --c-amber: #f5b53d;
+  --c-sky: #38b6f0;
+  --c-coral: #f07a5c;
+  --c-red: #f05252;
+  --c-fuchsia: #e060ee;
+  --c-slate: #94a3b8;
+}
+
+.ssd-tone--blue {
+  --tone: var(--c-blue);
+}
+.ssd-tone--indigo {
+  --tone: var(--c-indigo);
+}
+.ssd-tone--violet {
+  --tone: var(--c-violet);
+}
+.ssd-tone--pink {
+  --tone: var(--c-pink);
+}
+.ssd-tone--emerald {
+  --tone: var(--c-emerald);
+}
+.ssd-tone--green {
+  --tone: var(--c-green);
+}
+.ssd-tone--orange {
+  --tone: var(--c-orange);
+}
+.ssd-tone--teal {
+  --tone: var(--c-teal);
+}
+.ssd-tone--purple {
+  --tone: var(--c-purple);
+}
+.ssd-tone--amber {
+  --tone: var(--c-amber);
+}
+.ssd-tone--sky {
+  --tone: var(--c-sky);
+}
+.ssd-tone--coral {
+  --tone: var(--c-coral);
+}
+.ssd-tone--red {
+  --tone: var(--c-red);
+}
+.ssd-tone--fuchsia {
+  --tone: var(--c-fuchsia);
+}
+.ssd-tone--slate {
+  --tone: var(--c-slate);
 }

@@ -10,7 +10,7 @@ export const BrandMark = ({ size = 34, className = "" }) => (
     fill="none"
     aria-hidden="true"
     className={className}>
-    <rect width="40" height="40" rx="11" fill="var(--ssl-ink)" />
+    <rect width="40" height="40" rx="11" fill="var(--ssl-brand)" />
     <path
       d="M20 8.5 30 12v8.2c0 6-4.2 10.2-10 11.8-5.8-1.6-10-5.8-10-11.8V12l10-3.5Z"
       fill="var(--ssl-blue)"

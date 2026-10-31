@@ -1,6 +1,7 @@
 import React from "react";
 import { Calendar, BookOpen, Users, Award, FileText } from "lucide-react";
 import StatusBadge from "../UI/StatusBadge";
+import { previewText } from "../../utils/text";
 
 const AssignmentCard = ({ assignment, onClick, viewMode = "teacher" }) => {
   const formatDate = (date) => {
@@ -58,14 +59,9 @@ const AssignmentCard = ({ assignment, onClick, viewMode = "teacher" }) => {
       </div>
 
       {/* Description Preview */}
-      <div
-        className="text-sm text-gray-600 mb-4 line-clamp-2"
-        dangerouslySetInnerHTML={{
-          __html:
-            assignment.description?.substring(0, 120) + "..." ||
-            "No description",
-        }}
-      />
+      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        {previewText(assignment.description) || "No description"}
+      </p>
 
       {/* Meta Information */}
       <div className="grid grid-cols-2 gap-3 mb-4">

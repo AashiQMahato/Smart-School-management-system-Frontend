@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-label="Smart School Management System — Every School. One Smarter System.">
+  <title>Smart School Management System</title>
+  <defs>
+    <pattern id="ruled" width="1200" height="32" patternUnits="userSpaceOnUse"><rect y="31" width="1200" height="1" fill="#ffffff" fill-opacity="0.045"/></pattern>
+    <radialGradient id="glow" cx="88%" cy="0%" r="60%"><stop offset="0" stop-color="#2563eb" stop-opacity="0.45"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="380" rx="28" fill="#0e1a2b"/>
+  <rect width="1200" height="380" rx="28" fill="url(#ruled)"/>
+  <rect width="1200" height="380" rx="28" fill="url(#glow)"/>
+  <rect x="0" y="40" width="6" height="300" rx="3" fill="#2563eb"/>
+
+  <!-- floating accents -->
+  <circle cx="1040" cy="92" r="5" fill="#f2a516"><animate attributeName="cy" values="92;80;92" dur="6s" repeatCount="indefinite"/></circle>
+  <circle cx="1110" cy="190" r="3.5" fill="#93b4ff" fill-opacity="0.6"><animate attributeName="cy" values="190;178;190" dur="7s" repeatCount="indefinite"/></circle>
+  <circle cx="980" cy="290" r="4" fill="#22c38e" fill-opacity="0.7"><animate attributeName="cy" values="290;300;290" dur="8s" repeatCount="indefinite"/></circle>
+
+  <!-- school illustration -->
+  <g transform="translate(900 110) scale(1.15)">
+    <rect x="18" y="104" width="132" height="4" rx="2" fill="#ffffff" opacity="0.12"/>
+    <path d="M84 14 136 40v64H32V40l52-26Z" fill="#ffffff" opacity="0.06"/>
+    <path d="M84 14 136 40H32l52-26Z" fill="#2563eb"/>
+    <rect x="40" y="46" width="88" height="58" rx="3" fill="#ffffff" opacity="0.1"/>
+    <path d="M74 104V84a10 10 0 0 1 20 0v20Z" fill="#f2a516"/>
+    <rect x="48" y="54" width="14" height="12" rx="2" fill="#93b4ff"/>
+    <rect x="48" y="76" width="14" height="12" rx="2" fill="#93b4ff" opacity="0.7"/>
+    <rect x="106" y="54" width="14" height="12" rx="2" fill="#93b4ff"/>
+    <rect x="106" y="76" width="14" height="12" rx="2" fill="#93b4ff" opacity="0.7"/>
+    <rect x="78" y="50" width="12" height="14" rx="6" fill="#ffffff" opacity="0.85"/>
+    <path d="M84 4v14" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.5"/>
+    <path d="M84 4h12l-3 3 3 3H84" fill="#f2a516"><animateTransform attributeName="transform" type="skewY" values="0 84 7;-6 84 7;0 84 7" dur="3s" repeatCount="indefinite"/></path>
+  </g>
+
+  <!-- brand -->
+  <g transform="translate(64 64)">
+    <g transform="scale(1.6)">
+      <rect width="40" height="40" rx="11" fill="#16233a" stroke="#ffffff" stroke-opacity="0.12"/>
+      <path d="M20 8.5 30 12v8.2c0 6-4.2 10.2-10 11.8-5.8-1.6-10-5.8-10-11.8V12l10-3.5Z" fill="#2563eb"/>
+      <path d="M13.5 18.2c2.6-.6 4.8-.1 6.5 1.3 1.7-1.4 3.9-1.9 6.5-1.3v7.4c-2.6-.6-4.8-.1-6.5 1.3-1.7-1.4-3.9-1.9-6.5-1.3v-7.4Z" fill="#fff"/>
+      <circle cx="20" cy="13.6" r="1.9" fill="#f2a516"/>
+    </g>
+    <text x="84" y="30" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.5" fill="#a9bbd6">SMART SCHOOL MANAGEMENT SYSTEM</text>
+    <text x="84" y="64" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff" letter-spacing="-0.5">Smart <tspan fill="#93b4ff">School</tspan></text>
+  </g>
+
+  <!-- typing tagline -->
+  <g transform="translate(64 170)">
+    <clipPath id="t0"><rect x="0" y="0" width="0" height="60"><animate attributeName="width" values="0;840;840" keyTimes="0.0000;0.1167;1.0000" dur="12s" repeatCount="indefinite"/></rect></clipPath>
+    <g clip-path="url(#t0)" opacity="0">
+      <animate attributeName="opacity" values="1;1;1;0;0" keyTimes="0.0000;0.0010;0.3042;0.3333;1.0000" dur="12s" repeatCount="indefinite"/>
+      <text x="0" y="40" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#93b4ff">Every School. One Smarter System.</text>
+    </g>
+    <clipPath id="t1"><rect x="0" y="0" width="0" height="60"><animate attributeName="width" values="0;0;840;840" keyTimes="0.0000;0.3333;0.4500;1.0000" dur="12s" repeatCount="indefinite"/></rect></clipPath>
+    <g clip-path="url(#t1)" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.0000;0.3333;0.3343;0.6375;0.6667;1.0000" dur="12s" repeatCount="indefinite"/>
+      <text x="0" y="40" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#93b4ff">Admins, teachers, students and parents in one place.</text>
+    </g>
+    <clipPath id="t2"><rect x="0" y="0" width="0" height="60"><animate attributeName="width" values="0;0;840;840" keyTimes="0.0000;0.6667;0.7833;1.0000" dur="12s" repeatCount="indefinite"/></rect></clipPath>
+    <g clip-path="url(#t2)" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0.0000;0.6667;0.6677;0.9708;1.0000;1.0000" dur="12s" repeatCount="indefinite"/>
+      <text x="0" y="40" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#93b4ff">Attendance · Assignments · Results · Fees · Timetables</text>
+    </g>
+  </g>
+
+  <text x="64" y="252" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#c4cedb">Role-based dashboards for the whole school — built with React, Ant Design and Tailwind CSS.</text>
+
+  <g transform="translate(64 284)"><g transform="translate(0 0)"><rect width="89" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/><circle cx="18" cy="17" r="5" fill="#dc2626"/><text x="30" y="22" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#dbe4f0">Admin</text></g><g transform="translate(99 0)"><rect width="107" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/><circle cx="18" cy="17" r="5" fill="#2563eb"/><text x="30" y="22" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#dbe4f0">Teacher</text></g><g transform="translate(216 0)"><rect width="107" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/><circle cx="18" cy="17" r="5" fill="#059669"/><text x="30" y="22" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#dbe4f0">Student</text></g><g transform="translate(333 0)"><rect width="98" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/><circle cx="18" cy="17" r="5" fill="#7c3aed"/><text x="30" y="22" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#dbe4f0">Parent</text></g></g>
+</svg>

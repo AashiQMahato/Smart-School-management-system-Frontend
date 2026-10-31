@@ -173,7 +173,7 @@ export default function FeeBreakdownCard({
 
           {/* Total Row */}
           <tfoot>
-            <tr className="bg-[var(--ssl-ink)] text-white">
+            <tr className="bg-[var(--ssd-hero)] text-white">
               <td className="px-6 py-4 font-bold text-sm">Total</td>
               <td className="px-4 py-4 text-right text-sm font-semibold text-slate-300">
                 ₹

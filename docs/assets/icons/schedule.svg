@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Clock">
+  <rect width="48" height="48" rx="13" fill="#0284c71f"/>
+  <g transform="translate(12 12)" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></g>
+</svg>

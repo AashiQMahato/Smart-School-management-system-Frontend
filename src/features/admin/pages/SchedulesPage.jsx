@@ -215,7 +215,7 @@ const SchedulesPage = () => {
   return (
     <div className="space-y-6 p-1">
       {/* Gradient Header */}
-      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
+      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">

@@ -6,6 +6,7 @@ import { ArrowLeft, Download } from "lucide-react";
 import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
 import { FileUploader } from "../../../components/UI";
 import * as assignmentService from "../../../services/assignment.service";
+import { htmlToText } from "../../../utils/text";
 
 const StudentAssignmentDetailPage = () => {
   const { id } = useParams();
@@ -117,10 +118,9 @@ const StudentAssignmentDetailPage = () => {
       />
 
       <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: assignment.description || "" }}
-        />
+        <p className="m-0 whitespace-pre-wrap text-slate-700">
+          {htmlToText(assignment.description)}
+        </p>
 
         {assignment.attachments?.length > 0 && (
           <div className="pt-4 border-t border-gray-100">

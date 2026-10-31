@@ -84,7 +84,7 @@ const MyChildrenPage = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-[var(--ssl-ink)] rounded-2xl p-8 text-white">
+      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">

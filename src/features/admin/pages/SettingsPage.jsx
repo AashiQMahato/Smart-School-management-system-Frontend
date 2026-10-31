@@ -74,7 +74,7 @@ const SettingsPage = () => {
   const SectionGeneral = () => (
     <div className="space-y-6">
       {/* Admin account card */}
-      <div className="bg-[var(--ssl-ink)] rounded-2xl p-6 flex items-center gap-5">
+      <div className="bg-[var(--ssd-hero)] rounded-2xl p-6 flex items-center gap-5">
         <Avatar
           size={72}
           icon={<UserOutlined />}

@@ -9,6 +9,7 @@ import {
   SearchOutlined,
   FilterOutlined,
   ReloadOutlined,
+  ClearOutlined,
 } from "@ant-design/icons";
 
 const { Search } = Input;
@@ -65,11 +66,11 @@ const DataTable = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm">
+    <div className="ssd-panel">
       {/* Toolbar */}
       {(showSearch || showFilters || onRefresh) && (
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="px-4 py-3.5 border-b border-[var(--ssl-line)] bg-[var(--ssl-surface)]">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             {/* Search */}
             {showSearch && (
               <Search
@@ -101,7 +102,7 @@ const DataTable = ({
 
             {/* Actions */}
             <div className="flex gap-2 sm:ml-auto">
-              <Button icon={<ReloadOutlined />} onClick={handleReset}>
+              <Button icon={<ClearOutlined />} onClick={handleReset}>
                 Reset
               </Button>
               {onRefresh && (
@@ -126,8 +127,7 @@ const DataTable = ({
           ...pagination,
           showSizeChanger: true,
           showQuickJumper: true,
-          showTotal: (total, range) =>
-            `${range[0]}-${range[1]} of ${total} items`,
+          showTotal: (total, range) => `${range[0]}–${range[1]} of ${total}`,
         }}
         rowKey={rowKey}
         scroll={{ x: "max-content" }}
