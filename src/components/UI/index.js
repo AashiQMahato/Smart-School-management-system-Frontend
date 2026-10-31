@@ -20,3 +20,4 @@ export { chartColor, CHART_TONES } from "./chartTheme";
 export { default as ErrorState } from "./ErrorState";
 export { default as SchoolIllustration } from "./SchoolIllustration";
 export { default as InfoRow } from "./InfoRow";
+export { default as ModalPortal } from "./ModalPortal";

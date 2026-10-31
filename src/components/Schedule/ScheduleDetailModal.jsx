@@ -26,6 +26,7 @@ import {
   Share2,
 } from "lucide-react";
 import InfoRow from "../UI/InfoRow";
+import ModalPortal from "../UI/ModalPortal";
 
 // Event type configurations
 const EVENT_CONFIG = {
@@ -155,241 +156,245 @@ const ScheduleDetailModal = ({
   const canMarkAttendance = role === "teacher";
 
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
-        onClick={onClose}
-      />
-
-      {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+    <ModalPortal>
+      <>
+        {/* Backdrop */}
         <div
-          className="w-full max-w-lg bg-white rounded-2xl shadow-2xl pointer-events-auto overflow-hidden transform transition-all"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header with gradient background */}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
+          onClick={onClose}
+        />
+
+        {/* Modal */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
           <div
-            className={`
-              relative px-6 pt-6 pb-16 ${config.bgGradient}
-            `}
+            className="w-full max-w-lg bg-white rounded-2xl shadow-2xl pointer-events-auto overflow-hidden transform transition-all"
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Event Type Badge */}
-            <div className="flex items-center gap-2 mb-4">
-              <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
-                {config.label}
-              </span>
-              {dayOfWeek && (
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
-                  {dayOfWeek}
-                </span>
-              )}
-            </div>
-
-            {/* Title */}
-            <h2 className="text-2xl font-bold text-white mb-2">
-              {subjectName}
-            </h2>
-
-            {/* Time */}
-            <div className="flex items-center gap-2 text-white/90">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                {startTime} - {endTime}
-                {duration && (
-                  <span className="text-white/70 ml-2">({duration})</span>
-                )}
-              </span>
-            </div>
-          </div>
-
-          {/* Icon Badge (overlapping header and content) */}
-          <div className="relative px-6 -mt-8">
+            {/* Header with gradient background */}
             <div
               className={`
+              relative px-6 pt-6 pb-16 ${config.bgGradient}
+            `}
+            >
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Event Type Badge */}
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
+                  {config.label}
+                </span>
+                {dayOfWeek && (
+                  <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium">
+                    {dayOfWeek}
+                  </span>
+                )}
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl font-bold text-white mb-2">
+                {subjectName}
+              </h2>
+
+              {/* Time */}
+              <div className="flex items-center gap-2 text-white/90">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  {startTime} - {endTime}
+                  {duration && (
+                    <span className="text-white/70 ml-2">({duration})</span>
+                  )}
+                </span>
+              </div>
+            </div>
+
+            {/* Icon Badge (overlapping header and content) */}
+            <div className="relative px-6 -mt-8">
+              <div
+                className={`
                 w-16 h-16 rounded-2xl bg-white shadow-lg
                 flex items-center justify-center
                 border-4 border-white
               `}
-            >
-              <IconComponent className={`w-8 h-8 text-${config.color}-600`} />
+              >
+                <IconComponent className={`w-8 h-8 text-${config.color}-600`} />
+              </div>
             </div>
-          </div>
 
-          {/* Content */}
-          <div className="px-6 py-6">
-            {/* Details Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              {/* Location */}
-              <InfoRow
-                hideEmpty
-                icon={<MapPin size={15} />}
-                label="Location"
-                value={room && `Room ${room}`}
-              />
-
-              {/* Class */}
-              <InfoRow
-                hideEmpty
-                icon={<GraduationCap size={15} />}
-                label="Class"
-                value={
-                  className &&
-                  `${className}${section ? ` - Section ${section}` : ""}`
-                }
-              />
-
-              {/* Teacher */}
-              <InfoRow
-                hideEmpty
-                icon={<User size={15} />}
-                label="Teacher"
-                value={teacherName}
-              />
-
-              {/* Subject Code */}
-              <InfoRow
-                hideEmpty
-                icon={<Hash size={15} />}
-                label="Subject Code"
-                value={subjectCode}
-              />
-
-              {/* Academic Year */}
-              <InfoRow
-                hideEmpty
-                icon={<Calendar size={15} />}
-                label="Academic Year"
-                value={academicYear}
-              />
-
-              {/* Building (if available) */}
-              {item?.building && (
+            {/* Content */}
+            <div className="px-6 py-6">
+              {/* Details Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                {/* Location */}
                 <InfoRow
                   hideEmpty
-                  icon={<Building size={15} />}
-                  label="Building"
-                  value={item.building}
+                  icon={<MapPin size={15} />}
+                  label="Location"
+                  value={room && `Room ${room}`}
                 />
-              )}
-            </div>
 
-            {/* Teacher Contact (for students/parents) */}
-            {(role === "student" || role === "parent") && teacherEmail && (
-              <div className="mb-6 p-4 bg-slate-50 rounded-xl">
-                <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
-                  Teacher Contact
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-700">{teacherEmail}</span>
-                  <button
-                    onClick={() => copyToClipboard(teacherEmail)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-                  >
-                    <Copy className="w-4 h-4" />
-                  </button>
+                {/* Class */}
+                <InfoRow
+                  hideEmpty
+                  icon={<GraduationCap size={15} />}
+                  label="Class"
+                  value={
+                    className &&
+                    `${className}${section ? ` - Section ${section}` : ""}`
+                  }
+                />
+
+                {/* Teacher */}
+                <InfoRow
+                  hideEmpty
+                  icon={<User size={15} />}
+                  label="Teacher"
+                  value={teacherName}
+                />
+
+                {/* Subject Code */}
+                <InfoRow
+                  hideEmpty
+                  icon={<Hash size={15} />}
+                  label="Subject Code"
+                  value={subjectCode}
+                />
+
+                {/* Academic Year */}
+                <InfoRow
+                  hideEmpty
+                  icon={<Calendar size={15} />}
+                  label="Academic Year"
+                  value={academicYear}
+                />
+
+                {/* Building (if available) */}
+                {item?.building && (
+                  <InfoRow
+                    hideEmpty
+                    icon={<Building size={15} />}
+                    label="Building"
+                    value={item.building}
+                  />
+                )}
+              </div>
+
+              {/* Teacher Contact (for students/parents) */}
+              {(role === "student" || role === "parent") && teacherEmail && (
+                <div className="mb-6 p-4 bg-slate-50 rounded-xl">
+                  <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                    Teacher Contact
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-slate-700">
+                      {teacherEmail}
+                    </span>
+                    <button
+                      onClick={() => copyToClipboard(teacherEmail)}
+                      className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Description (if available) */}
-            {item?.description && (
-              <div className="mb-6">
-                <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
-                  Description
-                </p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            )}
+              {/* Description (if available) */}
+              {item?.description && (
+                <div className="mb-6">
+                  <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                    Description
+                  </p>
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              )}
 
-            {/* Actions */}
-            <div className="flex flex-wrap gap-3">
-              {/* Admin Actions */}
-              {canEdit && onEdit && (
+              {/* Actions */}
+              <div className="flex flex-wrap gap-3">
+                {/* Admin Actions */}
+                {canEdit && onEdit && (
+                  <ActionButton
+                    icon={Edit}
+                    label="Edit"
+                    onClick={() => onEdit(item)}
+                    variant="default"
+                  />
+                )}
+                {canDelete && onDelete && (
+                  <ActionButton
+                    icon={Trash2}
+                    label="Delete"
+                    onClick={() => onDelete(item)}
+                    variant="danger"
+                  />
+                )}
+
+                {/* Teacher Actions */}
+                {canMarkAttendance && onMarkAttendance && (
+                  <ActionButton
+                    icon={CheckCircle}
+                    label="Mark Attendance"
+                    onClick={() => onMarkAttendance(item)}
+                    variant="success"
+                  />
+                )}
+
+                {/* Common Actions */}
                 <ActionButton
-                  icon={Edit}
-                  label="Edit"
-                  onClick={() => onEdit(item)}
+                  icon={Bell}
+                  label="Set Reminder"
+                  onClick={() => {
+                    // Handle reminder
+                    console.log("Setting reminder for:", item);
+                  }}
                   variant="default"
                 />
-              )}
-              {canDelete && onDelete && (
+
                 <ActionButton
-                  icon={Trash2}
-                  label="Delete"
-                  onClick={() => onDelete(item)}
-                  variant="danger"
+                  icon={Share2}
+                  label="Share"
+                  onClick={() => {
+                    // Handle share
+                    const shareText = `${subjectName} - ${dayOfWeek} ${startTime}-${endTime} in Room ${room}`;
+                    if (navigator.share) {
+                      navigator.share({
+                        title: subjectName,
+                        text: shareText,
+                      });
+                    } else {
+                      copyToClipboard(shareText);
+                    }
+                  }}
+                  variant="default"
                 />
-              )}
-
-              {/* Teacher Actions */}
-              {canMarkAttendance && onMarkAttendance && (
-                <ActionButton
-                  icon={CheckCircle}
-                  label="Mark Attendance"
-                  onClick={() => onMarkAttendance(item)}
-                  variant="success"
-                />
-              )}
-
-              {/* Common Actions */}
-              <ActionButton
-                icon={Bell}
-                label="Set Reminder"
-                onClick={() => {
-                  // Handle reminder
-                  console.log("Setting reminder for:", item);
-                }}
-                variant="default"
-              />
-
-              <ActionButton
-                icon={Share2}
-                label="Share"
-                onClick={() => {
-                  // Handle share
-                  const shareText = `${subjectName} - ${dayOfWeek} ${startTime}-${endTime} in Room ${room}`;
-                  if (navigator.share) {
-                    navigator.share({
-                      title: subjectName,
-                      text: shareText,
-                    });
-                  } else {
-                    copyToClipboard(shareText);
-                  }
-                }}
-                variant="default"
-              />
+              </div>
             </div>
-          </div>
 
-          {/* Footer */}
-          <div className="px-6 py-4 bg-slate-50 border-t border-slate-100">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-slate-400">
-                Schedule ID: {item?._id?.slice(-8) || "N/A"}
-              </p>
-              <button
-                onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
-              >
-                Close
-              </button>
+            {/* Footer */}
+            <div className="px-6 py-4 bg-slate-50 border-t border-slate-100">
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-slate-400">
+                  Schedule ID: {item?._id?.slice(-8) || "N/A"}
+                </p>
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </>
+    </ModalPortal>
   );
 };
 
