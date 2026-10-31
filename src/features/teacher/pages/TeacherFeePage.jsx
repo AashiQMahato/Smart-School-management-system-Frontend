@@ -37,6 +37,8 @@ import {
   FeeBreakdownCard,
   DueWarningBanner,
 } from "../../fee/components";
+import { Wallet } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 
 const { Option } = Select;
 const { Search } = Input;
@@ -273,7 +275,8 @@ export default function TeacherFeePage() {
           <span
             className={`font-bold ${
               balance > 0 ? "text-red-600" : "text-emerald-600"
-            }`}>
+            }`}
+          >
             ₹{balance.toLocaleString()}
           </span>
         );
@@ -305,7 +308,8 @@ export default function TeacherFeePage() {
         <Tooltip title="View fee details">
           <button
             onClick={() => openDetail(rec)}
-            className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+            className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+          >
             <EyeOutlined /> View
           </button>
         </Tooltip>
@@ -335,47 +339,33 @@ export default function TeacherFeePage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="bg-blue-600 px-6 pt-10 pb-16">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center">
-                  <DollarOutlined className="text-white text-xl" />
-                </div>
-                <h1 className="text-2xl font-black text-white leading-tight">
-                  Fee Overview
-                </h1>
-              </div>
-              <p className="text-blue-200 text-sm">
-                Read-only view — contact admin for payment issues
-              </p>
-            </div>
-            {/* Class selector */}
-            <div className="flex flex-col gap-1">
-              <span className="text-xs font-semibold text-blue-200 uppercase tracking-wider">
-                Class
-              </span>
-              <Select
-                value={selectedClass}
-                onChange={setSelectedClass}
-                className="w-52"
-                size="large">
-                {classes.map((c) => (
-                  <Option key={c._id || c.id} value={c._id || c.id}>
-                    {c.name
-                      ? `${c.name}${c.section ? ` – ${c.section}` : ""}`
-                      : `Class ${c._id}`}
-                  </Option>
-                ))}
-              </Select>
-            </div>
-          </div>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+    <div className="bg-slate-50">
+      <PageHeader
+        title="Fee Overview"
+        subtitle="Read-only view — contact admin for payment issues"
+        icon={Wallet}
+        tone="teal"
+        actions={
+          <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            Class
+            <Select
+              value={selectedClass}
+              onChange={setSelectedClass}
+              className="w-52 normal-case"
+              aria-label="Select class"
+            >
+              {classes.map((c) => (
+                <Option key={c._id || c.id} value={c._id || c.id}>
+                  {c.name
+                    ? `${c.name}${c.section ? ` – ${c.section}` : ""}`
+                    : `Class ${c._id}`}
+                </Option>
+              ))}
+            </Select>
+          </label>
+        }
+        summary={
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {[
               {
                 label: "Total Students",
@@ -404,21 +394,22 @@ export default function TeacherFeePage() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-white/10 backdrop-blur rounded-2xl p-4">
+                className="bg-white/10 backdrop-blur rounded-2xl p-4"
+              >
                 <div className={`text-2xl font-black ${stat.color}`}>
                   {stat.value}
                 </div>
-                <div className="text-xs text-blue-200 mt-0.5 flex items-center gap-1">
+                <div className="text-xs text-indigo-200 mt-0.5 flex items-center gap-1">
                   {stat.icon} {stat.label}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* ── Body ───────────────────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-4 -mt-8 pb-16 space-y-5">
+      <div className="space-y-5 pb-8">
         {/* Overdue alert banner */}
         {overdueFees.length > 0 && (
           <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
@@ -497,7 +488,8 @@ export default function TeacherFeePage() {
               {overdueFees.map((fee, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl border border-red-200 bg-red-50/40 p-4">
+                  className="rounded-2xl border border-red-200 bg-red-50/40 p-4"
+                >
                   <p className="font-bold text-slate-800 text-sm">
                     {fee.studentName}
                   </p>
@@ -527,7 +519,8 @@ export default function TeacherFeePage() {
         width={680}
         title={null}
         className="[&_.ant-modal-content]:p-0 [&_.ant-modal-content]:rounded-3xl [&_.ant-modal-content]:overflow-hidden"
-        destroyOnClose>
+        destroyOnClose
+      >
         {detailStudent && (
           <div>
             {/* Modal header */}

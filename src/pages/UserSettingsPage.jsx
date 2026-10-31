@@ -32,6 +32,8 @@ import {
 import { useUser } from "../hooks/useAuth";
 import BASE_URL from "../config/baseUrl";
 import axios from "axios";
+import { SlidersHorizontal } from "lucide-react";
+import { PageHeader } from "../components/UI";
 
 /* ── Helpers ──────────────────────────────────────────── */
 const getAuthHeaders = () => ({
@@ -130,7 +132,8 @@ export default function UserSettingsPage() {
     <div className="space-y-8">
       {/* Avatar hero */}
       <div
-        className={`rounded-2xl ${theme.from} ${theme.to} p-6 flex items-center gap-5`}>
+        className={`rounded-2xl ${theme.from} ${theme.to} p-6 flex items-center gap-5`}
+      >
         <div className="relative">
           <Avatar
             size={80}
@@ -151,7 +154,8 @@ export default function UserSettingsPage() {
           </p>
           <Tag
             color={theme.badge}
-            className="mt-2 capitalize border-0 bg-white/20 text-white">
+            className="mt-2 capitalize border-0 bg-white/20 text-white"
+          >
             {ROLE_LABELS[role]}
           </Tag>
         </div>
@@ -171,7 +175,8 @@ export default function UserSettingsPage() {
             email: account?.email || user?.email,
             phone: account?.phone || profile?.phone,
             bio: profile?.bio || account?.bio,
-          }}>
+          }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item label="Full Name" name="name">
               <Input
@@ -217,7 +222,8 @@ export default function UserSettingsPage() {
               htmlType="submit"
               loading={savingProfile}
               icon={<CheckOutlined />}
-              className="bg-blue-600 hover:bg-blue-700 px-6">
+              className="bg-blue-600 hover:bg-blue-700 px-6"
+            >
               Save Changes
             </Button>
           </div>
@@ -305,7 +311,8 @@ export default function UserSettingsPage() {
                 {group.items.map((item) => (
                   <div
                     key={item.key}
-                    className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors">
+                    className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors"
+                  >
                     <div>
                       <p className="text-sm font-semibold text-slate-800">
                         {item.label}
@@ -325,7 +332,8 @@ export default function UserSettingsPage() {
               type="primary"
               icon={<CheckOutlined />}
               onClick={() => message.success("Notification preferences saved!")}
-              className="bg-blue-600 hover:bg-blue-700 px-6">
+              className="bg-blue-600 hover:bg-blue-700 px-6"
+            >
               Save Preferences
             </Button>
           </div>
@@ -366,11 +374,13 @@ export default function UserSettingsPage() {
         <Form
           form={passwordForm}
           layout="vertical"
-          onFinish={handlePasswordChange}>
+          onFinish={handlePasswordChange}
+        >
           <Form.Item
             label="Current Password"
             name="currentPassword"
-            rules={[{ required: true, message: "Enter current password" }]}>
+            rules={[{ required: true, message: "Enter current password" }]}
+          >
             <Input.Password
               iconRender={(v) =>
                 v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -382,7 +392,8 @@ export default function UserSettingsPage() {
             <Form.Item
               label="New Password"
               name="newPassword"
-              rules={[{ required: true, min: 8, message: "Min 8 characters" }]}>
+              rules={[{ required: true, min: 8, message: "Min 8 characters" }]}
+            >
               <Input.Password
                 iconRender={(v) =>
                   v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -393,7 +404,8 @@ export default function UserSettingsPage() {
             <Form.Item
               label="Confirm Password"
               name="confirmPassword"
-              rules={[{ required: true, message: "Confirm your password" }]}>
+              rules={[{ required: true, message: "Confirm your password" }]}
+            >
               <Input.Password
                 iconRender={(v) =>
                   v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -412,7 +424,8 @@ export default function UserSettingsPage() {
             htmlType="submit"
             loading={savingPassword}
             icon={<LockOutlined />}
-            className="bg-blue-600 hover:bg-blue-700">
+            className="bg-blue-600 hover:bg-blue-700"
+          >
             Update Password
           </Button>
         </Form>
@@ -474,15 +487,18 @@ export default function UserSettingsPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="border border-slate-200 rounded-xl overflow-hidden">
+                className="border border-slate-200 rounded-xl overflow-hidden"
+              >
                 <button
                   className="w-full text-left px-5 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
-                  onClick={() => setOpen(open === i ? null : i)}>
+                  onClick={() => setOpen(open === i ? null : i)}
+                >
                   <span className="text-sm font-semibold text-slate-800">
                     {faq.q}
                   </span>
                   <span
-                    className={`text-slate-400 transition-transform ${open === i ? "rotate-45" : ""}`}>
+                    className={`text-slate-400 transition-transform ${open === i ? "rotate-45" : ""}`}
+                  >
                     +
                   </span>
                 </button>
@@ -499,7 +515,8 @@ export default function UserSettingsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <a
             href="mailto:support@ssms.edu"
-            className="block bg-blue-50 border border-blue-200 rounded-2xl p-5 hover:shadow-md transition-shadow group">
+            className="block bg-blue-50 border border-blue-200 rounded-2xl p-5 hover:shadow-md transition-shadow group"
+          >
             <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mb-3 group-hover:bg-blue-200 transition-colors">
               <MailOutlined className="text-blue-600" />
             </div>
@@ -508,7 +525,8 @@ export default function UserSettingsPage() {
           </a>
           <a
             href="tel:+1-555-0100"
-            className="block bg-emerald-50 border border-emerald-200 rounded-2xl p-5 hover:shadow-md transition-shadow group">
+            className="block bg-emerald-50 border border-emerald-200 rounded-2xl p-5 hover:shadow-md transition-shadow group"
+          >
             <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-200 transition-colors">
               <PhoneOutlined className="text-emerald-600" />
             </div>
@@ -530,13 +548,12 @@ export default function UserSettingsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Page title */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Manage your account preferences and security.
-          </p>
-        </div>
+        <PageHeader
+          title="Settings"
+          subtitle="Manage your account preferences and security."
+          icon={SlidersHorizontal}
+          tone="slate"
+        />
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* ── Left nav ── */}
@@ -553,7 +570,8 @@ export default function UserSettingsPage() {
                       active
                         ? "bg-blue-50 text-blue-700"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                    }`}>
+                    }`}
+                  >
                     <Icon
                       className={active ? "text-blue-600" : "text-slate-400"}
                     />

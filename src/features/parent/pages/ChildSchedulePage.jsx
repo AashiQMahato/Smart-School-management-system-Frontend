@@ -20,6 +20,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import { getMyChildren } from "../../../services/parent.service";
 import { useSearchParams } from "react-router-dom";
 
+import { Button } from "antd";
+import { PageHeader } from "../../../components/UI";
 // Stat Card Component - Modern design
 const StatCard = ({ icon: Icon, label, value, color, subtext }) => {
   const colorClasses = {
@@ -60,7 +62,8 @@ const StatCard = ({ icon: Icon, label, value, color, subtext }) => {
           {subtext && <p className="text-xs text-slate-400 mt-1">{subtext}</p>}
         </div>
         <div
-          className={`w-11 h-11 rounded-xl ${colors.iconBg} flex items-center justify-center`}>
+          className={`w-11 h-11 rounded-xl ${colors.iconBg} flex items-center justify-center`}
+        >
           <Icon className={`w-5 h-5 ${colors.iconColor}`} />
         </div>
       </div>
@@ -84,7 +87,8 @@ const ChildSelector = ({ children, selectedChild, onSelect }) => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 px-5 py-3 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all min-w-55">
+        className="flex items-center gap-3 px-5 py-3 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all min-w-55"
+      >
         <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center shadow-sm">
           <GraduationCap className="w-5 h-5 text-white" />
         </div>
@@ -119,20 +123,21 @@ const ChildSelector = ({ children, selectedChild, onSelect }) => {
                   className={`
                   w-full flex items-center gap-3 px-4 py-3.5 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0
                   ${isSelected ? "bg-indigo-50" : ""}
-                `}>
+                `}
+                >
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center shadow-sm ${
-                      isSelected
-                        ? "bg-indigo-600"
-                        : "bg-slate-100"
-                    }`}>
+                      isSelected ? "bg-indigo-600" : "bg-slate-100"
+                    }`}
+                  >
                     <GraduationCap
                       className={`w-5 h-5 ${isSelected ? "text-white" : "text-slate-500"}`}
                     />
                   </div>
                   <div className="flex-1 text-left">
                     <p
-                      className={`text-sm font-medium ${isSelected ? "text-indigo-900" : "text-slate-800"}`}>
+                      className={`text-sm font-medium ${isSelected ? "text-indigo-900" : "text-slate-800"}`}
+                    >
                       {child?.userId?.name || child?.name || "Student"}
                     </p>
                     <p className="text-xs text-slate-500">
@@ -308,34 +313,34 @@ const ChildSchedulePage = () => {
 
   return (
     <div className="space-y-6 p-1">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">
-            Child's Schedule
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            View your child's weekly class timetable and monitor their academic
-            schedule
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          {children.length > 0 && (
-            <ChildSelector
-              children={children}
-              selectedChild={selectedChild}
-              onSelect={setSelectedChild}
-            />
-          )}
-          <button
-            onClick={fetchSchedule}
-            disabled={loading}
-            className="flex items-center gap-2 px-5 py-3 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-all disabled:opacity-50 shadow-lg shadow-indigo-200">
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-            <span className="hidden sm:inline">Refresh</span>
-          </button>
-        </div>
-      </div>
+      <PageHeader
+        title="Child's Schedule"
+        subtitle="View your child's weekly class timetable and monitor their academic schedule"
+        actions={
+          <>
+            {children.length > 0 && (
+              <ChildSelector
+                children={children}
+                selectedChild={selectedChild}
+                onSelect={setSelectedChild}
+              />
+            )}
+            <Button
+              type="primary"
+              onClick={fetchSchedule}
+              disabled={loading}
+              icon={
+                <RefreshCw
+                  size={15}
+                  className={loading ? "animate-spin" : ""}
+                />
+              }
+            >
+              Refresh
+            </Button>
+          </>
+        }
+      />
 
       {/* Child Info Banner */}
       {selectedChildData && (

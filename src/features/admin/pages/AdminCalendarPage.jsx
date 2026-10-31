@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { message, Popconfirm, Tooltip, Select } from "antd";
+import { Button, message, Popconfirm, Tooltip, Select } from "antd";
 import {
   Plus,
   Edit3,
@@ -39,6 +39,7 @@ import {
 } from "../../../services/calendar.service";
 import { getAllClasses } from "../../../services/class.service";
 
+import { PageHeader } from "../../../components/UI";
 const AdminCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -199,7 +200,8 @@ const AdminCalendarPage = () => {
             evt.isPublished
               ? "text-green-600 hover:bg-green-50"
               : "text-slate-400 hover:bg-slate-100"
-          }`}>
+          }`}
+        >
           {evt.isPublished ? <Eye size={14} /> : <EyeOff size={14} />}
         </button>
       </Tooltip>
@@ -209,7 +211,8 @@ const AdminCalendarPage = () => {
             e.stopPropagation();
             openEditModal(evt);
           }}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+          className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+        >
           <Edit3 size={14} />
         </button>
       </Tooltip>
@@ -221,10 +224,12 @@ const AdminCalendarPage = () => {
         }}
         onCancel={(e) => e?.stopPropagation()}
         okText="Delete"
-        okButtonProps={{ danger: true }}>
+        okButtonProps={{ danger: true }}
+      >
         <button
           onClick={(e) => e.stopPropagation()}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors">
+          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+        >
           <Trash2 size={14} />
         </button>
       </Popconfirm>
@@ -233,23 +238,19 @@ const AdminCalendarPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Academic Calendar
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            Manage school events, exams, holidays, and announcements
-          </p>
-        </div>
-        <button
-          onClick={openCreateModal}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-indigo-200 hover:shadow-lg transition-all duration-300 active:scale-95">
-          <Plus size={18} />
-          Add Event
-        </button>
-      </div>
+      <PageHeader
+        title="Academic Calendar"
+        subtitle="Manage school events, exams, holidays, and announcements"
+        actions={
+          <Button
+            type="primary"
+            icon={<Plus size={16} />}
+            onClick={openCreateModal}
+          >
+            Add Event
+          </Button>
+        }
+      />
 
       {/* Analytics Cards */}
       {analytics && (
@@ -379,7 +380,8 @@ const AnalyticsCard = ({ icon, label, value, color }) => {
 
   return (
     <div
-      className={`flex items-center gap-3 p-4 rounded-xl border ${colors[color]} transition-all duration-300 hover:shadow-md`}>
+      className={`flex items-center gap-3 p-4 rounded-xl border ${colors[color]} transition-all duration-300 hover:shadow-md`}
+    >
       <div className="p-2 rounded-lg bg-white/80 shadow-sm">{icon}</div>
       <div>
         <div className="text-2xl font-bold">{value}</div>
@@ -412,7 +414,8 @@ const EventDetailPanel = ({
           <h3 className="text-lg font-bold text-slate-900">Event Details</h3>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+            className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+          >
             ✕
           </button>
         </div>
@@ -441,7 +444,8 @@ const EventDetailPanel = ({
                     event.isPublished
                       ? "bg-green-50 text-green-600"
                       : "bg-amber-50 text-amber-600"
-                  }`}>
+                  }`}
+                >
                   {event.isPublished ? "Published" : "Draft"}
                 </span>
               }
@@ -459,7 +463,8 @@ const EventDetailPanel = ({
                   {event.roleVisibility?.map((role) => (
                     <span
                       key={role}
-                      className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs capitalize">
+                      className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs capitalize"
+                    >
                       {role}
                     </span>
                   ))}
@@ -473,19 +478,22 @@ const EventDetailPanel = ({
         <div className="p-5 border-t border-slate-200 flex gap-2">
           <button
             onClick={onTogglePublish}
-            className="flex-1 py-2.5 text-sm font-medium rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 transition-all duration-200">
+            className="flex-1 py-2.5 text-sm font-medium rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 transition-all duration-200"
+          >
             {event.isPublished ? "Unpublish" : "Publish"}
           </button>
           <button
             onClick={onEdit}
-            className="flex-1 py-2.5 text-sm font-medium rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200">
+            className="flex-1 py-2.5 text-sm font-medium rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200"
+          >
             Edit
           </button>
           <Popconfirm
             title="Delete this event?"
             onConfirm={onDelete}
             okText="Delete"
-            okButtonProps={{ danger: true }}>
+            okButtonProps={{ danger: true }}
+          >
             <button className="py-2.5 px-4 text-sm font-medium rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition-all duration-200">
               <Trash2 size={16} />
             </button>

@@ -27,6 +27,7 @@ import {
   getEventTypeConfig,
 } from "../../../services/calendar.service";
 
+import { PageHeader } from "../../../components/UI";
 const StudentCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -92,15 +93,10 @@ const StudentCalendarPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          My Calendar
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Stay on top of your exams, assignments, and school events
-        </p>
-      </div>
+      <PageHeader
+        title="My Calendar"
+        subtitle="Stay on top of your exams, assignments, and school events"
+      />
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -263,7 +259,8 @@ const StudentCalendarPage = () => {
               </h3>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400">
+                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400"
+              >
                 ✕
               </button>
             </div>

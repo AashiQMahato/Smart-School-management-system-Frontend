@@ -32,6 +32,8 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { SlidersHorizontal } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 
 /* ── Nav items ───────────────────────────────────────── */
 const NAV = [
@@ -108,18 +110,21 @@ const SettingsPage = () => {
             phone: "555-0000",
             address: "123 Education Street, Learning City",
             timezone: "UTC",
-          }}>
+          }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
               name="schoolName"
               label="School Name"
-              rules={[{ required: true }]}>
+              rules={[{ required: true }]}
+            >
               <Input placeholder="School name" />
             </Form.Item>
             <Form.Item
               name="email"
               label="Contact Email"
-              rules={[{ required: true, type: "email" }]}>
+              rules={[{ required: true, type: "email" }]}
+            >
               <Input prefix={<MailOutlined className="text-slate-400" />} />
             </Form.Item>
             <Form.Item name="phone" label="Phone">
@@ -143,7 +148,8 @@ const SettingsPage = () => {
               type="primary"
               htmlType="submit"
               icon={<CheckOutlined />}
-              className="bg-blue-600 hover:bg-blue-700 px-6">
+              className="bg-blue-600 hover:bg-blue-700 px-6"
+            >
               Save Settings
             </Button>
           </div>
@@ -182,7 +188,8 @@ const SettingsPage = () => {
           ].map((item) => (
             <div
               key={item.key}
-              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors">
+              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors"
+            >
               <div>
                 <p className="text-sm font-semibold text-slate-800">
                   {item.label}
@@ -274,7 +281,8 @@ const SettingsPage = () => {
               {g.items.map((item) => (
                 <div
                   key={item.key}
-                  className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors">
+                  className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors"
+                >
                   <div>
                     <p className="text-sm font-semibold text-slate-800">
                       {item.label}
@@ -293,7 +301,8 @@ const SettingsPage = () => {
             type="primary"
             icon={<CheckOutlined />}
             onClick={() => message.success("Preferences saved!")}
-            className="bg-blue-600 px-6">
+            className="bg-blue-600 px-6"
+          >
             Save
           </Button>
         </div>
@@ -347,7 +356,8 @@ const SettingsPage = () => {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors">
+              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors"
+            >
               <div>
                 <p className="text-sm font-semibold text-slate-800">
                   {item.label}
@@ -388,7 +398,8 @@ const SettingsPage = () => {
           <Button
             type="primary"
             onClick={() => message.success("Security settings saved!")}
-            className="bg-blue-600 px-6">
+            className="bg-blue-600 px-6"
+          >
             Save Policy
           </Button>
         </div>
@@ -403,7 +414,8 @@ const SettingsPage = () => {
           <Form.Item
             label="Current Password"
             name="current"
-            rules={[{ required: true }]}>
+            rules={[{ required: true }]}
+          >
             <Input.Password
               iconRender={(v) =>
                 v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -414,7 +426,8 @@ const SettingsPage = () => {
             <Form.Item
               label="New Password"
               name="newPwd"
-              rules={[{ required: true, min: 8 }]}>
+              rules={[{ required: true, min: 8 }]}
+            >
               <Input.Password
                 iconRender={(v) =>
                   v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -424,7 +437,8 @@ const SettingsPage = () => {
             <Form.Item
               label="Confirm Password"
               name="confirm"
-              rules={[{ required: true }]}>
+              rules={[{ required: true }]}
+            >
               <Input.Password
                 iconRender={(v) =>
                   v ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -436,7 +450,8 @@ const SettingsPage = () => {
             type="primary"
             htmlType="submit"
             icon={<LockOutlined />}
-            className="bg-blue-600">
+            className="bg-blue-600"
+          >
             Update Password
           </Button>
         </Form>
@@ -474,7 +489,8 @@ const SettingsPage = () => {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-center justify-between py-4 px-5 border border-slate-200 rounded-xl">
+              className="flex items-center justify-between py-4 px-5 border border-slate-200 rounded-xl"
+            >
               <div>
                 <p className="font-semibold text-sm text-slate-800">
                   {item.label}
@@ -483,7 +499,8 @@ const SettingsPage = () => {
               </div>
               <Button
                 onClick={() => message.info(`${item.action} initiated`)}
-                size="small">
+                size="small"
+              >
                 {item.action}
               </Button>
             </div>
@@ -517,7 +534,8 @@ const SettingsPage = () => {
           ].map((item) => (
             <div
               key={item.key}
-              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors">
+              className="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors"
+            >
               <div>
                 <p className="text-sm font-semibold text-slate-800">
                   {item.label}
@@ -542,15 +560,12 @@ const SettingsPage = () => {
   return (
     <div className="bg-slate-50">
       <div className="max-w-5xl mx-auto">
-        {/* Page header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <SettingOutlined className="text-blue-500" /> Settings
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Manage system configuration, security, and preferences.
-          </p>
-        </div>
+        <PageHeader
+          title="Settings"
+          subtitle="Manage system configuration, security, and preferences."
+          icon={SlidersHorizontal}
+          tone="slate"
+        />
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Left nav */}
@@ -567,7 +582,8 @@ const SettingsPage = () => {
                       isActive
                         ? "bg-blue-50 text-blue-700"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                    }`}>
+                    }`}
+                  >
                     <Icon
                       className={isActive ? "text-blue-600" : "text-slate-400"}
                     />

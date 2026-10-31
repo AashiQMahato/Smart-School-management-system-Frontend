@@ -15,6 +15,8 @@ import { ScheduleView } from "../../../components/Schedule";
 import scheduleService from "../../../services/schedule.service";
 import { useAuth } from "../../../hooks/useAuth";
 
+import { Button } from "antd";
+import { PageHeader } from "../../../components/UI";
 // Stat Card Component
 const StatCard = ({ icon: Icon, label, value, color, subtext }) => {
   const colorClasses = {
@@ -47,7 +49,8 @@ const StatCard = ({ icon: Icon, label, value, color, subtext }) => {
           {subtext && <p className="text-xs text-slate-400 mt-1">{subtext}</p>}
         </div>
         <div
-          className={`w-11 h-11 rounded-xl ${colors.iconBg} flex items-center justify-center`}>
+          className={`w-11 h-11 rounded-xl ${colors.iconBg} flex items-center justify-center`}
+        >
           <Icon className={`w-5 h-5 ${colors.iconColor}`} />
         </div>
       </div>
@@ -150,22 +153,22 @@ const TimetablePage = () => {
 
   return (
     <div className="space-y-6 p-1">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800">My Timetable</h1>
-          <p className="text-sm text-slate-500 mt-1">
-            View your weekly class schedule and upcoming classes
-          </p>
-        </div>
-        <button
-          onClick={fetchSchedule}
-          disabled={loading}
-          className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50">
-          <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-          Refresh
-        </button>
-      </div>
+      <PageHeader
+        title="My Timetable"
+        subtitle="View your weekly class schedule and upcoming classes"
+        actions={
+          <Button
+            type="primary"
+            onClick={fetchSchedule}
+            disabled={loading}
+            icon={
+              <RefreshCw size={15} className={loading ? "animate-spin" : ""} />
+            }
+          >
+            Refresh
+          </Button>
+        }
+      />
 
       {/* Stats Overview */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

@@ -24,6 +24,7 @@ import {
   MailOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
+import { PageHeader } from "../../../components/UI";
 import {
   getMyStudentProfile,
   getMySubjects,
@@ -64,26 +65,15 @@ const StudentClassesPage = () => {
   if (loading) {
     return (
       <div className="bg-slate-50">
-        <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">My Class</h1>
-                <p className="text-slate-500 mt-1">
-                  View your class details, subjects, and teachers
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={fetchData}
-                  className="hover:border-blue-500 hover:text-blue-500">
-                  Refresh
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PageHeader
+          title="My Class"
+          subtitle="View your class details, subjects, and teachers"
+          actions={
+            <Button icon={<ReloadOutlined />} onClick={fetchData}>
+              Refresh
+            </Button>
+          }
+        />
 
         <Card className="border-0 shadow-sm">
           <div className="flex items-center justify-center py-16">
@@ -97,26 +87,15 @@ const StudentClassesPage = () => {
   if (!studentProfile) {
     return (
       <div className="bg-slate-50">
-        <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">My Class</h1>
-                <p className="text-slate-500 mt-1">
-                  View your class details, subjects, and teachers
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={fetchData}
-                  className="hover:border-blue-500 hover:text-blue-500">
-                  Refresh
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PageHeader
+          title="My Class"
+          subtitle="View your class details, subjects, and teachers"
+          actions={
+            <Button icon={<ReloadOutlined />} onClick={fetchData}>
+              Refresh
+            </Button>
+          }
+        />
 
         <Card className="border-0 shadow-sm">
           <Empty description="No class information found" />
@@ -131,27 +110,15 @@ const StudentClassesPage = () => {
 
   return (
     <div className="bg-slate-50">
-      {/* Header Section - Sticky */}
-      <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">My Class</h1>
-              <p className="text-slate-500 mt-1">
-                View your class details, subjects, and teachers
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={fetchData}
-                className="hover:border-blue-500 hover:text-blue-500">
-                Refresh
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="My Class"
+        subtitle="View your class details, subjects, and teachers"
+        actions={
+          <Button icon={<ReloadOutlined />} onClick={fetchData}>
+            Refresh
+          </Button>
+        }
+      />
 
       {/* Class Overview Card */}
       <Card className="border-0 shadow-sm">
@@ -246,12 +213,14 @@ const StudentClassesPage = () => {
               <span>Class Teacher</span>
             </div>
           }
-          className="border-0 shadow-sm">
+          className="border-0 shadow-sm"
+        >
           <div className="flex items-center gap-4">
             <Avatar
               size={64}
               className="bg-emerald-600"
-              icon={<UserOutlined />}>
+              icon={<UserOutlined />}
+            >
               {classTeacherUser?.name?.[0]?.toUpperCase()}
             </Avatar>
             <div>
@@ -283,7 +252,8 @@ const StudentClassesPage = () => {
             </Tag>
           </div>
         }
-        className="border-0 shadow-sm">
+        className="border-0 shadow-sm"
+      >
         {subjectsLoading ? (
           <div className="flex items-center justify-center py-12">
             <Spin />
@@ -364,11 +334,13 @@ const SubjectCard = ({ subject }) => {
       className={`
         p-4 rounded-xl border ${colorScheme.border} ${colorScheme.bg}
         hover:shadow-md transition-all duration-200
-      `}>
+      `}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
           <div
-            className={`w-10 h-10 rounded-lg ${colorScheme.bg} flex items-center justify-center`}>
+            className={`w-10 h-10 rounded-lg ${colorScheme.bg} flex items-center justify-center`}
+          >
             <BookOutlined className={colorScheme.text} />
           </div>
           <div>
@@ -394,7 +366,8 @@ const SubjectCard = ({ subject }) => {
             <Avatar
               size="small"
               className="bg-slate-600"
-              icon={<UserOutlined />}>
+              icon={<UserOutlined />}
+            >
               {assignedTeacherUser?.name?.[0]?.toUpperCase()}
             </Avatar>
             <div>

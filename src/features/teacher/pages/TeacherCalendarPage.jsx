@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { message, Select } from "antd";
+import { Button, message, Select } from "antd";
 import { Plus, BookOpen, FileText, Clock } from "lucide-react";
 import {
   CalendarGrid,
@@ -23,6 +23,7 @@ import {
 } from "../../../services/calendar.service";
 import { getAllClasses } from "../../../services/class.service";
 
+import { PageHeader } from "../../../components/UI";
 const TeacherCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -111,23 +112,19 @@ const TeacherCalendarPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Academic Calendar
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            View school events and manage class activities
-          </p>
-        </div>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-200 hover:shadow-lg transition-all duration-300 active:scale-95">
-          <Plus size={18} />
-          Add Class Event
-        </button>
-      </div>
+      <PageHeader
+        title="Academic Calendar"
+        subtitle="View school events and manage class activities"
+        actions={
+          <Button
+            type="primary"
+            icon={<Plus size={16} />}
+            onClick={() => setModalOpen(true)}
+          >
+            Add Class Event
+          </Button>
+        }
+      />
 
       {/* Quick Info Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -146,7 +143,8 @@ const TeacherCalendarPage = () => {
               {upcomingExams.map((exam) => (
                 <div
                   key={exam._id}
-                  className="flex items-center justify-between p-2 bg-red-50/50 rounded-lg">
+                  className="flex items-center justify-between p-2 bg-red-50/50 rounded-lg"
+                >
                   <span className="text-sm text-slate-700 font-medium">
                     {exam.title}
                   </span>
@@ -179,7 +177,8 @@ const TeacherCalendarPage = () => {
               {upcomingDeadlines.map((dl) => (
                 <div
                   key={dl._id}
-                  className="flex items-center justify-between p-2 bg-orange-50/50 rounded-lg">
+                  className="flex items-center justify-between p-2 bg-orange-50/50 rounded-lg"
+                >
                   <span className="text-sm text-slate-700 font-medium">
                     {dl.title}
                   </span>
@@ -269,7 +268,8 @@ const TeacherCalendarPage = () => {
               </h3>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400">
+                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400"
+              >
                 ✕
               </button>
             </div>

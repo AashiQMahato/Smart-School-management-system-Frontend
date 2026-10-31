@@ -34,6 +34,8 @@ import {
 import { getStudentsByClass } from "../../../services/teacher.service";
 import { GradeBadge } from "../../../components/Results";
 
+import { Trophy } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 const examTypeLabels = {
   "unit-test-1": "Unit Test 1",
   "unit-test-2": "Unit Test 2",
@@ -379,7 +381,8 @@ const TeacherResultsPage = () => {
                           submitted: "blue",
                           approved: "green",
                         }[selectedExamSubject.marksEntryStatus]
-                      }>
+                      }
+                    >
                       {selectedExamSubject.marksEntryStatus?.toUpperCase()}
                     </Tag>
                   </p>
@@ -391,7 +394,8 @@ const TeacherResultsPage = () => {
                     loading={saving}
                     disabled={
                       selectedExamSubject.marksEntryStatus === "approved"
-                    }>
+                    }
+                  >
                     Save Draft
                   </Button>
                   <Button
@@ -404,7 +408,8 @@ const TeacherResultsPage = () => {
                       selectedExamSubject.marksEntryStatus === "approved" ||
                       selectedExamSubject.marksEntryStatus === "submitted" ||
                       saving
-                    }>
+                    }
+                  >
                     Submit for Approval
                   </Button>
                 </Space>
@@ -566,12 +571,12 @@ const TeacherResultsPage = () => {
 
   return (
     <div className="bg-slate-50">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Results</h1>
-        <p className="text-slate-500">
-          Enter marks for your assigned subjects and view performance
-        </p>
-      </div>
+      <PageHeader
+        title="Results"
+        subtitle="Enter marks for your assigned subjects and view performance"
+        icon={Trophy}
+        tone="orange"
+      />
 
       <Tabs
         activeKey={activeTab}

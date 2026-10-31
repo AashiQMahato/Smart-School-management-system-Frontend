@@ -27,6 +27,7 @@ import {
   getEventTypeConfig,
 } from "../../../services/calendar.service";
 
+import { PageHeader } from "../../../components/UI";
 const ParentCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -98,15 +99,10 @@ const ParentCalendarPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Academic Calendar
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Stay informed about your children's academic schedule
-        </p>
-      </div>
+      <PageHeader
+        title="Academic Calendar"
+        subtitle="Stay informed about your children's academic schedule"
+      />
 
       {/* Upcoming Events Summary */}
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
@@ -124,11 +120,13 @@ const ParentCalendarPage = () => {
                 <div
                   key={evt._id}
                   onClick={() => setSelectedEvent(evt)}
-                  className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition-all duration-200 border border-transparent hover:border-slate-200">
+                  className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition-all duration-200 border border-transparent hover:border-slate-200"
+                >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
-                      style={{ backgroundColor: `${config.color}15` }}>
+                      style={{ backgroundColor: `${config.color}15` }}
+                    >
                       {config.icon}
                     </div>
                     <div className="min-w-0">
@@ -148,7 +146,8 @@ const ParentCalendarPage = () => {
                   <div className="text-right shrink-0 ml-3">
                     <div
                       className="text-lg font-black"
-                      style={{ color: config.color }}>
+                      style={{ color: config.color }}
+                    >
                       {daysLeft}
                     </div>
                     <div className="text-xs text-slate-400">days</div>
@@ -246,7 +245,8 @@ const ParentCalendarPage = () => {
               </h3>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400">
+                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400"
+              >
                 ✕
               </button>
             </div>
@@ -314,7 +314,8 @@ const QuickStat = ({ icon, label, count, color }) => {
 
   return (
     <div
-      className={`flex items-center gap-2.5 p-3 rounded-xl border ${colors[color]} transition-all duration-200 hover:shadow-sm`}>
+      className={`flex items-center gap-2.5 p-3 rounded-xl border ${colors[color]} transition-all duration-200 hover:shadow-sm`}
+    >
       <div className="p-1.5 bg-white/70 rounded-lg shadow-sm">{icon}</div>
       <div>
         <div className="text-lg font-bold">{count}</div>

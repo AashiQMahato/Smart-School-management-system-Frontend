@@ -46,6 +46,8 @@ import {
 import { getAllClasses } from "../../../services/class.service";
 import { getAllSubjects } from "../../../services/subject.service";
 
+import { Link2 } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 const ClassSubjectAssignmentPage = () => {
   const [classes, setClasses] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -223,7 +225,8 @@ const ClassSubjectAssignmentPage = () => {
                 <Card
                   key={cls._id}
                   className="border border-slate-200 hover:shadow-md transition-all hover:border-blue-300"
-                  bodyStyle={{ padding: "20px" }}>
+                  bodyStyle={{ padding: "20px" }}
+                >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
@@ -241,7 +244,8 @@ const ClassSubjectAssignmentPage = () => {
                     <Dropdown
                       menu={{ items: getClassActionItems(cls) }}
                       trigger={["click"]}
-                      placement="bottomRight">
+                      placement="bottomRight"
+                    >
                       <Button
                         type="text"
                         icon={<MoreOutlined />}
@@ -275,7 +279,8 @@ const ClassSubjectAssignmentPage = () => {
                       </Tag>
                       <Tag
                         color={cls.isActive ? "success" : "default"}
-                        style={{ fontWeight: 500 }}>
+                        style={{ fontWeight: 500 }}
+                      >
                         {cls.isActive ? "Active" : "Inactive"}
                       </Tag>
                     </div>
@@ -335,7 +340,8 @@ const ClassSubjectAssignmentPage = () => {
                 <Card
                   key={subject._id}
                   className="border border-slate-200 hover:shadow-md transition-all hover:border-blue-300"
-                  bodyStyle={{ padding: "20px" }}>
+                  bodyStyle={{ padding: "20px" }}
+                >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
@@ -353,7 +359,8 @@ const ClassSubjectAssignmentPage = () => {
                     <Dropdown
                       menu={{ items: getSubjectActionItems(subject) }}
                       trigger={["click"]}
-                      placement="bottomRight">
+                      placement="bottomRight"
+                    >
                       <Button
                         type="text"
                         icon={<MoreOutlined />}
@@ -379,7 +386,8 @@ const ClassSubjectAssignmentPage = () => {
                               <Tag
                                 key={cls?._id || `${cls?.name}-${cls?.section}`}
                                 color="purple"
-                                style={{ fontWeight: 500 }}>
+                                style={{ fontWeight: 500 }}
+                              >
                                 {cls?.name || "N/A"}
                                 {cls?.section ? ` - ${cls.section}` : ""}
                                 {cls?.academicYear
@@ -396,7 +404,8 @@ const ClassSubjectAssignmentPage = () => {
                                       ? `${label} (${c.academicYear})`
                                       : label;
                                   })
-                                  .join(", ")}>
+                                  .join(", ")}
+                              >
                                 <Tag color="default">+{remaining} more</Tag>
                               </Tooltip>
                             ) : null}
@@ -453,7 +462,8 @@ const ClassSubjectAssignmentPage = () => {
                 size="small"
                 hoverable
                 className="border border-slate-200 hover:shadow-md transition-all"
-                onClick={() => handleViewTeacherAssignments(teacher)}>
+                onClick={() => handleViewTeacherAssignments(teacher)}
+              >
                 <div className="flex items-center gap-3">
                   <Avatar
                     size="large"
@@ -483,29 +493,17 @@ const ClassSubjectAssignmentPage = () => {
 
   return (
     <div className="bg-slate-50">
-      {/* Header Section - Sticky */}
-      <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">
-                Class & Subject Assignment
-              </h1>
-              <p className="text-slate-500 mt-1">
-                Assign teachers to classes and subjects
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={fetchData}
-                className="hover:border-blue-500 hover:text-blue-500">
-                Refresh
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="Class & Subject Assignment"
+        subtitle="Assign teachers to classes and subjects"
+        icon={Link2}
+        tone="purple"
+        actions={
+          <Button icon={<ReloadOutlined />} onClick={fetchData}>
+            Refresh
+          </Button>
+        }
+      />
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -593,12 +591,14 @@ const ClassSubjectAssignmentPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         <Form
           form={form}
           layout="vertical"
           onFinish={handleAssignClassTeacher}
-          className="mt-4">
+          className="mt-4"
+        >
           <div className="mb-4 p-3 bg-purple-50 rounded-lg">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -618,12 +618,14 @@ const ClassSubjectAssignmentPage = () => {
           <Form.Item
             name="teacherId"
             label={<span className="font-medium">Select Teacher</span>}
-            rules={[{ required: true, message: "Please select a teacher" }]}>
+            rules={[{ required: true, message: "Please select a teacher" }]}
+          >
             <Select
               size="large"
               placeholder="Select teacher"
               showSearch
-              optionFilterProp="children">
+              optionFilterProp="children"
+            >
               {teachers.map((teacher) => (
                 <Select.Option key={teacher._id} value={teacher._id}>
                   {teacher.userId?.name || "N/A"} ({teacher.userId?.email || ""}
@@ -640,13 +642,15 @@ const ClassSubjectAssignmentPage = () => {
                   setIsAssignTeacherModalOpen(false);
                   setSelectedClass(null);
                   form.resetFields();
-                }}>
+                }}
+              >
                 Cancel
               </Button>
               <Button
                 type="primary"
                 htmlType="submit"
-                className="bg-blue-600 hover:bg-blue-700">
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 Assign Teacher
               </Button>
             </Space>
@@ -668,12 +672,14 @@ const ClassSubjectAssignmentPage = () => {
           subjectForm.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         <Form
           form={subjectForm}
           layout="vertical"
           onFinish={handleAssignSubjectTeacher}
-          className="mt-4">
+          className="mt-4"
+        >
           <div className="mb-4 p-3 bg-green-50 rounded-lg">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -708,12 +714,14 @@ const ClassSubjectAssignmentPage = () => {
           <Form.Item
             name="teacherId"
             label={<span className="font-medium">Select Teacher</span>}
-            rules={[{ required: true, message: "Please select a teacher" }]}>
+            rules={[{ required: true, message: "Please select a teacher" }]}
+          >
             <Select
               size="large"
               placeholder="Select teacher"
               showSearch
-              optionFilterProp="children">
+              optionFilterProp="children"
+            >
               {teachers.map((teacher) => (
                 <Select.Option key={teacher._id} value={teacher._id}>
                   {teacher.userId?.name || "N/A"} ({teacher.userId?.email || ""}
@@ -730,13 +738,15 @@ const ClassSubjectAssignmentPage = () => {
                   setIsAssignSubjectTeacherModalOpen(false);
                   setSelectedSubject(null);
                   subjectForm.resetFields();
-                }}>
+                }}
+              >
                 Cancel
               </Button>
               <Button
                 type="primary"
                 htmlType="submit"
-                className="bg-blue-600 hover:bg-blue-700">
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 Assign Teacher
               </Button>
             </Space>
@@ -752,7 +762,8 @@ const ClassSubjectAssignmentPage = () => {
           setSelectedTeacher(null);
         }}
         footer={null}
-        width={900}>
+        width={900}
+      >
         {teacherAssignments && (
           <div className="mt-4 space-y-4">
             {(() => {
@@ -839,7 +850,8 @@ const ClassSubjectAssignmentPage = () => {
                             <BookOutlined className="text-purple-600" />{" "}
                             Assigned Classes
                           </span>
-                        }>
+                        }
+                      >
                         {assignedClasses.length > 0 ? (
                           <div className="grid grid-cols-1 gap-3">
                             {assignedClasses.map((cls) => {
@@ -849,7 +861,8 @@ const ClassSubjectAssignmentPage = () => {
                               return (
                                 <div
                                   key={id}
-                                  className="flex items-center justify-between gap-3 p-4 rounded-xl border border-slate-200 bg-white hover:border-indigo-200 hover:shadow-sm transition-all">
+                                  className="flex items-center justify-between gap-3 p-4 rounded-xl border border-slate-200 bg-white hover:border-indigo-200 hover:shadow-sm transition-all"
+                                >
                                   <div className="flex items-center gap-3 min-w-0">
                                     <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center shrink-0">
                                       <BookOutlined className="text-purple-600" />
@@ -870,7 +883,8 @@ const ClassSubjectAssignmentPage = () => {
                                   {isClassTeacher ? (
                                     <Tag
                                       color="purple"
-                                      className="m-0 font-semibold">
+                                      className="m-0 font-semibold"
+                                    >
                                       Class Teacher
                                     </Tag>
                                   ) : (
@@ -899,7 +913,8 @@ const ClassSubjectAssignmentPage = () => {
                             <BookOutlined className="text-green-600" /> Assigned
                             Subjects
                           </span>
-                        }>
+                        }
+                      >
                         {assignedSubjects.length > 0 ? (
                           <div className="grid grid-cols-1 gap-3">
                             {assignedSubjects.map((subject, index) => {
@@ -910,7 +925,8 @@ const ClassSubjectAssignmentPage = () => {
                               return (
                                 <div
                                   key={subject?._id || index}
-                                  className="p-4 rounded-xl border border-slate-200 bg-white hover:border-green-200 hover:shadow-sm transition-all">
+                                  className="p-4 rounded-xl border border-slate-200 bg-white hover:border-green-200 hover:shadow-sm transition-all"
+                                >
                                   <div className="flex items-start justify-between gap-3">
                                     <div className="min-w-0">
                                       <div className="font-semibold text-slate-900 truncate">
@@ -925,7 +941,8 @@ const ClassSubjectAssignmentPage = () => {
                                     {subject?.code ? (
                                       <Tag
                                         color="green"
-                                        className="m-0 font-semibold">
+                                        className="m-0 font-semibold"
+                                      >
                                         {subject.code}
                                       </Tag>
                                     ) : null}
@@ -941,7 +958,8 @@ const ClassSubjectAssignmentPage = () => {
                                               `${cls?.name}-${cls?.section}`
                                             }
                                             color="blue"
-                                            className="m-0">
+                                            className="m-0"
+                                          >
                                             {cls?.name || "N/A"}
                                             {cls?.section
                                               ? ` - ${cls.section}`
@@ -960,10 +978,12 @@ const ClassSubjectAssignmentPage = () => {
                                                   ? `${label} (${c.academicYear})`
                                                   : label;
                                               })
-                                              .join(", ")}>
+                                              .join(", ")}
+                                          >
                                             <Tag
                                               color="default"
-                                              className="m-0">
+                                              className="m-0"
+                                            >
                                               +{remaining} more
                                             </Tag>
                                           </Tooltip>
