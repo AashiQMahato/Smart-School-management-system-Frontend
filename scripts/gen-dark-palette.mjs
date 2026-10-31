@@ -59,6 +59,21 @@ for (const hue of CHROMA) {
 }
 lines.push("}", "");
 
+// 500/600 stay as solid accents (buttons keep white-text contrast), but
+// as *text* on dark surfaces they are too dim: lighten text utilities only.
+const KEEP_LIGHT =
+  ":is(.ssd-hero, .bg-\\[var\\(--ssd-hero\\)\\], .ssd-always-dark) *";
+lines.push(
+  "/* Mid-tone text lightened for contrast on dark surfaces. */",
+);
+for (const hue of CHROMA)
+  lines.push(
+    `[data-theme="dark"] :is(.text-${hue}-500, .text-${hue}-600, .hover\\:text-${hue}-500:hover, .hover\\:text-${hue}-600:hover):not(${KEEP_LIGHT}) {`,
+    `  color: ${value[`${hue}-400`]};`,
+    "}",
+  );
+lines.push("");
+
 // Surfaces that stay dark in both themes (banners) were written against
 // the light palette (light text on navy). Restore it inside them.
 const ALWAYS_DARK = [

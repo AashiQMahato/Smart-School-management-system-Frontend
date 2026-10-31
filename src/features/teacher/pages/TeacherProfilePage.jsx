@@ -136,7 +136,7 @@ const TeacherProfilePage = () => {
 
       {/* Profile Header */}
       <Card className="border-0 shadow-lg">
-        <div className="bg-blue-600 rounded-xl p-8 -m-6 mb-6">
+        <div className="bg-[var(--ssd-hero)] border-l-4 border-[var(--role)] rounded-xl p-8 -m-6 mb-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <Avatar
               size={120}
@@ -262,7 +262,7 @@ const TeacherProfilePage = () => {
                     Address
                   </span>
                 }>
-                {teacherProfile.address || "N/A"}
+                {profile.address || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={
@@ -271,8 +271,8 @@ const TeacherProfilePage = () => {
                     Date of Birth
                   </span>
                 }>
-                {teacherProfile.dateOfBirth
-                  ? new Date(teacherProfile.dateOfBirth).toLocaleDateString()
+                {profile.dateOfBirth
+                  ? new Date(profile.dateOfBirth).toLocaleDateString()
                   : "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -282,8 +282,8 @@ const TeacherProfilePage = () => {
                     Joining Date
                   </span>
                 }>
-                {teacherProfile.joiningDate
-                  ? new Date(teacherProfile.joiningDate).toLocaleDateString()
+                {profile.joiningDate
+                  ? new Date(profile.joiningDate).toLocaleDateString()
                   : "N/A"}
               </Descriptions.Item>
             </Descriptions>
@@ -308,7 +308,7 @@ const TeacherProfilePage = () => {
                     Employee ID
                   </span>
                 }>
-                {teacherProfile.employeeId || "N/A"}
+                {profile.employeeId || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={
@@ -317,7 +317,7 @@ const TeacherProfilePage = () => {
                     Qualification
                   </span>
                 }>
-                {teacherProfile.qualification || "N/A"}
+                {profile.qualification || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={
@@ -326,7 +326,7 @@ const TeacherProfilePage = () => {
                     Specialization
                   </span>
                 }>
-                {teacherProfile.specialization || "N/A"}
+                {profile.specialization || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={
@@ -335,7 +335,7 @@ const TeacherProfilePage = () => {
                     Department
                   </span>
                 }>
-                {teacherProfile.department || "N/A"}
+                {profile.department || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={
@@ -344,9 +344,7 @@ const TeacherProfilePage = () => {
                     Experience
                   </span>
                 }>
-                {teacherProfile.experience
-                  ? `${teacherProfile.experience} years`
-                  : "N/A"}
+                {profile.experience ? `${profile.experience} years` : "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
                 label={

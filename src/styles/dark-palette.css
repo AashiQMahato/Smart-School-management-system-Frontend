@@ -194,6 +194,59 @@
   --color-rose-950: oklch(96.9% 0.015 12.422);
 }
 
+/* Mid-tone text lightened for contrast on dark surfaces. */
+[data-theme="dark"] :is(.text-red-500, .text-red-600, .hover\:text-red-500:hover, .hover\:text-red-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(70.4% 0.191 22.216);
+}
+[data-theme="dark"] :is(.text-orange-500, .text-orange-600, .hover\:text-orange-500:hover, .hover\:text-orange-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(75% 0.183 55.934);
+}
+[data-theme="dark"] :is(.text-amber-500, .text-amber-600, .hover\:text-amber-500:hover, .hover\:text-amber-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(82.8% 0.189 84.429);
+}
+[data-theme="dark"] :is(.text-yellow-500, .text-yellow-600, .hover\:text-yellow-500:hover, .hover\:text-yellow-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(85.2% 0.199 91.936);
+}
+[data-theme="dark"] :is(.text-lime-500, .text-lime-600, .hover\:text-lime-500:hover, .hover\:text-lime-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(84.1% 0.238 128.85);
+}
+[data-theme="dark"] :is(.text-green-500, .text-green-600, .hover\:text-green-500:hover, .hover\:text-green-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(79.2% 0.209 151.711);
+}
+[data-theme="dark"] :is(.text-emerald-500, .text-emerald-600, .hover\:text-emerald-500:hover, .hover\:text-emerald-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(76.5% 0.177 163.223);
+}
+[data-theme="dark"] :is(.text-teal-500, .text-teal-600, .hover\:text-teal-500:hover, .hover\:text-teal-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(77.7% 0.152 181.912);
+}
+[data-theme="dark"] :is(.text-cyan-500, .text-cyan-600, .hover\:text-cyan-500:hover, .hover\:text-cyan-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(78.9% 0.154 211.53);
+}
+[data-theme="dark"] :is(.text-sky-500, .text-sky-600, .hover\:text-sky-500:hover, .hover\:text-sky-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(74.6% 0.16 232.661);
+}
+[data-theme="dark"] :is(.text-blue-500, .text-blue-600, .hover\:text-blue-500:hover, .hover\:text-blue-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(70.7% 0.165 254.624);
+}
+[data-theme="dark"] :is(.text-indigo-500, .text-indigo-600, .hover\:text-indigo-500:hover, .hover\:text-indigo-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(67.3% 0.182 276.935);
+}
+[data-theme="dark"] :is(.text-violet-500, .text-violet-600, .hover\:text-violet-500:hover, .hover\:text-violet-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(70.2% 0.183 293.541);
+}
+[data-theme="dark"] :is(.text-purple-500, .text-purple-600, .hover\:text-purple-500:hover, .hover\:text-purple-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(71.4% 0.203 305.504);
+}
+[data-theme="dark"] :is(.text-fuchsia-500, .text-fuchsia-600, .hover\:text-fuchsia-500:hover, .hover\:text-fuchsia-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(74% 0.238 322.16);
+}
+[data-theme="dark"] :is(.text-pink-500, .text-pink-600, .hover\:text-pink-500:hover, .hover\:text-pink-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(71.8% 0.202 349.761);
+}
+[data-theme="dark"] :is(.text-rose-500, .text-rose-600, .hover\:text-rose-500:hover, .hover\:text-rose-600:hover):not(:is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) *) {
+  color: oklch(71.2% 0.194 13.428);
+}
+
 /* Always-dark surfaces keep the light-theme palette. */
 [data-theme="dark"] :is(.ssd-hero, .bg-\[var\(--ssd-hero\)\], .ssd-always-dark) {
   --color-slate-50: oklch(98.4% 0.003 247.858);

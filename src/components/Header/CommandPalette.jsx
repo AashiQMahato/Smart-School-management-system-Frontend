@@ -43,6 +43,7 @@ const CommandPalette = ({ role, open, onClose }) => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const listRef = useRef(null);
+  const inputRef = useRef(null);
   const entries = useMemo(() => buildEntries(role), [role]);
 
   const results = useMemo(() => {
@@ -98,11 +99,14 @@ const CommandPalette = ({ role, open, onClose }) => {
       style={{ top: "12vh" }}
       className="ssd-palette"
       destroyOnHidden
+      // antd moves focus to the dialog after opening; hand it to the input
+      afterOpenChange={(isOpen) => isOpen && inputRef.current?.focus()}
       title={null}
       aria-label="Search pages and actions">
       <div className="ssd-palette__input">
         <Search size={18} aria-hidden="true" />
         <input
+          ref={inputRef}
           autoFocus
           value={query}
           onChange={(e) => {
