@@ -252,17 +252,17 @@ const MarkAttendancePage = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <PageHeader
-          title="Mark Attendance"
-          subtitle="Record attendance for your class"
-        />
-        <Button
-          icon={<ArrowLeftOutlined />}
-          onClick={() => navigate("/teacher/attendance")}>
-          Back to Overview
-        </Button>
-      </div>
+      <PageHeader
+        title="Mark Attendance"
+        subtitle="Record attendance for your class"
+        actions={
+          <Button
+            icon={<ArrowLeftOutlined />}
+            onClick={() => navigate("/teacher/attendance")}>
+            Back to Overview
+          </Button>
+        }
+      />
 
       {/* Selection Card */}
       <Card className="border border-slate-200 shadow-sm">

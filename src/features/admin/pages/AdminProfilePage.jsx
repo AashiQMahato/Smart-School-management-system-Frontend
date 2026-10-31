@@ -3,6 +3,7 @@
  * Modern profile page for administrators to view and manage their information
  */
 
+import { UserRound } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import {
   Card,
@@ -75,6 +76,8 @@ const AdminProfilePage = () => {
     return (
       <div className="space-y-6">
         <PageHeader
+          icon={UserRound}
+          tone="indigo"
           title="My Profile"
           subtitle="View your profile information"
         />
@@ -90,6 +93,8 @@ const AdminProfilePage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        icon={UserRound}
+        tone="indigo"
         title="My Profile"
         subtitle="Administrator profile and system overview"
       />

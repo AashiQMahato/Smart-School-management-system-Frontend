@@ -319,13 +319,11 @@ const TeacherAttendancePage = () => {
       <PageHeader
         title="Attendance Management"
         subtitle="View and manage attendance records for your classes"
-        action={
+        actions={
           <Button
             type="primary"
             icon={<PlusOutlined />}
-            onClick={() => navigate("/teacher/attendance/mark")}
-            size="large"
-            className="bg-blue-600 hover:bg-blue-700 shadow-md h-12 px-6 font-semibold">
+            onClick={() => navigate("/teacher/attendance/mark")}>
             Mark Attendance
           </Button>
         }

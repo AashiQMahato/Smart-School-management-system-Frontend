@@ -3,6 +3,7 @@
  * Modern profile page for teachers to view and manage their information
  */
 
+import { UserRound } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import {
   Card,
@@ -114,6 +115,8 @@ const TeacherProfilePage = () => {
     return (
       <div className="space-y-6">
         <PageHeader
+          icon={UserRound}
+          tone="indigo"
           title="My Profile"
           subtitle="View your profile information"
         />
@@ -130,6 +133,8 @@ const TeacherProfilePage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
+        icon={UserRound}
+        tone="indigo"
         title="My Profile"
         subtitle="View and manage your profile information"
       />

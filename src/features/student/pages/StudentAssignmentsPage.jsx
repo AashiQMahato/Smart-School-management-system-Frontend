@@ -92,7 +92,7 @@ const StudentAssignmentsPage = () => {
       {/* Header */}
       <PageHeader
         title="My Assignments"
-        description="View and submit your assignments"
+        subtitle="View and submit your assignments"
       />
 
       {/* Statistics Cards */}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { message } from "antd";
-import { Plus, Search } from "lucide-react";
+import { Button, message } from "antd";
+import { Plus, Search, ClipboardList } from "lucide-react";
 
 import { PageHeader, EmptyState, LoadingScreen } from "../../../components/UI";
 import {
@@ -102,15 +102,17 @@ const AdminAssignmentsPage = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
+        icon={ClipboardList}
+        tone="purple"
         title="Assignments"
-        description="Create and manage assignments across the school"
-        action={
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-400 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg">
-            <Plus size={20} />
+        subtitle="Create and manage assignments across the school"
+        actions={
+          <Button
+            type="primary"
+            icon={<Plus size={16} />}
+            onClick={() => setIsModalOpen(true)}>
             Create Assignment
-          </button>
+          </Button>
         }
       />
 

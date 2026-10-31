@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { ArrowLeft, Download, Users, Award } from "lucide-react";
 
 import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
@@ -82,14 +82,13 @@ const TeacherAssignmentDetailPage = () => {
     <div className="p-6 space-y-6">
       <PageHeader
         title={assignment.title}
-        description={`Class: ${assignment.class?.name || "N/A"} - ${assignment.class?.section || ""} • Subject: ${assignment.subject?.name || "N/A"}`}
-        action={
-          <button
-            onClick={() => navigate("/teacher/assignments")}
-            className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50">
-            <ArrowLeft size={18} />
+        subtitle={`Class: ${assignment.class?.name || "N/A"} - ${assignment.class?.section || ""} • Subject: ${assignment.subject?.name || "N/A"}`}
+        actions={
+          <Button
+            icon={<ArrowLeft size={16} />}
+            onClick={() => navigate("/teacher/assignments")}>
             Back
-          </button>
+          </Button>
         }
       />
 

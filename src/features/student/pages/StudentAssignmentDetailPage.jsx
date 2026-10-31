@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { ArrowLeft, Download } from "lucide-react";
 
 import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
@@ -106,14 +106,13 @@ const StudentAssignmentDetailPage = () => {
     <div className="p-6 space-y-6">
       <PageHeader
         title={assignment.title}
-        description={`Subject: ${assignment.subject?.name || "N/A"} • Due: ${new Date(assignment.dueDate).toLocaleString()}`}
-        action={
-          <button
-            onClick={() => navigate("/student/assignments")}
-            className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50">
-            <ArrowLeft size={18} />
+        subtitle={`Subject: ${assignment.subject?.name || "N/A"} • Due: ${new Date(assignment.dueDate).toLocaleString()}`}
+        actions={
+          <Button
+            icon={<ArrowLeft size={16} />}
+            onClick={() => navigate("/student/assignments")}>
             Back
-          </button>
+          </Button>
         }
       />
 
