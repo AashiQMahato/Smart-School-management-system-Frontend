@@ -6,6 +6,7 @@ import { ArrowLeft, Download, Users, Award } from "lucide-react";
 import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
 import { GradeSubmissionModal } from "../../../components/Assignment";
 import * as assignmentService from "../../../services/assignment.service";
+import { htmlToText } from "../../../utils/text";
 
 const TeacherAssignmentDetailPage = () => {
   const { id } = useParams();
@@ -122,10 +123,9 @@ const TeacherAssignmentDetailPage = () => {
           </div>
         </div>
 
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: assignment.description || "" }}
-        />
+        <p className="m-0 whitespace-pre-wrap text-slate-700">
+          {htmlToText(assignment.description)}
+        </p>
 
         {assignment.attachments?.length > 0 && (
           <div className="pt-4 border-t border-gray-100">

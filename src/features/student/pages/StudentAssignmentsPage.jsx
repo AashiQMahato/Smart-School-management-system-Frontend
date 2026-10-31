@@ -118,7 +118,11 @@ const StudentAssignmentsPage = () => {
           />
           <StatCard
             title="Average Score"
-            value={`${stats.averagePercentage}%`}
+            value={
+              Number.isFinite(Number(stats.averagePercentage))
+                ? `${Math.round(Number(stats.averagePercentage))}%`
+                : "—"
+            }
             icon={Award}
             color="purple"
           />
