@@ -10,6 +10,8 @@ import {
   BookOutlined,
   PercentageOutlined,
 } from "@ant-design/icons";
+import { Trophy } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   getChildExamResults,
   getReportCard,
@@ -201,16 +203,13 @@ const ParentResultsPage = () => {
       `}</style>
 
       <div className="">
-        {/* Header */}
-        <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white mb-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold mb-1">Child Exam Results</h1>
-              <p className="text-purple-100">
-                Monitor your child's academic performance
-              </p>
-            </div>
-            {selectedChildData && (
+        <PageHeader
+          icon={Trophy}
+          tone="orange"
+          title="Child Exam Results"
+          subtitle="Monitor your child's academic performance"
+          summary={
+            selectedChildData && (
               <div className="flex items-center gap-3 bg-white/15 rounded-2xl px-5 py-3 border border-white/20">
                 <Avatar
                   size={40}
@@ -227,9 +226,9 @@ const ParentResultsPage = () => {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
-        </div>
+            )
+          }
+        />
 
         {/* Selectors */}
         <div className="no-print mb-8 bg-white rounded-2xl border border-slate-100 shadow-sm p-6">

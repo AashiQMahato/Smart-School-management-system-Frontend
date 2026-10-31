@@ -19,6 +19,8 @@ import {
   HistoryOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { Wallet } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import * as feeService from "../../../services/fee.service";
 import * as parentService from "../../../services/parent.service";
 import {
@@ -202,22 +204,15 @@ const ParentFeePaymentPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                <BankOutlined className="text-xl" />
-              </div>
-              <h1 className="text-3xl font-black">Fee Payment</h1>
-            </div>
-            <p className="text-blue-200">
-              View, manage, and pay your children&apos;s fees securely
-            </p>
-          </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <button
+      <PageHeader
+        icon={Wallet}
+        tone="teal"
+        title="Fee Payment"
+        subtitle="View, manage, and pay your children's fees securely"
+        actions={
+          <>
+            <Button
+              icon={<DownloadOutlined />}
               onClick={() => {
                 if (fees.length === 0) {
                   message.warning("No fees to generate bill");
@@ -225,24 +220,18 @@ const ParentFeePaymentPage = () => {
                 }
                 setBillPreviewOpen(true);
               }}
-              disabled={fees.length === 0}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/20 hover:bg-white/30 rounded-xl text-sm font-bold border border-white/30 transition-colors disabled:opacity-40">
-              <DownloadOutlined />
+              disabled={fees.length === 0}>
               Download Bill
-            </button>
-            <button
-              onClick={() => setShowHistory(!showHistory)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
-                showHistory
-                  ? "bg-white text-blue-700"
-                  : "bg-white/15 text-white border border-white/30 hover:bg-white/25"
-              }`}>
-              <HistoryOutlined />
+            </Button>
+            <Button
+              type={showHistory ? "primary" : "default"}
+              icon={<HistoryOutlined />}
+              onClick={() => setShowHistory(!showHistory)}>
               {showHistory ? "View Fees" : "Payment History"}
-            </button>
-          </div>
-        </div>
-      </div>
+            </Button>
+          </>
+        }
+      />
 
       {/* Child Selector */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">

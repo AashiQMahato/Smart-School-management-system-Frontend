@@ -12,6 +12,8 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { Users } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import { getMyChildren } from "../../../services/parent.service";
 
 const MyChildrenPage = () => {
@@ -83,28 +85,20 @@ const MyChildrenPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                <TeamOutlined className="text-xl" />
-              </div>
-              <h1 className="text-3xl font-black">My Children</h1>
-            </div>
-            <p className="text-purple-200">
-              View and manage your children&apos;s profiles &amp; academics
-            </p>
-          </div>
-          {!loading && (
-            <div className="hidden md:block bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-4 border border-white/20 text-center">
+      <PageHeader
+        icon={Users}
+        tone="pink"
+        title="My Children"
+        subtitle="View and manage your children's profiles & academics"
+        summary={
+          !loading && (
+            <div className="inline-block bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-4 border border-white/20 text-center">
               <p className="text-sm text-purple-200">Total Children</p>
               <p className="text-4xl font-black">{children.length}</p>
             </div>
-          )}
-        </div>
-      </div>
+          )
+        }
+      />
 
       {/* Error */}
       {error && (

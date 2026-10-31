@@ -18,9 +18,15 @@ import {
   BookOpen,
   BarChart3,
   X,
+  ClipboardList,
 } from "lucide-react";
-import { message } from "antd";
-import { StatCard, EmptyState, LoadingScreen } from "../../../components/UI";
+import { Button, message } from "antd";
+import {
+  StatCard,
+  EmptyState,
+  LoadingScreen,
+  PageHeader,
+} from "../../../components/UI";
 import {
   AssignmentCard,
   CreateAssignmentModal,
@@ -132,35 +138,20 @@ const TeacherAssignmentsPage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Modern Header with Gradient */}
-      <div className="relative overflow-hidden bg-[var(--ssd-hero)] text-white rounded-xl">
-        <div className="absolute inset-0 bg-black opacity-5"></div>
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          }}></div>
-
-        <div className="relative px-6 py-4 ">
-          <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-       
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2 tracking-tight">
-                Assignment Management
-              </h1>
-        
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="group flex items-center gap-2 px-5 py-3 bg-white text-slate-900 rounded-xl hover:bg-blue-50 transition-colors font-semibold">
-              <div className="p-1 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                <Plus size={20} strokeWidth={2.5} />
-              </div>
-              Create Assignment
-            </button>
-          </div>
-
-          {/* Analytics Cards */}
-          {analytics && (
+      <PageHeader
+        icon={ClipboardList}
+        tone="purple"
+        title="Assignment Management"
+        actions={
+          <Button
+            type="primary"
+            icon={<Plus size={18} strokeWidth={2.5} />}
+            onClick={() => setIsModalOpen(true)}>
+            Create Assignment
+          </Button>
+        }
+        summary={
+          analytics && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105">
                 <div className="flex items-center justify-between mb-3">
@@ -238,9 +229,9 @@ const TeacherAssignmentsPage = () => {
                 </div>
               </div>
             </div>
-          )}
-        </div>
-      </div>
+          )
+        }
+      />
 
       {/* Main Content */}
       <div className="px-6 py-6 space-y-6">

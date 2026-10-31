@@ -4,7 +4,9 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
+import { Wallet } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import { message } from "antd";
 import * as feeService from "../../../services/fee.service";
 import {
@@ -94,13 +96,19 @@ const StudentFeePage = () => {
 
   return (
     <div className="bg-slate-50 space-y-5">
-      {/* Page Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl px-6 py-5 text-white">
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+      <PageHeader
+        icon={Wallet}
+        tone="teal"
+        title="My Fees"
+        subtitle="View your fee status and download bill"
+        actions={
+          <Button
+            type="primary"
+            onClick={handleDownloadBill}
+            disabled={fees.length === 0}
+            icon={
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -108,37 +116,14 @@ const StudentFeePage = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black leading-tight">My Fees</h1>
-              <p className="text-blue-200 text-sm">
-                View your fee status and download bill
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={handleDownloadBill}
-            disabled={fees.length === 0}
-            className="flex items-center gap-2 px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl text-sm hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
+            }>
             Download Bill PDF
-          </button>
-        </div>
-      </div>
+          </Button>
+        }
+      />
 
       {/* Info Banner */}
       <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">

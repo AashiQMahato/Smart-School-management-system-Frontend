@@ -9,6 +9,8 @@ import {
   BookOutlined,
   PercentageOutlined,
 } from "@ant-design/icons";
+import { Trophy } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   getMyExamResults,
   getReportCard,
@@ -191,29 +193,24 @@ const StudentResultsPage = () => {
       `}</style>
 
       <div className="">
-        {/* Header */}
-        <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white mb-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold mb-1">My Exam Results</h1>
-              <p className="text-indigo-100">
-                Track your academic performance across all exams
-              </p>
-            </div>
-            {selectedExam && summary && (
-              <div className="flex items-center gap-3">
-                <Button
-                  type="primary"
-                  icon={<PrinterOutlined />}
-                  onClick={handlePrint}
-                  className="no-print bg-white text-indigo-700 border-0 font-semibold hover:bg-indigo-50"
-                  size="large">
-                  Download / Print PDF
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
+        <PageHeader
+          icon={Trophy}
+          tone="orange"
+          title="My Exam Results"
+          subtitle="Track your academic performance across all exams"
+          actions={
+            selectedExam &&
+            summary && (
+              <Button
+                type="primary"
+                icon={<PrinterOutlined />}
+                onClick={handlePrint}
+                className="no-print">
+                Download / Print PDF
+              </Button>
+            )
+          }
+        />
 
         {/* Exam Selector */}
         <div className="no-print mb-8 bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
