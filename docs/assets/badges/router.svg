@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="122" height="24" viewBox="0 0 122 24" role="img" aria-label="React Router: 7">
+  <title>React Router: 7</title>
+  <rect width="122" height="24" rx="6" fill="#ca4245"/>
+  <path d="M6 0h88v24H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z" fill="#0e1a2b"/>
+  <g font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">
+    <text x="47" y="16" fill="#ffffff" text-anchor="middle">React Router</text>
+    <text x="108" y="16" fill="#ffffff" text-anchor="middle">7</text>
+  </g>
+</svg>

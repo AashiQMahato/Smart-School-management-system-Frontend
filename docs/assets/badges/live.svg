@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136" height="24" viewBox="0 0 136 24" role="img" aria-label="Live: Open the app">
+  <title>Live: Open the app</title>
+  <rect width="136" height="24" rx="6" fill="#2563eb"/>
+  <path d="M6 0h40v24H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z" fill="#0e1a2b"/>
+  <g font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">
+    <text x="23" y="16" fill="#ffffff" text-anchor="middle">Live</text>
+    <text x="91" y="16" fill="#ffffff" text-anchor="middle">Open the app</text>
+  </g>
+</svg>
