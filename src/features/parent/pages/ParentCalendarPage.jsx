@@ -27,7 +27,7 @@ import {
   getEventTypeConfig,
 } from "../../../services/calendar.service";
 
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, StatCard } from "../../../components/UI";
 const ParentCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -165,23 +165,23 @@ const ParentCalendarPage = () => {
 
       {/* Quick Stats Row */}
       <div className="grid grid-cols-3 gap-3">
-        <QuickStat
+        <StatCard
           icon={<BookOpen size={16} />}
-          label="Exams"
-          count={upcomingExams.length}
-          color="red"
+          title="Exams"
+          value={upcomingExams.length}
+          tone="red"
         />
-        <QuickStat
+        <StatCard
           icon={<CreditCard size={16} />}
-          label="Fee Dues"
-          count={upcomingFees.length}
-          color="purple"
+          title="Fee Dues"
+          value={upcomingFees.length}
+          tone="purple"
         />
-        <QuickStat
+        <StatCard
           icon={<PartyPopper size={16} />}
-          label="Holidays"
-          count={upcomingHolidays.length}
-          color="green"
+          title="Holidays"
+          value={upcomingHolidays.length}
+          tone="emerald"
         />
       </div>
 
@@ -301,26 +301,6 @@ const ParentCalendarPage = () => {
           </div>
         </div>
       )}
-    </div>
-  );
-};
-
-const QuickStat = ({ icon, label, count, color }) => {
-  const colors = {
-    red: "bg-red-50 text-red-600 border-red-100",
-    purple: "bg-purple-50 text-purple-600 border-purple-100",
-    green: "bg-green-50 text-green-600 border-green-100",
-  };
-
-  return (
-    <div
-      className={`flex items-center gap-2.5 p-3 rounded-xl border ${colors[color]} transition-all duration-200 hover:shadow-sm`}
-    >
-      <div className="p-1.5 bg-white/70 rounded-lg shadow-sm">{icon}</div>
-      <div>
-        <div className="text-lg font-bold">{count}</div>
-        <div className="text-xs font-medium opacity-70">{label}</div>
-      </div>
     </div>
   );
 };

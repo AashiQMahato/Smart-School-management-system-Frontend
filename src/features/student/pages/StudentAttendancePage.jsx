@@ -9,11 +9,8 @@ import {
   message,
   DatePicker,
   Select,
-  Empty,
   Table,
   Tag,
-  Spin,
-  Statistic,
   Row,
   Col,
   Space,
@@ -30,7 +27,12 @@ import {
   TrophyOutlined,
   AlertOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  StatCard,
+  EmptyState,
+  LoadingScreen,
+} from "../../../components/UI";
 import {
   getMyAttendance,
   getCurrentMonthRange,
@@ -196,7 +198,8 @@ const StudentAttendancePage = () => {
         return (
           <Tag
             icon={statusConfig.icon}
-            className={`px-3 py-1 font-medium border ${statusConfig.className}`}>
+            className={`px-3 py-1 font-medium border ${statusConfig.className}`}
+          >
             {statusConfig.label}
           </Tag>
         );
@@ -205,11 +208,7 @@ const StudentAttendancePage = () => {
   ];
 
   if (loading && attendance.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" tip="Loading..." />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading attendance…" />;
   }
 
   return (
@@ -223,63 +222,39 @@ const StudentAttendancePage = () => {
       {/* Statistics Cards */}
       <Row gutter={[16, 16]}>
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Card className="border-0 shadow-md rounded-xl hover:shadow-lg transition-shadow">
-            <Statistic
-              title={
-                <Text className="text-slate-600 flex items-center gap-2">
-                  <CalendarOutlined />
-                  Total Days
-                </Text>
-              }
-              value={stats.total}
-              styles={{ color: "#475569", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Total Days"
+            value={stats.total}
+            icon={<CalendarOutlined />}
+            tone="slate"
+          />
         </Col>
 
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Card className="border-0 shadow-md rounded-xl bg-emerald-50 hover:shadow-lg transition-shadow">
-            <Statistic
-              title={
-                <Text className="text-emerald-700 flex items-center gap-2 font-semibold">
-                  <CheckCircleOutlined />
-                  Present
-                </Text>
-              }
-              value={stats.present}
-              styles={{ color: "#059669", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Present"
+            value={stats.present}
+            icon={<CheckCircleOutlined />}
+            tone="emerald"
+          />
         </Col>
 
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Card className="border-0 shadow-md rounded-xl bg-red-50 hover:shadow-lg transition-shadow">
-            <Statistic
-              title={
-                <Text className="text-red-700 flex items-center gap-2 font-semibold">
-                  <CloseCircleOutlined />
-                  Absent
-                </Text>
-              }
-              value={stats.absent}
-              styles={{ color: "#dc2626", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Absent"
+            value={stats.absent}
+            icon={<CloseCircleOutlined />}
+            tone="red"
+          />
         </Col>
 
         <Col xs={12} sm={12} md={6} lg={6}>
-          <Card className="border-0 shadow-md rounded-xl bg-amber-50 hover:shadow-lg transition-shadow">
-            <Statistic
-              title={
-                <Text className="text-amber-700 flex items-center gap-2 font-semibold">
-                  <ClockCircleOutlined />
-                  Late
-                </Text>
-              }
-              value={stats.late}
-              styles={{ color: "#d97706", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Late"
+            value={stats.late}
+            icon={<ClockCircleOutlined />}
+            tone="amber"
+          />
         </Col>
       </Row>
 
@@ -393,7 +368,8 @@ const StudentAttendancePage = () => {
               showSearch
               filterOption={(input, option) =>
                 option?.children?.toLowerCase().includes(input.toLowerCase())
-              }>
+              }
+            >
               {subjects.map((subject) => (
                 <Select.Option key={subject._id} value={subject._id}>
                   {subject.name}
@@ -421,7 +397,8 @@ const StudentAttendancePage = () => {
               </Text>
             </div>
           </div>
-        }>
+        }
+      >
         <Table
           columns={columns}
           dataSource={attendance}
@@ -443,10 +420,7 @@ const StudentAttendancePage = () => {
           }}
           locale={{
             emptyText: (
-              <Empty
-                description="No attendance records found"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
+              <EmptyState compact title="No attendance records found" />
             ),
           }}
           className="modern-table"

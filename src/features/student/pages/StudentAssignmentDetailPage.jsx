@@ -110,7 +110,8 @@ const StudentAssignmentDetailPage = () => {
         actions={
           <Button
             icon={<ArrowLeft size={16} />}
-            onClick={() => navigate("/student/assignments")}>
+            onClick={() => navigate("/student/assignments")}
+          >
             Back
           </Button>
         }
@@ -133,7 +134,8 @@ const StudentAssignmentDetailPage = () => {
                   href={f.fileUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100">
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100"
+                >
                   <div className="min-w-0">
                     <div className="text-sm font-medium text-gray-900 truncate">
                       {f.fileName}
@@ -180,7 +182,8 @@ const StudentAssignmentDetailPage = () => {
                     href={f.fileUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="block p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100">
+                    className="block p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100"
+                  >
                     <div className="font-medium text-gray-900">
                       {f.fileName}
                     </div>
@@ -229,7 +232,8 @@ const StudentAssignmentDetailPage = () => {
           <button
             onClick={handleSubmit}
             disabled={saving || !canEditSubmission}
-            className="px-6 py-3 bg-blue-400 text-white rounded-xl hover:bg-blue-700 disabled:opacity-60">
+            className="px-6 py-3 bg-blue-400 text-white rounded-xl hover:bg-blue-700 disabled:opacity-60"
+          >
             {saving
               ? "Submitting..."
               : mySubmission

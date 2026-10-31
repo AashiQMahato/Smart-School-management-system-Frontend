@@ -25,6 +25,7 @@ import {
   Bell,
   Share2,
 } from "lucide-react";
+import InfoRow from "../UI/InfoRow";
 
 // Event type configurations
 const EVENT_CONFIG = {
@@ -82,25 +83,6 @@ const calculateDuration = (startTime, endTime) => {
     : `${hours} hour${hours > 1 ? "s" : ""}`;
 };
 
-// Info Row Component
-const InfoRow = ({ icon: Icon, label, value, className = "" }) => {
-  if (!value) return null;
-
-  return (
-    <div className={`flex items-start gap-3 ${className}`}>
-      <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
-        <Icon className="w-4 h-4 text-slate-500" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-xs text-slate-500 uppercase tracking-wider mb-0.5">
-          {label}
-        </p>
-        <p className="text-sm font-medium text-slate-800">{value}</p>
-      </div>
-    </div>
-  );
-};
-
 // Action Button Component
 const ActionButton = ({
   icon: Icon,
@@ -125,7 +107,8 @@ const ActionButton = ({
         text-sm font-medium transition-all duration-200
         disabled:opacity-50 disabled:cursor-not-allowed
         ${variants[variant]}
-      `}>
+      `}
+    >
       <Icon className="w-4 h-4" />
       <span>{label}</span>
     </button>
@@ -183,16 +166,19 @@ const ScheduleDetailModal = ({
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div
           className="w-full max-w-lg bg-white rounded-2xl shadow-2xl pointer-events-auto overflow-hidden transform transition-all"
-          onClick={(e) => e.stopPropagation()}>
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Header with gradient background */}
           <div
             className={`
               relative px-6 pt-6 pb-16 ${config.bgGradient}
-            `}>
+            `}
+          >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-colors">
+              className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 text-white hover:bg-white/30 transition-colors"
+            >
               <X className="w-5 h-5" />
             </button>
 
@@ -232,7 +218,8 @@ const ScheduleDetailModal = ({
                 w-16 h-16 rounded-2xl bg-white shadow-lg
                 flex items-center justify-center
                 border-4 border-white
-              `}>
+              `}
+            >
               <IconComponent className={`w-8 h-8 text-${config.color}-600`} />
             </div>
           </div>
@@ -243,14 +230,16 @@ const ScheduleDetailModal = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {/* Location */}
               <InfoRow
-                icon={MapPin}
+                hideEmpty
+                icon={<MapPin size={15} />}
                 label="Location"
                 value={room && `Room ${room}`}
               />
 
               {/* Class */}
               <InfoRow
-                icon={GraduationCap}
+                hideEmpty
+                icon={<GraduationCap size={15} />}
                 label="Class"
                 value={
                   className &&
@@ -259,14 +248,25 @@ const ScheduleDetailModal = ({
               />
 
               {/* Teacher */}
-              <InfoRow icon={User} label="Teacher" value={teacherName} />
+              <InfoRow
+                hideEmpty
+                icon={<User size={15} />}
+                label="Teacher"
+                value={teacherName}
+              />
 
               {/* Subject Code */}
-              <InfoRow icon={Hash} label="Subject Code" value={subjectCode} />
+              <InfoRow
+                hideEmpty
+                icon={<Hash size={15} />}
+                label="Subject Code"
+                value={subjectCode}
+              />
 
               {/* Academic Year */}
               <InfoRow
-                icon={Calendar}
+                hideEmpty
+                icon={<Calendar size={15} />}
                 label="Academic Year"
                 value={academicYear}
               />
@@ -274,7 +274,8 @@ const ScheduleDetailModal = ({
               {/* Building (if available) */}
               {item?.building && (
                 <InfoRow
-                  icon={Building}
+                  hideEmpty
+                  icon={<Building size={15} />}
                   label="Building"
                   value={item.building}
                 />
@@ -291,7 +292,8 @@ const ScheduleDetailModal = ({
                   <span className="text-sm text-slate-700">{teacherEmail}</span>
                   <button
                     onClick={() => copyToClipboard(teacherEmail)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                    className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                  >
                     <Copy className="w-4 h-4" />
                   </button>
                 </div>
@@ -379,7 +381,8 @@ const ScheduleDetailModal = ({
               </p>
               <button
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors">
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
+              >
                 Close
               </button>
             </div>

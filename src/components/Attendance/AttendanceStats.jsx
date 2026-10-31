@@ -3,7 +3,8 @@
  * Displays attendance statistics with visual indicators
  */
 
-import { Card, Progress, Row, Col, Statistic } from "antd";
+import { Card, Progress, Row, Col } from "antd";
+import StatCard from "../UI/StatCard";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -51,47 +52,39 @@ const AttendanceStats = ({ statistics, loading = false }) => {
       {/* Statistics Cards */}
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12}>
-          <Card className="border-0 shadow-sm">
-            <Statistic
-              title="Total Classes"
-              value={totalClasses}
-              prefix={<CalendarOutlined className="text-blue-500" />}
-              styles={{ color: "#1890ff" }}
-            />
-          </Card>
+          <StatCard
+            title="Total Classes"
+            value={totalClasses}
+            icon={<CalendarOutlined />}
+            tone="blue"
+          />
         </Col>
 
         <Col xs={24} sm={12}>
-          <Card className="border-0 shadow-sm">
-            <Statistic
-              title="Present"
-              value={present}
-              prefix={<CheckCircleOutlined className="text-green-500" />}
-              styles={{ color: "#52c41a" }}
-            />
-          </Card>
+          <StatCard
+            title="Present"
+            value={present}
+            icon={<CheckCircleOutlined />}
+            tone="emerald"
+          />
         </Col>
 
         <Col xs={24} sm={12}>
-          <Card className="border-0 shadow-sm">
-            <Statistic
-              title="Absent"
-              value={absent}
-              prefix={<CloseCircleOutlined className="text-red-500" />}
-              styles={{ color: "#ff4d4f" }}
-            />
-          </Card>
+          <StatCard
+            title="Absent"
+            value={absent}
+            icon={<CloseCircleOutlined />}
+            tone="red"
+          />
         </Col>
 
         <Col xs={24} sm={12}>
-          <Card className="border-0 shadow-sm">
-            <Statistic
-              title="Late"
-              value={late}
-              prefix={<ClockCircleOutlined className="text-yellow-500" />}
-              styles={{ color: "#faad14" }}
-            />
-          </Card>
+          <StatCard
+            title="Late"
+            value={late}
+            icon={<ClockCircleOutlined />}
+            tone="amber"
+          />
         </Col>
       </Row>
 

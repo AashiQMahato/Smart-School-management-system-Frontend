@@ -32,7 +32,7 @@ import {
   IdcardOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { PageHeader, DataTable } from "../../../components/UI";
+import { PageHeader, DataTable, StatCard } from "../../../components/UI";
 import {
   getAllUsers,
   createStudent,
@@ -193,7 +193,8 @@ const StudentsPage = () => {
             description="This will also delete the user account."
             onConfirm={() => handleDelete(record)}
             okText="Yes"
-            cancelText="No">
+            cancelText="No"
+          >
             <Tooltip title="Delete Student">
               <Button size="small" danger icon={<DeleteOutlined />} />
             </Tooltip>
@@ -326,7 +327,8 @@ const StudentsPage = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={handleCreate}>
+              onClick={handleCreate}
+            >
               Add Student
             </Button>
           </Space>
@@ -336,56 +338,36 @@ const StudentsPage = () => {
       {/* Stats */}
       <Row gutter={[16, 16]} className="mb-6">
         <Col xs={12} sm={6}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <UserOutlined className="text-blue-400 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{totalStudents}</div>
-                <div className="text-xs text-gray-500">Total Students</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="Total Students"
+            value={totalStudents}
+            icon={UserOutlined}
+            tone="blue"
+          />
         </Col>
         <Col xs={12} sm={6}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                <HomeOutlined className="text-green-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{studentsWithClass}</div>
-                <div className="text-xs text-gray-500">Assigned to Class</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="Assigned to Class"
+            value={studentsWithClass}
+            icon={HomeOutlined}
+            tone="emerald"
+          />
         </Col>
         <Col xs={12} sm={6}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                <IdcardOutlined className="text-yellow-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{studentsWithoutClass}</div>
-                <div className="text-xs text-gray-500">No Class</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="No Class"
+            value={studentsWithoutClass}
+            icon={IdcardOutlined}
+            tone="amber"
+          />
         </Col>
         <Col xs={12} sm={6}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <TeamOutlined className="text-purple-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{studentsWithParent}</div>
-                <div className="text-xs text-gray-500">With Parent</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="With Parent"
+            value={studentsWithParent}
+            icon={TeamOutlined}
+            tone="purple"
+          />
         </Col>
       </Row>
 
@@ -410,7 +392,8 @@ const StudentsPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={600}>
+        width={600}
+      >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Row gutter={16}>
             <Col span={12}>
@@ -419,7 +402,8 @@ const StudentsPage = () => {
                 label="Full Name"
                 rules={[
                   { required: true, message: "Please enter student name" },
-                ]}>
+                ]}
+              >
                 <Input placeholder="Enter full name" />
               </Form.Item>
             </Col>
@@ -430,7 +414,8 @@ const StudentsPage = () => {
                 rules={[
                   { required: true, message: "Please enter email" },
                   { type: "email", message: "Please enter valid email" },
-                ]}>
+                ]}
+              >
                 <Input
                   placeholder="student@example.com"
                   disabled={!!editingStudent}
@@ -446,7 +431,8 @@ const StudentsPage = () => {
                 label="Phone"
                 rules={[
                   { required: true, message: "Please enter phone number" },
-                ]}>
+                ]}
+              >
                 <Input placeholder="Enter phone number" />
               </Form.Item>
             </Col>
@@ -466,11 +452,13 @@ const StudentsPage = () => {
               <Form.Item
                 name="classId"
                 label="Class"
-                rules={[{ required: true, message: "Please select class" }]}>
+                rules={[{ required: true, message: "Please select class" }]}
+              >
                 <Select
                   placeholder="Select class"
                   showSearch
-                  optionFilterProp="children">
+                  optionFilterProp="children"
+                >
                   {classes.map((cls) => (
                     <Select.Option key={cls._id} value={cls._id}>
                       {cls.name}
@@ -483,7 +471,8 @@ const StudentsPage = () => {
               <Form.Item
                 name="section"
                 label="Section"
-                rules={[{ required: true, message: "Please enter section" }]}>
+                rules={[{ required: true, message: "Please enter section" }]}
+              >
                 <Input placeholder="A, B, C..." />
               </Form.Item>
             </Col>
@@ -496,7 +485,8 @@ const StudentsPage = () => {
                 label="Roll Number"
                 rules={[
                   { required: true, message: "Please enter roll number" },
-                ]}>
+                ]}
+              >
                 <Input placeholder="001, 002..." />
               </Form.Item>
             </Col>
@@ -506,7 +496,8 @@ const StudentsPage = () => {
                 label="Academic Year"
                 rules={[
                   { required: true, message: "Please enter academic year" },
-                ]}>
+                ]}
+              >
                 <Input placeholder="2025-2026" />
               </Form.Item>
             </Col>
@@ -520,11 +511,13 @@ const StudentsPage = () => {
               optionFilterProp="children"
               filterOption={(input, option) =>
                 option.children.toLowerCase().includes(input.toLowerCase())
-              }>
+              }
+            >
               {parents.map((parent) => (
                 <Select.Option
                   key={parent.userId._id}
-                  value={parent.userId._id}>
+                  value={parent.userId._id}
+                >
                   {parent.userId.name} ({parent.userId.email})
                 </Select.Option>
               ))}
@@ -552,7 +545,8 @@ const StudentsPage = () => {
           setSelectedStudent(null);
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         {selectedStudent && (
           <>
             <div className="mb-4 p-3 bg-blue-50 rounded-lg">
@@ -572,15 +566,18 @@ const StudentsPage = () => {
             <Form
               form={classAssignForm}
               layout="vertical"
-              onFinish={handleClassAssignment}>
+              onFinish={handleClassAssignment}
+            >
               <Form.Item
                 name="classId"
                 label="Class"
-                rules={[{ required: true, message: "Please select class" }]}>
+                rules={[{ required: true, message: "Please select class" }]}
+              >
                 <Select
                   placeholder="Select class"
                   showSearch
-                  optionFilterProp="children">
+                  optionFilterProp="children"
+                >
                   {classes.map((cls) => (
                     <Select.Option key={cls._id} value={cls._id}>
                       {cls.name}
@@ -592,7 +589,8 @@ const StudentsPage = () => {
               <Form.Item
                 name="section"
                 label="Section"
-                rules={[{ required: true, message: "Please enter section" }]}>
+                rules={[{ required: true, message: "Please enter section" }]}
+              >
                 <Input placeholder="A, B, C..." />
               </Form.Item>
 
@@ -601,7 +599,8 @@ const StudentsPage = () => {
                 label="Roll Number"
                 rules={[
                   { required: true, message: "Please enter roll number" },
-                ]}>
+                ]}
+              >
                 <Input placeholder="001, 002..." />
               </Form.Item>
 
@@ -613,7 +612,8 @@ const StudentsPage = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    icon={<HomeOutlined />}>
+                    icon={<HomeOutlined />}
+                  >
                     Assign to Class
                   </Button>
                 </Space>

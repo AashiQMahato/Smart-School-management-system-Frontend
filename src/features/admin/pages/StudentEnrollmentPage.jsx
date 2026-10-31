@@ -5,17 +5,8 @@
 
 import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
-import {
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  message,
-  Dropdown,
-  Empty,
-} from "antd";
+import { PageHeader, EmptyState } from "../../../components/UI";
+import { Button, Modal, Form, Input, Select, message, Dropdown } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -242,7 +233,8 @@ const StudentEnrollmentPage = () => {
                 form.resetFields();
                 setGeneratedPassword("");
                 setIsModalOpen(true);
-              }}>
+              }}
+            >
               Enroll Student
             </Button>
           </>
@@ -273,7 +265,8 @@ const StudentEnrollmentPage = () => {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-emerald-100 mt-0.5">{s.label}</div>
               </div>
@@ -313,7 +306,8 @@ const StudentEnrollmentPage = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse"
+                >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -325,16 +319,13 @@ const StudentEnrollmentPage = () => {
               ))}
             </div>
           ) : filteredStudents.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={
-                <span className="text-slate-500">
-                  {searchQuery
-                    ? "No students found matching your search"
-                    : "No students enrolled yet"}
-                </span>
+            <EmptyState
+              compact
+              title={
+                searchQuery
+                  ? "No students found matching your search"
+                  : "No students enrolled yet"
               }
-              className="my-12"
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -343,7 +334,8 @@ const StudentEnrollmentPage = () => {
                 return (
                   <div
                     key={student._id}
-                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group">
+                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center font-black text-base text-white">
@@ -361,7 +353,8 @@ const StudentEnrollmentPage = () => {
                       <Dropdown
                         menu={{ items: getActionItems(student) }}
                         trigger={["click"]}
-                        placement="bottomRight">
+                        placement="bottomRight"
+                      >
                         <Button
                           type="text"
                           icon={<MoreOutlined />}
@@ -429,12 +422,14 @@ const StudentEnrollmentPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={700}>
+        width={700}
+      >
         <Form
           form={form}
           layout="vertical"
           onFinish={handleSubmit}
-          className="mt-4">
+          className="mt-4"
+        >
           <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-1">
             Personal Information
           </p>
@@ -442,9 +437,8 @@ const StudentEnrollmentPage = () => {
             <Form.Item
               name="name"
               label={<span className="font-medium">Full Name</span>}
-              rules={[
-                { required: true, message: "Please enter student name" },
-              ]}>
+              rules={[{ required: true, message: "Please enter student name" }]}
+            >
               <Input
                 size="large"
                 prefix={<UserOutlined className="text-slate-400" />}
@@ -458,7 +452,8 @@ const StudentEnrollmentPage = () => {
               rules={[
                 { required: true, message: "Please enter email" },
                 { type: "email", message: "Please enter a valid email" },
-              ]}>
+              ]}
+            >
               <Input
                 size="large"
                 prefix={<MailOutlined className="text-slate-400" />}
@@ -469,9 +464,8 @@ const StudentEnrollmentPage = () => {
             <Form.Item
               name="phone"
               label={<span className="font-medium">Phone Number</span>}
-              rules={[
-                { required: true, message: "Please enter phone number" },
-              ]}>
+              rules={[{ required: true, message: "Please enter phone number" }]}
+            >
               <Input
                 size="large"
                 prefix={<PhoneOutlined className="text-slate-400" />}
@@ -486,7 +480,8 @@ const StudentEnrollmentPage = () => {
                 rules={[
                   { required: true, message: "Please enter password" },
                   { min: 6, message: "Password must be at least 6 characters" },
-                ]}>
+                ]}
+              >
                 <Input.Password
                   size="large"
                   prefix={<LockOutlined className="text-slate-400" />}
@@ -507,7 +502,8 @@ const StudentEnrollmentPage = () => {
                   size="small"
                   icon={<CopyOutlined />}
                   onClick={() => copyToClipboard(generatedPassword)}
-                  className="text-blue-600">
+                  className="text-blue-600"
+                >
                   Copy
                 </Button>
               </div>
@@ -524,7 +520,8 @@ const StudentEnrollmentPage = () => {
             <Form.Item
               name="classId"
               label={<span className="font-medium">Class</span>}
-              rules={[{ required: true, message: "Please select class" }]}>
+              rules={[{ required: true, message: "Please select class" }]}
+            >
               <Select size="large" placeholder="Select class">
                 {classes.map((c) => (
                   <Select.Option key={c._id} value={c._id}>
@@ -536,13 +533,15 @@ const StudentEnrollmentPage = () => {
             <Form.Item
               name="section"
               label={<span className="font-medium">Section</span>}
-              rules={[{ required: true, message: "Please enter section" }]}>
+              rules={[{ required: true, message: "Please enter section" }]}
+            >
               <Input size="large" placeholder="e.g., A, B, C" />
             </Form.Item>
             <Form.Item
               name="rollNumber"
               label={<span className="font-medium">Roll Number</span>}
-              rules={[{ required: true, message: "Please enter roll number" }]}>
+              rules={[{ required: true, message: "Please enter roll number" }]}
+            >
               <Input size="large" placeholder="Enter roll number" />
             </Form.Item>
             <Form.Item
@@ -551,7 +550,8 @@ const StudentEnrollmentPage = () => {
               rules={[
                 { required: true, message: "Please enter academic year" },
               ]}
-              initialValue="2025-2026">
+              initialValue="2025-2026"
+            >
               <Input size="large" placeholder="e.g., 2025-2026" />
             </Form.Item>
           </div>
@@ -561,13 +561,15 @@ const StudentEnrollmentPage = () => {
           </p>
           <Form.Item
             name="parentId"
-            label={<span className="font-medium">Assign Parent</span>}>
+            label={<span className="font-medium">Assign Parent</span>}
+          >
             <Select
               size="large"
               placeholder="Select parent (optional)"
               allowClear
               showSearch
-              optionFilterProp="children">
+              optionFilterProp="children"
+            >
               {parents.map((p) => (
                 <Select.Option key={p._id} value={p._id}>
                   {p.userId?.name || "N/A"} ({p.userId?.email || "N/A"})
@@ -582,13 +584,15 @@ const StudentEnrollmentPage = () => {
                 setIsModalOpen(false);
                 setEditingStudent(null);
                 form.resetFields();
-              }}>
+              }}
+            >
               Cancel
             </Button>
             <Button
               type="primary"
               htmlType="submit"
-              className="bg-emerald-600 hover:bg-emerald-700">
+              className="bg-emerald-600 hover:bg-emerald-700"
+            >
               {editingStudent ? "Update Student" : "Enroll Student"}
             </Button>
           </div>
@@ -614,21 +618,25 @@ const StudentEnrollmentPage = () => {
           changeClassForm.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         <Form
           form={changeClassForm}
           layout="vertical"
           onFinish={handleChangeClassSubmit}
-          className="mt-4">
+          className="mt-4"
+        >
           <Form.Item
             name="currentClass"
-            label={<span className="font-medium">Current Class</span>}>
+            label={<span className="font-medium">Current Class</span>}
+          >
             <Input size="large" disabled />
           </Form.Item>
           <Form.Item
             name="newClassId"
             label={<span className="font-medium">New Class</span>}
-            rules={[{ required: true, message: "Please select new class" }]}>
+            rules={[{ required: true, message: "Please select new class" }]}
+          >
             <Select size="large" placeholder="Select new class">
               {classes.map((c) => (
                 <Select.Option key={c._id} value={c._id}>
@@ -641,7 +649,8 @@ const StudentEnrollmentPage = () => {
             <Form.Item
               name="newSection"
               label={<span className="font-medium">Section</span>}
-              rules={[{ required: true, message: "Please enter section" }]}>
+              rules={[{ required: true, message: "Please enter section" }]}
+            >
               <Input size="large" placeholder="Enter section" />
             </Form.Item>
             <Form.Item
@@ -649,7 +658,8 @@ const StudentEnrollmentPage = () => {
               label={<span className="font-medium">New Roll Number</span>}
               rules={[
                 { required: true, message: "Please enter new roll number" },
-              ]}>
+              ]}
+            >
               <Input size="large" placeholder="Enter new roll number" />
             </Form.Item>
           </div>
@@ -659,13 +669,15 @@ const StudentEnrollmentPage = () => {
                 setIsChangeClassModalOpen(false);
                 setSelectedStudent(null);
                 changeClassForm.resetFields();
-              }}>
+              }}
+            >
               Cancel
             </Button>
             <Button
               type="primary"
               htmlType="submit"
-              className="bg-purple-600 hover:bg-purple-700">
+              className="bg-purple-600 hover:bg-purple-700"
+            >
               Change Class
             </Button>
           </div>

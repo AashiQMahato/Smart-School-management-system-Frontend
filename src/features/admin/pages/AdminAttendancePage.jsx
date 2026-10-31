@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { CalendarCheck } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState, LoadingScreen } from "../../../components/UI";
 import {
   Button,
   message,
@@ -13,11 +13,9 @@ import {
   Form,
   Select,
   Input,
-  Empty,
   Table,
   Tag,
   DatePicker,
-  Spin,
   Tooltip,
 } from "antd";
 import {
@@ -337,7 +335,8 @@ const AdminAttendancePage = () => {
         return (
           <Tag
             icon={statusConfig.icon}
-            className={`px-3 py-1 font-medium border ${statusConfig.className}`}>
+            className={`px-3 py-1 font-medium border ${statusConfig.className}`}
+          >
             {statusConfig.label}
           </Tag>
         );
@@ -353,14 +352,16 @@ const AdminAttendancePage = () => {
           <Tooltip title="Edit">
             <button
               onClick={() => handleEdit(record)}
-              className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-blue-50 transition-colors">
+              className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-blue-50 transition-colors"
+            >
               <EditOutlined className="text-blue-600" />
             </button>
           </Tooltip>
           <Tooltip title="Delete">
             <button
               onClick={() => handleDelete(record)}
-              className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-red-50 transition-colors">
+              className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-red-50 transition-colors"
+            >
               <DeleteOutlined className="text-red-600" />
             </button>
           </Tooltip>
@@ -370,11 +371,7 @@ const AdminAttendancePage = () => {
   ];
 
   if (loading && classes.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" tip="Loading..." />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading attendance…" />;
   }
 
   return (
@@ -388,7 +385,8 @@ const AdminAttendancePage = () => {
           <Button
             icon={<ReloadOutlined className={loading ? "animate-spin" : ""} />}
             onClick={fetchAttendance}
-            disabled={loading || !selectedClass}>
+            disabled={loading || !selectedClass}
+          >
             Refresh
           </Button>
         }
@@ -419,7 +417,8 @@ const AdminAttendancePage = () => {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}>
+                  className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}
+                >
                   <div className="text-2xl font-black text-white">
                     {s.value}
                   </div>
@@ -459,7 +458,8 @@ const AdminAttendancePage = () => {
               showSearch
               filterOption={(input, option) =>
                 option?.children?.toLowerCase().includes(input.toLowerCase())
-              }>
+              }
+            >
               {classes.map((cls) => (
                 <Select.Option key={cls._id} value={cls._id}>
                   {cls.name}
@@ -482,7 +482,8 @@ const AdminAttendancePage = () => {
               showSearch
               filterOption={(input, option) =>
                 option?.children?.toLowerCase().includes(input.toLowerCase())
-              }>
+              }
+            >
               {filteredSubjects.map((subject) => (
                 <Select.Option key={subject._id} value={subject._id}>
                   {subject.name}
@@ -509,7 +510,8 @@ const AdminAttendancePage = () => {
               loading={loading}
               disabled={!selectedClass}
               size="large"
-              className="w-full">
+              className="w-full"
+            >
               Refresh
             </Button>
           </div>
@@ -590,14 +592,9 @@ const AdminAttendancePage = () => {
         </div>
         <div className="p-4">
           {!selectedClass ? (
-            <Empty
-              description={
-                <span className="text-slate-500">
-                  Please select a class to view attendance records
-                </span>
-              }
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              className="my-8"
+            <EmptyState
+              compact
+              title="Please select a class to view attendance records"
             />
           ) : (
             <Table
@@ -620,10 +617,7 @@ const AdminAttendancePage = () => {
               }}
               locale={{
                 emptyText: (
-                  <Empty
-                    description="No attendance records found"
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  />
+                  <EmptyState compact title="No attendance records found" />
                 ),
               }}
               scroll={{ x: 1000 }}
@@ -652,12 +646,14 @@ const AdminAttendancePage = () => {
         }}
         okText="Update"
         okButtonProps={{ className: "bg-blue-600" }}
-        width={500}>
+        width={500}
+      >
         <Form form={form} layout="vertical" className="mt-6">
           <Form.Item
             name="status"
             label="Status"
-            rules={[{ required: true, message: "Please select status" }]}>
+            rules={[{ required: true, message: "Please select status" }]}
+          >
             <Select size="large">
               <Select.Option value="present">
                 <div className="flex items-center gap-2">

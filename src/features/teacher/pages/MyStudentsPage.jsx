@@ -10,9 +10,6 @@ import {
   Tag,
   Input,
   Select,
-  Statistic,
-  Spin,
-  Empty,
   Button,
   Tooltip,
   Badge,
@@ -38,7 +35,12 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 import {
   getMyAssignments,
   getStudentsByClass,
@@ -254,61 +256,38 @@ const MyStudentsPage = () => {
       {/* Overview Stats */}
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-indigo-500">
-            <Statistic
-              title={
-                <span className="text-gray-600 font-medium">
-                  Total Students
-                </span>
-              }
-              value={allStudents.length}
-              prefix={<TeamOutlined className="text-indigo-500" />}
-              styles={{ color: "#6366f1", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Total Students"
+            value={allStudents.length}
+            icon={<TeamOutlined />}
+            tone="indigo"
+          />
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-emerald-500">
-            <Statistic
-              title={
-                <span className="text-gray-600 font-medium">
-                  Active Students
-                </span>
-              }
-              value={
-                allStudents.filter((s) => s.enrollmentStatus === "active")
-                  .length
-              }
-              prefix={<CheckCircleOutlined className="text-emerald-500" />}
-              styles={{ color: "#10b981", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Active Students"
+            value={
+              allStudents.filter((s) => s.enrollmentStatus === "active").length
+            }
+            icon={<CheckCircleOutlined />}
+            tone="emerald"
+          />
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-amber-500">
-            <Statistic
-              title={
-                <span className="text-gray-600 font-medium">Total Classes</span>
-              }
-              value={classesData.length}
-              prefix={<BookOutlined className="text-amber-500" />}
-              styles={{ color: "#f59e0b", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Total Classes"
+            value={classesData.length}
+            icon={<BookOutlined />}
+            tone="amber"
+          />
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-rose-500">
-            <Statistic
-              title={
-                <span className="text-gray-600 font-medium">
-                  Currently Viewing
-                </span>
-              }
-              value={filteredStudents.length}
-              prefix={<FilterOutlined className="text-rose-500" />}
-              styles={{ color: "#f43f5e", fontWeight: "bold" }}
-            />
-          </Card>
+          <StatCard
+            title="Currently Viewing"
+            value={filteredStudents.length}
+            icon={<FilterOutlined />}
+            tone="pink"
+          />
         </Col>
       </Row>
 
@@ -336,12 +315,12 @@ const MyStudentsPage = () => {
           <Button
             icon={<ReloadOutlined />}
             onClick={fetchStudentsData}
-            size="large">
+            size="large"
+          >
             Refresh
           </Button>
         </div>
       </Card>
-
 
       {/* Students Grid */}
       {filteredStudents.length > 0 ? (
@@ -352,14 +331,16 @@ const MyStudentsPage = () => {
               className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 rounded-xl overflow-hidden border-0"
               style={{
                 background: getStudentCardGradient(index),
-              }}>
+              }}
+            >
               <div className="text-center mb-4">
                 <Badge
                   count={
                     student.enrollmentStatus === "active" ? (
                       <CheckCircleOutlined className="text-green-500 text-lg" />
                     ) : null
-                  }>
+                  }
+                >
                   <Avatar
                     size={80}
                     icon={<UserOutlined />}
@@ -382,7 +363,8 @@ const MyStudentsPage = () => {
 
                 <Tag
                   color={getEnrollmentColor(student.enrollmentStatus)}
-                  style={{ fontWeight: 500 }}>
+                  style={{ fontWeight: 500 }}
+                >
                   {getEnrollmentLabel(student.enrollmentStatus)}
                 </Tag>
               </div>
@@ -436,7 +418,8 @@ const MyStudentsPage = () => {
                   fontWeight: "600",
                   height: "40px",
                 }}
-                className="hover:opacity-90">
+                className="hover:opacity-90"
+              >
                 View Details
               </Button>
             </Card>
@@ -444,10 +427,7 @@ const MyStudentsPage = () => {
         </div>
       ) : (
         <Card className="shadow-md">
-          <Empty
-            description="No students found matching your filters"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
+          <EmptyState compact title="No students found matching your filters" />
         </Card>
       )}
 
@@ -473,7 +453,8 @@ const MyStudentsPage = () => {
         open={detailModalVisible}
         onCancel={() => setDetailModalVisible(false)}
         footer={null}
-        width={700}>
+        width={700}
+      >
         {selectedStudent && (
           <div className="space-y-4 mt-4">
             {/* Status Badge */}
@@ -484,7 +465,8 @@ const MyStudentsPage = () => {
                   fontSize: "14px",
                   padding: "6px 16px",
                   fontWeight: "600",
-                }}>
+                }}
+              >
                 {getEnrollmentLabel(selectedStudent.enrollmentStatus)}
               </Tag>
             </div>
@@ -566,7 +548,8 @@ const MyStudentsPage = () => {
                 type="primary"
                 icon={<CheckCircleOutlined />}
                 size="large"
-                className="flex-1">
+                className="flex-1"
+              >
                 Mark Attendance
               </Button>
               <Button icon={<TrophyOutlined />} size="large" className="flex-1">

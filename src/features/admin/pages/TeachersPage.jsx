@@ -207,7 +207,8 @@ const TeachersPage = () => {
               setEditingTeacher(null);
               form.resetFields();
               setIsModalOpen(true);
-            }}>
+            }}
+          >
             Add Teacher
           </Button>
         }
@@ -232,16 +233,19 @@ const TeachersPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={600}>
+        width={600}
+      >
         <Form
           form={form}
           layout="vertical"
           onFinish={handleSubmit}
-          className="mt-4">
+          className="mt-4"
+        >
           <Form.Item
             name="name"
             label="Full Name"
-            rules={[{ required: true, message: "Please enter teacher name" }]}>
+            rules={[{ required: true, message: "Please enter teacher name" }]}
+          >
             <Input prefix={<UserOutlined />} placeholder="Enter full name" />
           </Form.Item>
 
@@ -251,7 +255,8 @@ const TeachersPage = () => {
             rules={[
               { required: true, message: "Please enter email" },
               { type: "email", message: "Please enter a valid email" },
-            ]}>
+            ]}
+          >
             <Input
               prefix={<MailOutlined />}
               placeholder="Enter email address"
@@ -261,7 +266,8 @@ const TeachersPage = () => {
           <Form.Item
             name="phone"
             label="Phone Number"
-            rules={[{ required: true, message: "Please enter phone number" }]}>
+            rules={[{ required: true, message: "Please enter phone number" }]}
+          >
             <Input
               prefix={<PhoneOutlined />}
               placeholder="Enter phone number"
@@ -271,7 +277,8 @@ const TeachersPage = () => {
           <Form.Item
             name="subject"
             label="Subject"
-            rules={[{ required: true, message: "Please select subject" }]}>
+            rules={[{ required: true, message: "Please select subject" }]}
+          >
             <Select placeholder="Select subject">
               <Select.Option value="Mathematics">Mathematics</Select.Option>
               <Select.Option value="Science">Science</Select.Option>

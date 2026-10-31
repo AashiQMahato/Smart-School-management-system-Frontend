@@ -10,8 +10,6 @@ import {
   Avatar,
   Descriptions,
   Tag,
-  Spin,
-  Empty,
   Row,
   Col,
   Statistic,
@@ -30,7 +28,12 @@ import {
   BookOutlined,
   DollarOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  EmptyState,
+  LoadingScreen,
+  StatCard,
+} from "../../../components/UI";
 import { getDashboardStats } from "../../../services/admin.service";
 
 const AdminProfilePage = () => {
@@ -65,11 +68,7 @@ const AdminProfilePage = () => {
   }, [fetchProfileData]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading profile…" />;
   }
 
   if (!adminProfile) {
@@ -82,7 +81,7 @@ const AdminProfilePage = () => {
           subtitle="View your profile information"
         />
         <Card>
-          <Empty description="Profile not found" />
+          <EmptyState compact title="Profile not found" />
         </Card>
       </div>
     );
@@ -114,12 +113,14 @@ const AdminProfilePage = () => {
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                 <Tag
                   icon={<TrophyOutlined />}
-                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm">
+                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm"
+                >
                   System Administrator
                 </Tag>
                 <Tag
                   icon={<IdcardOutlined />}
-                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm">
+                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm"
+                >
                   Admin ID: {adminProfile.adminId || user._id}
                 </Tag>
               </div>
@@ -131,60 +132,36 @@ const AdminProfilePage = () => {
         {stats && (
           <Row gutter={[24, 24]} className="mt-6">
             <Col xs={12} sm={6}>
-              <Card className="text-center bg-blue-50 border-blue-200">
-                <Statistic
-                  title={
-                    <span className="text-blue-700 font-semibold">
-                      Total Students
-                    </span>
-                  }
-                  value={stats.totalStudents || 0}
-                  styles={{ color: "#2563eb" }}
-                  prefix={<UserOutlined />}
-                />
-              </Card>
+              <StatCard
+                title="Total Students"
+                value={stats.totalStudents || 0}
+                icon={UserOutlined}
+                tone="blue"
+              />
             </Col>
             <Col xs={12} sm={6}>
-              <Card className="text-center bg-emerald-50 border-emerald-200">
-                <Statistic
-                  title={
-                    <span className="text-emerald-700 font-semibold">
-                      Total Teachers
-                    </span>
-                  }
-                  value={stats.totalTeachers || 0}
-                  styles={{ color: "#059669" }}
-                  prefix={<TeamOutlined />}
-                />
-              </Card>
+              <StatCard
+                title="Total Teachers"
+                value={stats.totalTeachers || 0}
+                icon={TeamOutlined}
+                tone="emerald"
+              />
             </Col>
             <Col xs={12} sm={6}>
-              <Card className="text-center bg-purple-50 border-purple-200">
-                <Statistic
-                  title={
-                    <span className="text-purple-700 font-semibold">
-                      Total Classes
-                    </span>
-                  }
-                  value={stats.totalClasses || 0}
-                  styles={{ color: "#7c3aed" }}
-                  prefix={<BookOutlined />}
-                />
-              </Card>
+              <StatCard
+                title="Total Classes"
+                value={stats.totalClasses || 0}
+                icon={BookOutlined}
+                tone="purple"
+              />
             </Col>
             <Col xs={12} sm={6}>
-              <Card className="text-center bg-amber-50 border-amber-200">
-                <Statistic
-                  title={
-                    <span className="text-amber-700 font-semibold">
-                      Total Parents
-                    </span>
-                  }
-                  value={stats.totalParents || 0}
-                  styles={{ color: "#d97706" }}
-                  prefix={<UserOutlined />}
-                />
-              </Card>
+              <StatCard
+                title="Total Parents"
+                value={stats.totalParents || 0}
+                icon={UserOutlined}
+                tone="amber"
+              />
             </Col>
           </Row>
         )}
@@ -200,7 +177,8 @@ const AdminProfilePage = () => {
                 <span>Personal Information</span>
               </div>
             }
-            className="h-full shadow-md border-slate-200">
+            className="h-full shadow-md border-slate-200"
+          >
             <Descriptions column={1} bordered>
               <Descriptions.Item
                 label={
@@ -208,7 +186,8 @@ const AdminProfilePage = () => {
                     <UserOutlined className="mr-2" />
                     Full Name
                   </span>
-                }>
+                }
+              >
                 {user?.name}
               </Descriptions.Item>
               <Descriptions.Item
@@ -217,7 +196,8 @@ const AdminProfilePage = () => {
                     <MailOutlined className="mr-2" />
                     Email
                   </span>
-                }>
+                }
+              >
                 {user?.email || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -226,7 +206,8 @@ const AdminProfilePage = () => {
                     <PhoneOutlined className="mr-2" />
                     Phone
                   </span>
-                }>
+                }
+              >
                 {user?.phone || adminProfile.phone || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -235,7 +216,8 @@ const AdminProfilePage = () => {
                     <HomeOutlined className="mr-2" />
                     Address
                   </span>
-                }>
+                }
+              >
                 {adminProfile.address || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -244,7 +226,8 @@ const AdminProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Date of Birth
                   </span>
-                }>
+                }
+              >
                 {adminProfile.dateOfBirth
                   ? new Date(adminProfile.dateOfBirth).toLocaleDateString()
                   : "N/A"}
@@ -255,7 +238,8 @@ const AdminProfilePage = () => {
                     <UserOutlined className="mr-2" />
                     Status
                   </span>
-                }>
+                }
+              >
                 <Badge
                   status={user?.status === "active" ? "success" : "default"}
                   text={user?.status || "Active"}
@@ -274,7 +258,8 @@ const AdminProfilePage = () => {
                 <span>Professional Information</span>
               </div>
             }
-            className="h-full shadow-md border-slate-200">
+            className="h-full shadow-md border-slate-200"
+          >
             <Descriptions column={1} bordered>
               <Descriptions.Item
                 label={
@@ -282,7 +267,8 @@ const AdminProfilePage = () => {
                     <IdcardOutlined className="mr-2" />
                     Admin ID
                   </span>
-                }>
+                }
+              >
                 {adminProfile.adminId || user._id}
               </Descriptions.Item>
               <Descriptions.Item
@@ -291,7 +277,8 @@ const AdminProfilePage = () => {
                     <TrophyOutlined className="mr-2" />
                     Role
                   </span>
-                }>
+                }
+              >
                 System Administrator
               </Descriptions.Item>
               <Descriptions.Item
@@ -300,7 +287,8 @@ const AdminProfilePage = () => {
                     <TeamOutlined className="mr-2" />
                     Department
                   </span>
-                }>
+                }
+              >
                 {adminProfile.department || "Administration"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -309,7 +297,8 @@ const AdminProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Joining Date
                   </span>
-                }>
+                }
+              >
                 {adminProfile.joiningDate
                   ? new Date(adminProfile.joiningDate).toLocaleDateString()
                   : user.createdAt
@@ -322,7 +311,8 @@ const AdminProfilePage = () => {
                     <BookOutlined className="mr-2" />
                     Qualification
                   </span>
-                }>
+                }
+              >
                 {adminProfile.qualification || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -331,7 +321,8 @@ const AdminProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Experience
                   </span>
-                }>
+                }
+              >
                 {adminProfile.experience
                   ? `${adminProfile.experience} years`
                   : "N/A"}
@@ -349,7 +340,8 @@ const AdminProfilePage = () => {
                 <span>System Responsibilities</span>
               </div>
             }
-            className="shadow-md border-slate-200">
+            className="shadow-md border-slate-200"
+          >
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={12} md={6}>
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">

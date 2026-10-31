@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { Button, Modal, Select, message, Empty, Radio } from "antd";
+import { Button, Modal, Select, message, Radio } from "antd";
 import {
   DollarOutlined,
   CreditCardOutlined,
@@ -20,7 +20,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Wallet } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState } from "../../../components/UI";
 import * as feeService from "../../../services/fee.service";
 import * as parentService from "../../../services/parent.service";
 import {
@@ -220,13 +220,15 @@ const ParentFeePaymentPage = () => {
                 }
                 setBillPreviewOpen(true);
               }}
-              disabled={fees.length === 0}>
+              disabled={fees.length === 0}
+            >
               Download Bill
             </Button>
             <Button
               type={showHistory ? "primary" : "default"}
               icon={<HistoryOutlined />}
-              onClick={() => setShowHistory(!showHistory)}>
+              onClick={() => setShowHistory(!showHistory)}
+            >
               {showHistory ? "View Fees" : "Payment History"}
             </Button>
           </>
@@ -250,19 +252,22 @@ const ParentFeePaymentPage = () => {
                 selectedChildId === child._id
                   ? "bg-blue-600 text-white border-blue-600 shadow-md"
                   : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-              }`}>
+              }`}
+            >
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
                   selectedChildId === child._id
                     ? "bg-white/20 text-white"
                     : "bg-blue-100 text-blue-700"
-                }`}>
+                }`}
+              >
                 {(child.userId?.name || "S")[0].toUpperCase()}
               </div>
               {child.userId?.name || "Student"}
               {child.classId && (
                 <span
-                  className={`text-xs ${selectedChildId === child._id ? "text-blue-100" : "text-slate-400"}`}>
+                  className={`text-xs ${selectedChildId === child._id ? "text-blue-100" : "text-slate-400"}`}
+                >
                   · {child.classId.name}
                 </span>
               )}
@@ -323,14 +328,16 @@ const ParentFeePaymentPage = () => {
                     return (
                       <div
                         key={fee._id}
-                        className={`rounded-2xl border-2 p-5 ${isOverdue ? "border-red-200 bg-red-50/30" : "border-amber-200 bg-amber-50/30"} hover:shadow-md transition-shadow`}>
+                        className={`rounded-2xl border-2 p-5 ${isOverdue ? "border-red-200 bg-red-50/30" : "border-amber-200 bg-amber-50/30"} hover:shadow-md transition-shadow`}
+                      >
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex-1 min-w-0 pr-3">
                             <p className="font-bold text-slate-900">
                               {fee.description || fee.feeType}
                             </p>
                             <span
-                              className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full mt-1 ${statusConfig.bg} ${statusConfig.text}`}>
+                              className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full mt-1 ${statusConfig.bg} ${statusConfig.text}`}
+                            >
                               {statusConfig.icon} {statusConfig.label}
                             </span>
                           </div>
@@ -355,7 +362,8 @@ const ParentFeePaymentPage = () => {
                         )}
                         <div className="flex items-center justify-between">
                           <p
-                            className={`text-sm ${isOverdue ? "text-red-600 font-semibold" : "text-slate-500"}`}>
+                            className={`text-sm ${isOverdue ? "text-red-600 font-semibold" : "text-slate-500"}`}
+                          >
                             Due: {new Date(fee.dueDate).toLocaleDateString()}
                             {isOverdue && (
                               <span className="ml-1 text-xs bg-red-100 text-red-600 font-bold px-1.5 py-0.5 rounded">
@@ -370,7 +378,8 @@ const ParentFeePaymentPage = () => {
                               setSelectedFee(fee);
                               setPaymentModalOpen(true);
                             }}
-                            className="bg-blue-600! border-blue-600! rounded-xl font-semibold">
+                            className="bg-blue-600! border-blue-600! rounded-xl font-semibold"
+                          >
                             Pay Now
                           </Button>
                         </div>
@@ -399,7 +408,8 @@ const ParentFeePaymentPage = () => {
                   .map((fee) => (
                     <div
                       key={fee._id}
-                      className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5 flex items-start justify-between">
+                      className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5 flex items-start justify-between"
+                    >
                       <div className="min-w-0 pr-3">
                         <p className="font-bold text-slate-800">
                           {fee.description || fee.feeType}
@@ -432,12 +442,10 @@ const ParentFeePaymentPage = () => {
 
           {fees.length === 0 && (
             <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-16 text-center">
-              <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BankOutlined className="text-2xl text-blue-400" />
-              </div>
-              <Empty
-                description="No fees found for this child"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
+              <EmptyState
+                compact
+                icon={<BankOutlined />}
+                title="No fees found for this child"
               />
             </div>
           )}
@@ -462,7 +470,8 @@ const ParentFeePaymentPage = () => {
         footer={null}
         width={480}
         centered
-        closable={!processing}>
+        closable={!processing}
+      >
         {paymentSuccess ? (
           /* Success State */
           <div className="text-center py-8 px-4">
@@ -501,7 +510,8 @@ const ParentFeePaymentPage = () => {
               type="primary"
               onClick={closePaymentModal}
               className="bg-blue-600! border-blue-600! rounded-2xl! h-12! px-10! font-bold!"
-              size="large">
+              size="large"
+            >
               Done
             </Button>
           </div>
@@ -556,7 +566,8 @@ const ParentFeePaymentPage = () => {
                   <Radio.Group
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-full">
+                    className="w-full"
+                  >
                     <div className="grid grid-cols-2 gap-3">
                       {PAYMENT_METHODS.map((method) => (
                         <label
@@ -565,7 +576,8 @@ const ParentFeePaymentPage = () => {
                             paymentMethod === method.value
                               ? "border-blue-500 bg-blue-50"
                               : "border-slate-200 hover:border-slate-300"
-                          }`}>
+                          }`}
+                        >
                           <Radio value={method.value} className="hidden" />
                           <span className="text-2xl">{method.icon}</span>
                           <span className="font-semibold text-slate-700">
@@ -583,7 +595,8 @@ const ParentFeePaymentPage = () => {
                   block
                   onClick={handlePay}
                   loading={processing}
-                  className="bg-blue-600! border-blue-600! rounded-2xl! h-14! text-lg! font-black!">
+                  className="bg-blue-600! border-blue-600! rounded-2xl! h-14! text-lg! font-black!"
+                >
                   {processing
                     ? "Processing..."
                     : `Pay ₹${selectedFee.balanceDue?.toLocaleString()}`}

@@ -4,7 +4,8 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { Spin, Progress, Tooltip, message } from "antd";
+import { Progress, Tooltip, message } from "antd";
+import { InfoRow, LoadingScreen } from "../../../components/UI";
 import {
   UserOutlined,
   MailOutlined,
@@ -36,28 +37,6 @@ const GRADIENT_PAIRS = [
   ["bg-rose-600", "bg-rose-100 text-pink-700"],
   ["bg-amber-600", "bg-amber-100 text-amber-700"],
 ];
-
-const InfoRow = ({
-  icon: Icon,
-  label,
-  value,
-  iconColor = "text-slate-400",
-}) => (
-  <div className="flex items-start gap-3 py-3 border-b border-slate-100 last:border-0">
-    <div
-      className={`mt-0.5 p-1.5 rounded-lg bg-slate-50 ${iconColor} shrink-0`}>
-      <Icon style={{ fontSize: 14 }} />
-    </div>
-    <div className="flex-1 min-w-0">
-      <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-0.5">
-        {label}
-      </p>
-      <p className="text-sm font-semibold text-slate-800 wrap-break-word">
-        {value ? value : <span className="text-slate-400 font-medium">—</span>}
-      </p>
-    </div>
-  </div>
-);
 
 const toTitle = (str) =>
   (str || "")
@@ -105,7 +84,8 @@ const ChildCard = ({ child, index }) => {
       <div className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
         <div className="flex items-center gap-4 mb-4">
           <div
-            className={`w-14 h-14 rounded-2xl ${pair[0]} flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0`}>
+            className={`w-14 h-14 rounded-2xl ${pair[0]} flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0`}
+          >
             {getInitials(name)}
           </div>
           <div className="flex-1 min-w-0">
@@ -119,7 +99,8 @@ const ChildCard = ({ child, index }) => {
                 status === "active"
                   ? "bg-emerald-100 text-emerald-700"
                   : "bg-slate-100 text-slate-500"
-              }`}>
+              }`}
+            >
               {status}
             </span>
           </div>
@@ -138,7 +119,8 @@ const ChildCard = ({ child, index }) => {
           <Tooltip
             title={
               attendance === null ? "Loading..." : `${attendance}% attendance`
-            }>
+            }
+          >
             <Progress
               percent={attendance ?? 0}
               showInfo={false}
@@ -206,11 +188,7 @@ const ParentProfilePage = () => {
   }, [fetchData]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-80">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading profile…" />;
   }
 
   if (!parentProfile) {
@@ -254,7 +232,8 @@ const ParentProfilePage = () => {
                     isActive
                       ? "bg-emerald-100 text-emerald-700"
                       : "bg-slate-100 text-slate-600"
-                  }`}>
+                  }`}
+                >
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
                       isActive ? "bg-emerald-500" : "bg-slate-400"
@@ -278,7 +257,8 @@ const ParentProfilePage = () => {
           <div className="flex items-center gap-2">
             <Link
               to="/parent/settings"
-              className="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold transition-colors">
+              className="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold transition-colors"
+            >
               Settings
             </Link>
           </div>
@@ -289,41 +269,42 @@ const ParentProfilePage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
             <h2 className="font-bold text-slate-800 mb-4">Contact</h2>
             <InfoRow
-              icon={MailOutlined}
+              divided
+              icon={<MailOutlined />}
               label="Email"
               value={user?.email}
-              iconColor="text-blue-500"
             />
             <InfoRow
-              icon={PhoneOutlined}
+              divided
+              icon={<PhoneOutlined />}
               label="Phone"
               value={user?.phone}
-              iconColor="text-emerald-500"
             />
             <InfoRow
-              icon={PhoneOutlined}
+              divided
+              icon={<PhoneOutlined />}
               label="Alternate Phone"
               value={parentProfile?.alternatePhone}
-              iconColor="text-teal-500"
             />
             <InfoRow
-              icon={HomeOutlined}
+              divided
+              icon={<HomeOutlined />}
               label="Address"
               value={parentProfile?.address}
-              iconColor="text-amber-500"
             />
           </div>
 
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
             <h2 className="font-bold text-slate-800 mb-4">Parent Details</h2>
             <InfoRow
-              icon={BankOutlined}
+              divided
+              icon={<BankOutlined />}
               label="Occupation"
               value={parentProfile?.occupation}
-              iconColor="text-sky-500"
             />
             <InfoRow
-              icon={SafetyOutlined}
+              divided
+              icon={<SafetyOutlined />}
               label="Emergency Contact"
               value={
                 typeof parentProfile?.isEmergencyContact === "boolean"
@@ -332,13 +313,12 @@ const ParentProfilePage = () => {
                     : "No"
                   : null
               }
-              iconColor="text-red-500"
             />
             <InfoRow
-              icon={UserOutlined}
+              divided
+              icon={<UserOutlined />}
               label="Relationship"
               value={toTitle(parentProfile?.relationshipType || "guardian")}
-              iconColor="text-violet-500"
             />
           </div>
         </div>
@@ -349,7 +329,8 @@ const ParentProfilePage = () => {
             <h2 className="text-lg font-black text-slate-900">My Children</h2>
             <Link
               to="/parent/children"
-              className="text-sm font-semibold text-violet-600 hover:text-violet-700">
+              className="text-sm font-semibold text-violet-600 hover:text-violet-700"
+            >
               View all →
             </Link>
           </div>

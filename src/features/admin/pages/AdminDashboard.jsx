@@ -235,7 +235,8 @@ const AdminDashboard = () => {
             ? "Loading today's school overview…"
             : `${totalStudents.toLocaleString("en-IN")} students across ${stats?.totalClasses ?? classes.length} classes, taught by ${stats?.totalTeachers ?? 0} teachers.`
         }
-        rightContent={<SchoolIllustration />}>
+        rightContent={<SchoolIllustration />}
+      >
         <div className="flex flex-wrap gap-2.5">
           <Link to="/admin/students/enroll" className="ssd-btn ssd-btn--light">
             <UserPlus size={16} aria-hidden="true" />
@@ -315,7 +316,8 @@ const AdminDashboard = () => {
           title="Fee collection"
           subtitle="Payments received, last 6 months"
           link={{ to: "/admin/fees", label: "Finance" }}
-          padded>
+          padded
+        >
           {loading ? (
             <Skeleton active paragraph={{ rows: 5 }} />
           ) : trend.length ? (
@@ -378,7 +380,8 @@ const AdminDashboard = () => {
           tone="teal"
           title="Fee status"
           subtitle="All fee records"
-          padded>
+          padded
+        >
           {loading ? (
             <Skeleton active paragraph={{ rows: 5 }} />
           ) : feeStatus.length ? (
@@ -394,7 +397,8 @@ const AdminDashboard = () => {
                       outerRadius={78}
                       paddingAngle={2}
                       stroke="none"
-                      animationDuration={900}>
+                      animationDuration={900}
+                    >
                       {feeStatus.map((s) => (
                         <Cell key={s.key} fill={chartColor(s.tone)} />
                       ))}
@@ -430,7 +434,8 @@ const AdminDashboard = () => {
           title="Students per class"
           subtitle="Enrolled students by class"
           link={{ to: "/admin/academics/classes", label: "Classes" }}
-          padded>
+          padded
+        >
           {loading ? (
             <Skeleton active paragraph={{ rows: 5 }} />
           ) : classDistribution.length ? (
@@ -438,7 +443,8 @@ const AdminDashboard = () => {
               <ResponsiveContainer>
                 <BarChart
                   data={classDistribution}
-                  margin={{ left: -18, right: 8, top: 8 }}>
+                  margin={{ left: -18, right: 8, top: 8 }}
+                >
                   <CartesianGrid vertical={false} strokeDasharray="3 4" />
                   <XAxis
                     dataKey="name"
@@ -489,7 +495,8 @@ const AdminDashboard = () => {
           title="New enrolments"
           subtitle="Students admitted per month"
           link={{ to: "/admin/students/enroll", label: "Enroll" }}
-          padded>
+          padded
+        >
           {loading ? (
             <Skeleton active paragraph={{ rows: 5 }} />
           ) : enrolment.some((m) => m.students > 0) ? (
@@ -497,7 +504,8 @@ const AdminDashboard = () => {
               <ResponsiveContainer>
                 <BarChart
                   data={enrolment}
-                  margin={{ left: -18, right: 8, top: 8 }}>
+                  margin={{ left: -18, right: 8, top: 8 }}
+                >
                   <CartesianGrid vertical={false} strokeDasharray="3 4" />
                   <XAxis dataKey="month" tickLine={false} axisLine={false} />
                   <YAxis
@@ -534,7 +542,8 @@ const AdminDashboard = () => {
           title="Exams & results"
           subtitle="Marks entry and publishing"
           link={{ to: "/admin/results", label: "Results" }}
-          padded>
+          padded
+        >
           {loading ? (
             <Skeleton active paragraph={{ rows: 4 }} />
           ) : exams ? (
@@ -548,7 +557,8 @@ const AdminDashboard = () => {
                 ].map(([label, value, tone]) => (
                   <div
                     key={label}
-                    className={`rounded-xl bg-slate-50 p-3 ssd-tone--${tone}`}>
+                    className={`rounded-xl bg-slate-50 p-3 ssd-tone--${tone}`}
+                  >
                     <span className="ssd-chip ssd-chip--dot mb-1.5">
                       {label}
                     </span>
@@ -590,7 +600,8 @@ const AdminDashboard = () => {
           icon={GraduationCap}
           tone="blue"
           title="Recent students"
-          link={{ to: "/admin/users/students", label: "All" }}>
+          link={{ to: "/admin/users/students", label: "All" }}
+        >
           {loading ? (
             <div className="p-5">
               <Skeleton active avatar paragraph={{ rows: 3 }} />
@@ -610,7 +621,8 @@ const AdminDashboard = () => {
                     </small>
                   </div>
                   <span
-                    className={`ssd-chip ssd-tone--${(s.enrollmentStatus || "active") === "active" ? "emerald" : "amber"} capitalize`}>
+                    className={`ssd-chip ssd-tone--${(s.enrollmentStatus || "active") === "active" ? "emerald" : "amber"} capitalize`}
+                  >
                     {s.enrollmentStatus || "active"}
                   </span>
                 </li>
@@ -632,7 +644,8 @@ const AdminDashboard = () => {
           icon={Receipt}
           tone="teal"
           title="Recent payments"
-          link={{ to: "/admin/fees", label: "All" }}>
+          link={{ to: "/admin/fees", label: "All" }}
+        >
           {loading ? (
             <div className="p-5">
               <Skeleton active paragraph={{ rows: 3 }} />
@@ -669,7 +682,8 @@ const AdminDashboard = () => {
           tone="amber"
           title="Coming up"
           subtitle="School calendar"
-          link={{ to: "/admin/calendar", label: "Calendar" }}>
+          link={{ to: "/admin/calendar", label: "Calendar" }}
+        >
           {eventsLoading ? (
             <div className="p-5">
               <Skeleton active paragraph={{ rows: 3 }} />
@@ -710,7 +724,8 @@ const AdminDashboard = () => {
       <Panel
         title="Quick actions"
         subtitle="Common administration tasks"
-        padded>
+        padded
+      >
         <div className="ssd-actions">
           {QUICK_ACTIONS.admin.map((a) => (
             <QuickActionCard
@@ -789,7 +804,8 @@ const AttendanceOverview = ({ classes, loading: classesLoading }) => {
         )
       }
       link={{ to: "/admin/attendance", label: "Records" }}
-      padded>
+      padded
+    >
       {classesLoading || state.loading ? (
         <Skeleton active avatar paragraph={{ rows: 3 }} />
       ) : !classes.length ? (
@@ -808,7 +824,8 @@ const AttendanceOverview = ({ classes, loading: classesLoading }) => {
             ].map(([label, value, t]) => (
               <div
                 key={label}
-                className={`rounded-xl bg-slate-50 p-3 ssd-tone--${t}`}>
+                className={`rounded-xl bg-slate-50 p-3 ssd-tone--${t}`}
+              >
                 <dt className="ssd-chip ssd-chip--dot mb-1">{label}</dt>
                 <dd className="m-0 text-xl font-bold tabular-nums">
                   {value || 0}

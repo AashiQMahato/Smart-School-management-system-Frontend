@@ -6,7 +6,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button, Skeleton } from "antd";
 import { Wallet } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState } from "../../../components/UI";
 import { message } from "antd";
 import * as feeService from "../../../services/fee.service";
 import {
@@ -111,7 +111,8 @@ const StudentFeePage = () => {
                 className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor">
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -119,7 +120,8 @@ const StudentFeePage = () => {
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
-            }>
+            }
+          >
             Download Bill PDF
           </Button>
         }
@@ -131,7 +133,8 @@ const StudentFeePage = () => {
           className="w-4 h-4 text-blue-600 shrink-0"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor">
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -153,28 +156,10 @@ const StudentFeePage = () => {
 
       {/* Empty State */}
       {fees.length === 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-16 text-center">
-          <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg
-              className="w-10 h-10 text-slate-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-              />
-            </svg>
-          </div>
-          <h3 className="text-lg font-bold text-slate-700 mb-1">
-            No Fees Assigned
-          </h3>
-          <p className="text-slate-400">
-            Your fee records will appear here once assigned by the school.
-          </p>
-        </div>
+        <EmptyState
+          title="No Fees Assigned"
+          description="Your fee records will appear here once assigned by the school."
+        />
       )}
 
       {fees.length > 0 && (
@@ -192,7 +177,8 @@ const StudentFeePage = () => {
                   activeView === key
                     ? "bg-white text-blue-700 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
-                }`}>
+                }`}
+              >
                 {label}
               </button>
             ))}

@@ -6,6 +6,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Modal, Spin, Alert, Button } from "antd";
+import { LoadingScreen } from "../../../components/UI";
 
 function docToBlobUrl(doc) {
   const blob = doc.output("blob");
@@ -109,18 +110,18 @@ export default function PdfPreviewModal({
             type="primary"
             onClick={handleDownload}
             disabled={!docRef || loading || !!error}
-            className="bg-blue-600">
+            className="bg-blue-600"
+          >
             Download PDF
           </Button>
         </div>
       }
       className="[&_.ant-modal-content]:rounded-2xl [&_.ant-modal-content]:overflow-hidden"
-      destroyOnClose>
+      destroyOnClose
+    >
       <div className="min-h-[70vh] bg-slate-50 rounded-xl overflow-hidden border border-slate-200">
         {loading ? (
-          <div className="flex items-center justify-center h-[70vh]">
-            <Spin size="large" />
-          </div>
+          <LoadingScreen compact message="Loading preview…" />
         ) : error ? (
           <div className="p-4">
             <Alert type="error" message={error} showIcon />

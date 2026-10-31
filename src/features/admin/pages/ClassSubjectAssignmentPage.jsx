@@ -20,7 +20,6 @@ import {
   Col,
   Divider,
   List,
-  Empty,
   Badge,
   Dropdown,
   Skeleton,
@@ -47,7 +46,7 @@ import { getAllClasses } from "../../../services/class.service";
 import { getAllSubjects } from "../../../services/subject.service";
 
 import { Link2 } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState, StatCard } from "../../../components/UI";
 const ClassSubjectAssignmentPage = () => {
   const [classes, setClasses] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -214,11 +213,7 @@ const ClassSubjectAssignmentPage = () => {
               ))}
             </div>
           ) : filteredClasses.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description="No classes found"
-              className="my-12"
-            />
+            <EmptyState compact title="No classes found" />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredClasses.map((cls) => (
@@ -329,11 +324,7 @@ const ClassSubjectAssignmentPage = () => {
               ))}
             </div>
           ) : filteredSubjects.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description="No subjects found"
-              className="my-12"
-            />
+            <EmptyState compact title="No subjects found" />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredSubjects.map((subject) => (
@@ -507,61 +498,30 @@ const ClassSubjectAssignmentPage = () => {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-              <BookOutlined className="text-2xl text-purple-600" />
-            </div>
-            <div>
-              <p className="text-slate-500 text-sm">Total Classes</p>
-              <p className="text-2xl font-bold text-slate-900">
-                {classes.length}
-              </p>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-              <CheckCircleOutlined className="text-2xl text-green-600" />
-            </div>
-            <div>
-              <p className="text-slate-500 text-sm">With Class Teacher</p>
-              <p className="text-2xl font-bold text-green-600">
-                {classesWithTeacher}
-              </p>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-              <BookOutlined className="text-2xl text-blue-600" />
-            </div>
-            <div>
-              <p className="text-slate-500 text-sm">Total Subjects</p>
-              <p className="text-2xl font-bold text-slate-900">
-                {subjects.length}
-              </p>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
-              <TeamOutlined className="text-2xl text-orange-600" />
-            </div>
-            <div>
-              <p className="text-slate-500 text-sm">Total Teachers</p>
-              <p className="text-2xl font-bold text-slate-900">
-                {teachers.length}
-              </p>
-            </div>
-          </div>
-        </Card>
+        <StatCard
+          title="Total Classes"
+          value={classes.length}
+          icon={BookOutlined}
+          tone="purple"
+        />
+        <StatCard
+          title="With Class Teacher"
+          value={classesWithTeacher}
+          icon={CheckCircleOutlined}
+          tone="emerald"
+        />
+        <StatCard
+          title="Total Subjects"
+          value={subjects.length}
+          icon={BookOutlined}
+          tone="blue"
+        />
+        <StatCard
+          title="Total Teachers"
+          value={teachers.length}
+          icon={TeamOutlined}
+          tone="orange"
+        />
       </div>
 
       <Card className="border-0 shadow-sm">
@@ -897,10 +857,7 @@ const ClassSubjectAssignmentPage = () => {
                             })}
                           </div>
                         ) : (
-                          <Empty
-                            description="No classes assigned"
-                            image={Empty.PRESENTED_IMAGE_SIMPLE}
-                          />
+                          <EmptyState compact title="No classes assigned" />
                         )}
                       </Card>
                     </Col>
@@ -1000,10 +957,7 @@ const ClassSubjectAssignmentPage = () => {
                             })}
                           </div>
                         ) : (
-                          <Empty
-                            description="No subjects assigned"
-                            image={Empty.PRESENTED_IMAGE_SIMPLE}
-                          />
+                          <EmptyState compact title="No subjects assigned" />
                         )}
                       </Card>
                     </Col>

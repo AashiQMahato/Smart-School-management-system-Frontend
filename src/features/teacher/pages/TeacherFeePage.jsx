@@ -10,7 +10,6 @@ import {
   Table,
   Tag,
   Spin,
-  Empty,
   Modal,
   Tooltip,
   Input,
@@ -38,7 +37,7 @@ import {
   DueWarningBanner,
 } from "../../fee/components";
 import { Wallet } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
 
 const { Option } = Select;
 const { Search } = Input;
@@ -319,17 +318,13 @@ export default function TeacherFeePage() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   if (loadingClasses) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading classes…" />;
   }
 
   if (classes.length === 0) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <Empty description="You are not assigned as class teacher for any class." />
+        <EmptyState title="You are not assigned as class teacher for any class." />
       </div>
     );
   }
@@ -452,11 +447,9 @@ export default function TeacherFeePage() {
 
           <div className="p-4">
             {loadingStudents ? (
-              <div className="flex justify-center py-16">
-                <Spin size="large" />
-              </div>
+              <LoadingScreen compact message="Loading students…" />
             ) : filteredStudents.length === 0 ? (
-              <Empty description="No students found" className="py-10" />
+              <EmptyState compact title="No students found" />
             ) : (
               <Table
                 dataSource={filteredStudents}
@@ -538,7 +531,7 @@ export default function TeacherFeePage() {
               <DueWarningBanner fees={detailStudent.fees} />
 
               {detailStudent.fees.length === 0 ? (
-                <Empty description="No fees assigned" />
+                <EmptyState compact title="No fees assigned" />
               ) : (
                 <FeeBreakdownCard
                   fees={detailStudent.fees}

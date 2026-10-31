@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Trophy } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  EmptyState,
+  LoadingScreen,
+  StatCard,
+} from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -12,8 +17,6 @@ import {
   Tag,
   Tabs,
   message,
-  Empty,
-  Spin,
   InputNumber,
   Popconfirm,
 } from "antd";
@@ -411,7 +414,8 @@ const AdminResultsPage = () => {
             </div>
           </div>
           <div
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${sc.bg} ${sc.text}`}>
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${sc.bg} ${sc.text}`}
+          >
             <span className={`w-1.5 h-1.5 rounded-full ${sc.dot}`} />
             {sc.label}
           </div>
@@ -432,7 +436,8 @@ const AdminResultsPage = () => {
             {exam.classes.map((c) => (
               <span
                 key={c._id}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700"
+              >
                 {c.name}-{c.section}
               </span>
             ))}
@@ -443,17 +448,20 @@ const AdminResultsPage = () => {
         <div className="flex items-center gap-2 mb-3 pt-3 border-t border-slate-100">
           <button
             onClick={() => openEditExam(exam)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+          >
             <EditOutlined /> Edit
           </button>
           <button
             onClick={() => openSubjectModal(exam)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-700 transition-colors">
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-700 transition-colors"
+          >
             <FileTextOutlined /> Subjects
           </button>
           <Popconfirm
             title="Delete this exam?"
-            onConfirm={() => handleDeleteExam(exam._id)}>
+            onConfirm={() => handleDeleteExam(exam._id)}
+          >
             <button className="ml-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-red-50 hover:bg-red-100 text-red-600 transition-colors">
               <DeleteOutlined /> Delete
             </button>
@@ -469,29 +477,34 @@ const AdminResultsPage = () => {
             {exam.classes.map((c) => (
               <div
                 key={c._id}
-                className="flex items-center gap-1.5 bg-slate-50 rounded-xl px-3 py-2">
+                className="flex items-center gap-1.5 bg-slate-50 rounded-xl px-3 py-2"
+              >
                 <span className="text-xs font-bold text-slate-600 min-w-16">
                   {c.name}-{c.section}
                 </span>
                 <div className="flex items-center gap-1 ml-auto flex-wrap">
                   <button
                     onClick={() => openResults(exam, c._id)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 transition-colors">
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 transition-colors"
+                  >
                     <EyeOutlined /> Results
                   </button>
                   <button
                     onClick={() => openAnalytics(exam, c._id)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition-colors">
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition-colors"
+                  >
                     <BarChartOutlined /> Analytics
                   </button>
                   <button
                     onClick={() => handlePublish(exam._id, c._id)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-700 transition-colors">
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-700 transition-colors"
+                  >
                     <SendOutlined /> Publish
                   </button>
                   <button
                     onClick={() => handleUnpublish(exam._id, c._id)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-orange-100 hover:bg-orange-200 text-orange-700 transition-colors">
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-orange-100 hover:bg-orange-200 text-orange-700 transition-colors"
+                  >
                     <CloseCircleOutlined /> Unpublish
                   </button>
                 </div>
@@ -590,17 +603,20 @@ const AdminResultsPage = () => {
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => openApprovalDetails(r)}
-            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 transition-colors">
+            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 transition-colors"
+          >
             <EyeOutlined /> View Marks
           </button>
           <button
             onClick={() => handleApprove(r._id)}
-            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-700 transition-colors">
+            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-700 transition-colors"
+          >
             <CheckCircleOutlined /> Approve
           </button>
           <button
             onClick={() => handleReject(r._id)}
-            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-red-100 hover:bg-red-200 text-red-600 transition-colors">
+            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-red-100 hover:bg-red-200 text-red-600 transition-colors"
+          >
             <CloseCircleOutlined /> Reject
           </button>
         </div>
@@ -703,7 +719,8 @@ const AdminResultsPage = () => {
               <Button
                 icon={<ReloadOutlined />}
                 onClick={fetchExams}
-                loading={loading}>
+                loading={loading}
+              >
                 Refresh
               </Button>
               <Button
@@ -714,7 +731,8 @@ const AdminResultsPage = () => {
                   setEditingExam(null);
                   examForm.resetFields();
                   setExamModalOpen(true);
-                }}>
+                }}
+              >
                 Create Exam
               </Button>
             </div>
@@ -725,7 +743,8 @@ const AdminResultsPage = () => {
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                    className="bg-slate-50 rounded-2xl p-5 animate-pulse"
+                  >
                     <div className="flex gap-3 mb-3">
                       <div className="w-11 h-11 bg-slate-200 rounded-xl" />
                       <div className="flex-1">
@@ -741,11 +760,7 @@ const AdminResultsPage = () => {
                 ))}
               </div>
             ) : exams.length === 0 ? (
-              <Empty
-                description="No exams created yet"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                className="my-10"
-              />
+              <EmptyState compact title="No exams created yet" />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {exams.map((exam) => (
@@ -788,21 +803,14 @@ const AdminResultsPage = () => {
             <Button
               icon={<ReloadOutlined />}
               onClick={fetchApprovalQueue}
-              loading={loading}>
+              loading={loading}
+            >
               Refresh
             </Button>
           </div>
           <div className="p-4">
             {approvalQueue.length === 0 ? (
-              <Empty
-                description={
-                  <span className="text-slate-500">
-                    All marks have been reviewed
-                  </span>
-                }
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                className="my-10"
-              />
+              <EmptyState compact title="All marks have been reviewed" />
             ) : (
               <Table
                 columns={approvalColumns}
@@ -839,7 +847,8 @@ const AdminResultsPage = () => {
                 setEditingExam(null);
                 examForm.resetFields();
                 setExamModalOpen(true);
-              }}>
+              }}
+            >
               Create Exam
             </Button>
           </>
@@ -866,7 +875,8 @@ const AdminResultsPage = () => {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}>
+                className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-rose-100 mt-0.5">{s.label}</div>
               </div>
@@ -909,14 +919,16 @@ const AdminResultsPage = () => {
                     setApprovalDetailsOpen(false);
                     setSelectedApprovalItem(null);
                     setApprovalMarks([]);
-                  }}>
+                  }}
+                >
                   Close
                 </Button>,
                 <Button
                   key="reject"
                   danger
                   icon={<CloseCircleOutlined />}
-                  onClick={() => handleReject(selectedApprovalItem._id)}>
+                  onClick={() => handleReject(selectedApprovalItem._id)}
+                >
                   Reject
                 </Button>,
                 <Button
@@ -924,13 +936,15 @@ const AdminResultsPage = () => {
                   type="primary"
                   className="bg-green-600"
                   icon={<CheckCircleOutlined />}
-                  onClick={() => handleApprove(selectedApprovalItem._id)}>
+                  onClick={() => handleApprove(selectedApprovalItem._id)}
+                >
                   Approve
                 </Button>,
               ]
             : null
         }
-        width={900}>
+        width={900}
+      >
         {selectedApprovalItem ? (
           <div className="space-y-4">
             {/* Info card */}
@@ -994,7 +1008,7 @@ const AdminResultsPage = () => {
             />
           </div>
         ) : (
-          <Empty description="No approval selected" />
+          <EmptyState compact title="No approval selected" />
         )}
       </Modal>
 
@@ -1018,38 +1032,44 @@ const AdminResultsPage = () => {
         }}
         okText={editingExam ? "Update" : "Create"}
         okButtonProps={{ className: "bg-blue-600" }}
-        width={600}>
+        width={600}
+      >
         <Form form={examForm} layout="vertical" className="mt-4">
           <Form.Item
             name="name"
             label="Exam Name"
-            rules={[{ required: true, message: "Required" }]}>
+            rules={[{ required: true, message: "Required" }]}
+          >
             <Input placeholder="e.g. Midterm Examination 2026" />
           </Form.Item>
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="examType"
               label="Exam Type"
-              rules={[{ required: true }]}>
+              rules={[{ required: true }]}
+            >
               <Select options={examTypes} placeholder="Select type" />
             </Form.Item>
             <Form.Item
               name="academicYear"
               label="Academic Year"
-              rules={[{ required: true }]}>
+              rules={[{ required: true }]}
+            >
               <Input placeholder="2025-2026" />
             </Form.Item>
           </div>
           <Form.Item
             name="dateRange"
             label="Exam Dates"
-            rules={[{ required: true }]}>
+            rules={[{ required: true }]}
+          >
             <DatePicker.RangePicker className="w-full" />
           </Form.Item>
           <Form.Item
             name="classes"
             label="Assign to Classes"
-            rules={[{ required: true }]}>
+            rules={[{ required: true }]}
+          >
             <Select
               mode="multiple"
               placeholder="Select classes"
@@ -1082,7 +1102,8 @@ const AdminResultsPage = () => {
         open={subjectModalOpen}
         onCancel={() => setSubjectModalOpen(false)}
         footer={null}
-        width={800}>
+        width={800}
+      >
         {examSubjects.length > 0 && (
           <div className="mb-4">
             <h4 className="font-semibold mb-2">Assigned Subjects</h4>
@@ -1132,11 +1153,13 @@ const AdminResultsPage = () => {
                 {fields.map(({ key, name, ...rest }) => (
                   <div
                     key={key}
-                    className="grid grid-cols-5 gap-2 items-end mb-2">
+                    className="grid grid-cols-5 gap-2 items-end mb-2"
+                  >
                     <Form.Item
                       {...rest}
                       name={[name, "subjectId"]}
-                      rules={[{ required: true }]}>
+                      rules={[{ required: true }]}
+                    >
                       <Select
                         placeholder="Subject"
                         options={subjects.map((s) => ({
@@ -1148,7 +1171,8 @@ const AdminResultsPage = () => {
                     <Form.Item
                       {...rest}
                       name={[name, "classId"]}
-                      rules={[{ required: true }]}>
+                      rules={[{ required: true }]}
+                    >
                       <Select
                         placeholder="Class"
                         options={classes.map((c) => ({
@@ -1160,7 +1184,8 @@ const AdminResultsPage = () => {
                     <Form.Item
                       {...rest}
                       name={[name, "maxMarks"]}
-                      rules={[{ required: true }]}>
+                      rules={[{ required: true }]}
+                    >
                       <InputNumber
                         placeholder="Max"
                         min={1}
@@ -1170,7 +1195,8 @@ const AdminResultsPage = () => {
                     <Form.Item
                       {...rest}
                       name={[name, "passingMarks"]}
-                      rules={[{ required: true }]}>
+                      rules={[{ required: true }]}
+                    >
                       <InputNumber
                         placeholder="Pass"
                         min={0}
@@ -1191,7 +1217,8 @@ const AdminResultsPage = () => {
           <Button
             type="primary"
             className="bg-blue-600 mt-4"
-            onClick={handleAddSubjects}>
+            onClick={handleAddSubjects}
+          >
             Save Subjects
           </Button>
         </Form>
@@ -1203,7 +1230,8 @@ const AdminResultsPage = () => {
         open={resultsModalOpen}
         onCancel={() => setResultsModalOpen(false)}
         footer={null}
-        width={1000}>
+        width={1000}
+      >
         <ResultTable results={resultsData} loading={resultsLoading} />
       </Modal>
 
@@ -1225,13 +1253,12 @@ const AdminResultsPage = () => {
           setAnalyticsData(null);
         }}
         footer={null}
-        width={900}>
+        width={900}
+      >
         {analyticsLoading ? (
-          <div className="text-center py-12">
-            <Spin size="large" />
-          </div>
+          <LoadingScreen compact message="Loading results analytics…" />
         ) : !analyticsData ? (
-          <Empty description="No results data available" />
+          <EmptyState compact title="No results data available" />
         ) : (
           <div>
             {/* Overview Tiles */}
@@ -1240,38 +1267,30 @@ const AdminResultsPage = () => {
                 {
                   label: "Total Students",
                   value: analyticsData.overview.totalStudents,
-                  color: "bg-slate-50 border-slate-200",
-                  text: "text-slate-800",
+                  tone: "slate",
                 },
                 {
                   label: "Class Average",
                   value: `${analyticsData.overview.overallAverage}%`,
-                  color: "bg-blue-50 border-blue-200",
-                  text: "text-blue-700",
+                  tone: "blue",
                 },
                 {
                   label: "Passed",
                   value: analyticsData.overview.passCount,
-                  color: "bg-emerald-50 border-emerald-200",
-                  text: "text-emerald-700",
+                  tone: "emerald",
                 },
                 {
                   label: "Failed",
                   value: analyticsData.overview.failCount,
-                  color: "bg-red-50 border-red-200",
-                  text: "text-red-700",
+                  tone: "red",
                 },
               ].map((tile) => (
-                <div
+                <StatCard
                   key={tile.label}
-                  className={`${tile.color} border rounded-2xl p-4 text-center`}>
-                  <div className={`text-2xl font-black ${tile.text}`}>
-                    {tile.value}
-                  </div>
-                  <div className="text-xs text-slate-500 mt-1">
-                    {tile.label}
-                  </div>
-                </div>
+                  title={tile.label}
+                  value={tile.value}
+                  tone={tile.tone}
+                />
               ))}
             </div>
 
@@ -1283,7 +1302,8 @@ const AdminResultsPage = () => {
               {analyticsData.subjectAnalytics?.map((sa, i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                  className="bg-slate-50 border border-slate-200 rounded-2xl p-4"
+                >
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <span className="font-bold text-slate-800">

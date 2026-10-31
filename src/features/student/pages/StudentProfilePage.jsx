@@ -3,7 +3,8 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { Spin, Empty, message } from "antd";
+import { message } from "antd";
+import { EmptyState, LoadingScreen } from "../../../components/UI";
 import {
   UserOutlined,
   MailOutlined,
@@ -100,11 +101,7 @@ const StudentProfilePage = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading profile…" />;
   }
 
   if (!studentProfile) {
@@ -115,10 +112,7 @@ const StudentProfilePage = () => {
           <p className="text-indigo-200">View your profile information</p>
         </div>
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-16 text-center">
-          <Empty
-            description="Profile not found"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
+          <EmptyState compact title="Profile not found" />
         </div>
       </div>
     );
@@ -181,7 +175,8 @@ const StudentProfilePage = () => {
                   (studentProfile.enrollmentStatus || "active") === "active"
                     ? "bg-emerald-400/30 text-emerald-100"
                     : "bg-amber-400/30 text-amber-100"
-                }`}>
+                }`}
+              >
                 {(studentProfile.enrollmentStatus || "active").toUpperCase()}
               </span>
             </div>
@@ -210,7 +205,8 @@ const StudentProfilePage = () => {
               ].map(({ icon, label }) => (
                 <span
                   key={label}
-                  className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/20 text-sm font-semibold px-3 py-1.5 rounded-full">
+                  className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/20 text-sm font-semibold px-3 py-1.5 rounded-full"
+                >
                   {icon} {label}
                 </span>
               ))}
@@ -274,10 +270,12 @@ const StudentProfilePage = () => {
         ].map(({ icon, label, value, bg, light, text, bar, pct, barColor }) => (
           <div
             key={label}
-            className={`${light} rounded-2xl p-4 border border-white shadow-sm`}>
+            className={`${light} rounded-2xl p-4 border border-white shadow-sm`}
+          >
             <div className="flex items-center gap-3 mb-2">
               <div
-                className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center text-white shrink-0`}>
+                className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center text-white shrink-0`}
+              >
                 {icon}
               </div>
               <div>
@@ -472,7 +470,8 @@ const StudentProfilePage = () => {
                 />
               </div>
               <span
-                className={`text-xl font-black min-w-14 text-right ${rateText}`}>
+                className={`text-xl font-black min-w-14 text-right ${rateText}`}
+              >
                 {attendanceRate}%
               </span>
             </div>
@@ -510,7 +509,8 @@ const StudentProfilePage = () => {
                       : a.status === "absent"
                         ? "bg-red-100 text-red-600"
                         : "bg-amber-100 text-amber-600"
-                  }`}>
+                  }`}
+                >
                   {new Date(a.date).getDate()}
                 </div>
               ))}
@@ -557,9 +557,11 @@ const StudentProfilePage = () => {
                   return (
                     <div
                       key={subject?._id || index}
-                      className={`flex items-center gap-3 p-3 rounded-2xl border ${colorClass} bg-opacity-60`}>
+                      className={`flex items-center gap-3 p-3 rounded-2xl border ${colorClass} bg-opacity-60`}
+                    >
                       <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm shrink-0 ${colorClass}`}>
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm shrink-0 ${colorClass}`}
+                      >
                         {(subject.name || "S")[0].toUpperCase()}
                       </div>
                       <div className="min-w-0">
@@ -716,7 +718,8 @@ const StudentProfilePage = () => {
               return (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                  className="bg-slate-50 rounded-2xl p-4 border border-slate-100"
+                >
                   <div className="flex items-start justify-between mb-2">
                     <div className="min-w-0 pr-2">
                       <p className="font-bold text-slate-800 text-sm truncate">
@@ -727,7 +730,8 @@ const StudentProfilePage = () => {
                       </p>
                     </div>
                     <span
-                      className={`text-lg font-black shrink-0 ${textColor}`}>
+                      className={`text-lg font-black shrink-0 ${textColor}`}
+                    >
                       {pct}%
                     </span>
                   </div>

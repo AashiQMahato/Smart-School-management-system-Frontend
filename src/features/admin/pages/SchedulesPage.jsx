@@ -231,13 +231,15 @@ const SchedulesPage = () => {
                 <RefreshCw
                   className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
                 />
-              }>
+              }
+            >
               Refresh
             </Button>
             <Button
               type="primary"
               icon={<Plus className="w-4 h-4" />}
-              onClick={handleAddSchedule}>
+              onClick={handleAddSchedule}
+            >
               Add Schedule
             </Button>
           </>
@@ -260,7 +262,8 @@ const SchedulesPage = () => {
             ].map((s, i) => (
               <div
                 key={i}
-                className="bg-white/15 rounded-2xl p-3 text-center border border-white/10">
+                className="bg-white/15 rounded-2xl p-3 text-center border border-white/10"
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-indigo-100 mt-0.5">{s.label}</div>
               </div>
@@ -287,7 +290,8 @@ const SchedulesPage = () => {
               onChange={(e) =>
                 setFilters((p) => ({ ...p, classId: e.target.value }))
               }
-              className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 bg-white">
+              className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 bg-white"
+            >
               <option value="">All classes</option>
               {classes.map((c) => (
                 <option key={c._id} value={c._id}>
@@ -337,7 +341,8 @@ const SchedulesPage = () => {
               onChange={(e) =>
                 setFilters((p) => ({ ...p, dayOfWeek: e.target.value }))
               }
-              className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 bg-white">
+              className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 bg-white"
+            >
               <option value="">All days</option>
               {[
                 "Monday",
@@ -373,7 +378,8 @@ const SchedulesPage = () => {
                 dayOfWeek: "",
               })
             }
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors">
+            className="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+          >
             Reset Filters
           </button>
         </div>
@@ -386,7 +392,8 @@ const SchedulesPage = () => {
           <span className="flex-1">{successMessage}</span>
           <button
             onClick={() => setSuccessMessage("")}
-            className="p-1 hover:bg-emerald-100 rounded-lg transition-colors">
+            className="p-1 hover:bg-emerald-100 rounded-lg transition-colors"
+          >
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -398,7 +405,8 @@ const SchedulesPage = () => {
           <span className="flex-1">{error}</span>
           <button
             onClick={() => setError(null)}
-            className="p-1 hover:bg-red-100 rounded-lg transition-colors">
+            className="p-1 hover:bg-red-100 rounded-lg transition-colors"
+          >
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -413,7 +421,8 @@ const SchedulesPage = () => {
           </div>
           <button
             onClick={() => setConflictError(null)}
-            className="p-1 hover:bg-amber-100 rounded-lg transition-colors">
+            className="p-1 hover:bg-amber-100 rounded-lg transition-colors"
+          >
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -474,7 +483,8 @@ const SchedulesPage = () => {
         <div className="fixed bottom-6 right-6 z-40">
           <button
             onClick={() => handleDeleteSchedule(editingSchedule._id)}
-            className="flex items-center gap-2 bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 transition-all shadow-lg shadow-red-200 hover:shadow-xl">
+            className="flex items-center gap-2 bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 transition-all shadow-lg shadow-red-200 hover:shadow-xl"
+          >
             <Trash2 className="w-5 h-5" />
             Delete Schedule
           </button>

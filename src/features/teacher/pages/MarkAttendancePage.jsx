@@ -11,8 +11,6 @@ import {
   DatePicker,
   message,
   Avatar,
-  Spin,
-  Empty,
   Tooltip,
 } from "antd";
 import {
@@ -25,7 +23,7 @@ import {
   UsergroupAddOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMyAssignments } from "../../../services/teacher.service";
 import {
@@ -242,11 +240,7 @@ const MarkAttendancePage = () => {
     subjectOptions.find((s) => s.value === selectedSubject)?.label || "Subject";
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading attendance…" />;
   }
 
   return (
@@ -258,7 +252,8 @@ const MarkAttendancePage = () => {
         actions={
           <Button
             icon={<ArrowLeftOutlined />}
-            onClick={() => navigate("/teacher/attendance")}>
+            onClick={() => navigate("/teacher/attendance")}
+          >
             Back to Overview
           </Button>
         }
@@ -395,13 +390,15 @@ const MarkAttendancePage = () => {
             <Button
               size="small"
               onClick={() => handleMarkAll("present")}
-              className="border-emerald-300 text-emerald-700 hover:bg-emerald-50">
+              className="border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+            >
               <CheckCircleOutlined /> All Present
             </Button>
             <Button
               size="small"
               onClick={() => handleMarkAll("absent")}
-              className="border-red-300 text-red-700 hover:bg-red-50">
+              className="border-red-300 text-red-700 hover:bg-red-50"
+            >
               <CloseCircleOutlined /> All Absent
             </Button>
           </div>
@@ -426,12 +423,17 @@ const MarkAttendancePage = () => {
             disabled={
               !selectedClass || !selectedSubject || students.length === 0
             }
-            className="bg-blue-600 hover:bg-blue-700">
+            className="bg-blue-600 hover:bg-blue-700"
+          >
             {existingAttendance ? "Update Attendance" : "Save Attendance"}
           </Button>
-        }>
+        }
+      >
         {students.length === 0 ? (
-          <Empty description="No students found. Please select a class." />
+          <EmptyState
+            compact
+            title="No students found. Please select a class."
+          />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {students.map((student) => (
@@ -483,7 +485,8 @@ const StudentAttendanceCard = ({ student, status, onStatusChange }) => {
       className={`
         p-4 rounded-xl border-2 ${config.border} ${config.bg}
         transition-all duration-200
-      `}>
+      `}
+    >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <Avatar size={40} icon={<UserOutlined />} className="bg-slate-600">
@@ -512,7 +515,8 @@ const StudentAttendanceCard = ({ student, status, onStatusChange }) => {
                   ? "bg-emerald-500 border-emerald-500 text-white"
                   : "bg-white border-slate-200 text-slate-600 hover:border-emerald-300 hover:text-emerald-600"
               }
-            `}>
+            `}
+          >
             <CheckCircleOutlined />
           </button>
         </Tooltip>
@@ -528,7 +532,8 @@ const StudentAttendanceCard = ({ student, status, onStatusChange }) => {
                   ? "bg-red-500 border-red-500 text-white"
                   : "bg-white border-slate-200 text-slate-600 hover:border-red-300 hover:text-red-600"
               }
-            `}>
+            `}
+          >
             <CloseCircleOutlined />
           </button>
         </Tooltip>
@@ -544,7 +549,8 @@ const StudentAttendanceCard = ({ student, status, onStatusChange }) => {
                   ? "bg-amber-500 border-amber-500 text-white"
                   : "bg-white border-slate-200 text-slate-600 hover:border-amber-300 hover:text-amber-600"
               }
-            `}>
+            `}
+          >
             <ClockCircleOutlined />
           </button>
         </Tooltip>

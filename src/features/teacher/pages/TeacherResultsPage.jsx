@@ -10,9 +10,6 @@ import {
   Tag,
   Space,
   Tabs,
-  Empty,
-  Spin,
-  Statistic,
   Progress,
 } from "antd";
 import {
@@ -35,7 +32,12 @@ import { getStudentsByClass } from "../../../services/teacher.service";
 import { GradeBadge } from "../../../components/Results";
 
 import { Trophy } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 const examTypeLabels = {
   "unit-test-1": "Unit Test 1",
   "unit-test-2": "Unit Test 2",
@@ -427,7 +429,10 @@ const TeacherResultsPage = () => {
           )}
 
           {!selectedExamSubject && (
-            <Empty description="Select an exam and subject to enter marks" />
+            <EmptyState
+              compact
+              title="Select an exam and subject to enter marks"
+            />
           )}
         </div>
       ),
@@ -463,40 +468,29 @@ const TeacherResultsPage = () => {
           </div>
 
           {loading ? (
-            <div className="text-center py-12">
-              <Spin size="large" />
-            </div>
+            <LoadingScreen compact message="Loading performance…" />
           ) : analyticsData ? (
             <div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <Card className="text-center">
-                  <Statistic
-                    title="Students"
-                    value={analyticsData.overview?.totalStudents || 0}
-                  />
-                </Card>
-                <Card className="text-center">
-                  <Statistic
-                    title="Average"
-                    value={analyticsData.overview?.overallAverage || 0}
-                    suffix="%"
-                    styles={{ color: "#2563eb" }}
-                  />
-                </Card>
-                <Card className="text-center">
-                  <Statistic
-                    title="Pass"
-                    value={analyticsData.overview?.passCount || 0}
-                    styles={{ color: "#16a34a" }}
-                  />
-                </Card>
-                <Card className="text-center">
-                  <Statistic
-                    title="Fail"
-                    value={analyticsData.overview?.failCount || 0}
-                    styles={{ color: "#dc2626" }}
-                  />
-                </Card>
+                <StatCard
+                  title="Students"
+                  value={analyticsData.overview?.totalStudents || 0}
+                />
+                <StatCard
+                  title="Average"
+                  value={`${analyticsData.overview?.overallAverage || 0}%`}
+                  tone="blue"
+                />
+                <StatCard
+                  title="Pass"
+                  value={analyticsData.overview?.passCount || 0}
+                  tone="emerald"
+                />
+                <StatCard
+                  title="Fail"
+                  value={analyticsData.overview?.failCount || 0}
+                  tone="red"
+                />
               </div>
 
               <h4 className="font-semibold mb-3">Subject Breakdown</h4>
@@ -562,7 +556,7 @@ const TeacherResultsPage = () => {
               />
             </div>
           ) : (
-            <Empty description="Select an exam to view performance" />
+            <EmptyState compact title="Select an exam to view performance" />
           )}
         </div>
       ),

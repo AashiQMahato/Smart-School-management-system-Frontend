@@ -29,7 +29,7 @@ import {
   LinkOutlined,
   DisconnectOutlined,
 } from "@ant-design/icons";
-import { PageHeader, DataTable } from "../../../components/UI";
+import { PageHeader, DataTable, StatCard } from "../../../components/UI";
 import {
   getAllUsers,
   createUser,
@@ -137,7 +137,8 @@ const ParentsPage = () => {
             description="This will also delete the user account."
             onConfirm={() => handleDelete(record)}
             okText="Yes"
-            cancelText="No">
+            cancelText="No"
+          >
             <Tooltip title="Delete Parent">
               <Button size="small" danger icon={<DeleteOutlined />} />
             </Tooltip>
@@ -227,7 +228,8 @@ const ParentsPage = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={handleCreate}>
+              onClick={handleCreate}
+            >
               Add Parent
             </Button>
           </Space>
@@ -237,45 +239,28 @@ const ParentsPage = () => {
       {/* Stats */}
       <Row gutter={[16, 16]} className="mb-6">
         <Col xs={8}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <TeamOutlined className="text-purple-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{totalParents}</div>
-                <div className="text-xs text-gray-500">Total Parents</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="Total Parents"
+            value={totalParents}
+            icon={TeamOutlined}
+            tone="purple"
+          />
         </Col>
         <Col xs={8}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                <LinkOutlined className="text-green-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{parentsWithChildren}</div>
-                <div className="text-xs text-gray-500">With Children</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="With Children"
+            value={parentsWithChildren}
+            icon={LinkOutlined}
+            tone="emerald"
+          />
         </Col>
         <Col xs={8}>
-          <Card size="small">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                <DisconnectOutlined className="text-yellow-600 text-lg" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">
-                  {parentsWithoutChildren}
-                </div>
-                <div className="text-xs text-gray-500">No Children</div>
-              </div>
-            </div>
-          </Card>
+          <StatCard
+            title="No Children"
+            value={parentsWithoutChildren}
+            icon={DisconnectOutlined}
+            tone="amber"
+          />
         </Col>
       </Row>
 
@@ -300,12 +285,14 @@ const ParentsPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item
             name="name"
             label="Full Name"
-            rules={[{ required: true, message: "Please enter parent name" }]}>
+            rules={[{ required: true, message: "Please enter parent name" }]}
+          >
             <Input placeholder="Enter full name" />
           </Form.Item>
 
@@ -315,7 +302,8 @@ const ParentsPage = () => {
             rules={[
               { required: true, message: "Please enter email" },
               { type: "email", message: "Please enter valid email" },
-            ]}>
+            ]}
+          >
             <Input
               placeholder="parent@example.com"
               disabled={!!editingParent}
@@ -325,7 +313,8 @@ const ParentsPage = () => {
           <Form.Item
             name="phone"
             label="Phone"
-            rules={[{ required: true, message: "Please enter phone number" }]}>
+            rules={[{ required: true, message: "Please enter phone number" }]}
+          >
             <Input placeholder="Enter phone number" />
           </Form.Item>
 

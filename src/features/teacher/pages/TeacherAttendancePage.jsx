@@ -11,11 +11,8 @@ import {
   DatePicker,
   Table,
   Tag,
-  Empty,
-  Spin,
   message,
   Progress,
-  Statistic,
   Row,
   Col,
   Space,
@@ -37,7 +34,12 @@ import {
   TrophyOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 import { getMyAssignments } from "../../../services/teacher.service";
 import {
   getAttendanceByClass,
@@ -218,7 +220,8 @@ const TeacherAttendancePage = () => {
             <Avatar
               size={40}
               className="bg-blue-500 shrink-0"
-              icon={<UserOutlined />}>
+              icon={<UserOutlined />}
+            >
               {userName?.[0]?.toUpperCase()}
             </Avatar>
             <div>
@@ -288,7 +291,8 @@ const TeacherAttendancePage = () => {
         return (
           <Tag
             icon={statusConfig.icon}
-            className={`px-3 py-1 font-medium border ${statusConfig.className}`}>
+            className={`px-3 py-1 font-medium border ${statusConfig.className}`}
+          >
             {statusConfig.label}
           </Tag>
         );
@@ -306,11 +310,7 @@ const TeacherAttendancePage = () => {
   ];
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" tip="Loading..." />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading attendance…" />;
   }
 
   return (
@@ -323,7 +323,8 @@ const TeacherAttendancePage = () => {
           <Button
             type="primary"
             icon={<PlusOutlined />}
-            onClick={() => navigate("/teacher/attendance/mark")}>
+            onClick={() => navigate("/teacher/attendance/mark")}
+          >
             Mark Attendance
           </Button>
         }
@@ -398,7 +399,8 @@ const TeacherAttendancePage = () => {
               loading={attendanceLoading}
               disabled={!selectedClass}
               size="large"
-              className="w-full">
+              className="w-full"
+            >
               Refresh
             </Button>
           </Col>
@@ -409,63 +411,39 @@ const TeacherAttendancePage = () => {
       {selectedClass && (
         <Row gutter={[16, 16]}>
           <Col xs={12} sm={12} md={6} lg={6}>
-            <Card className="border-0 shadow-md rounded-xl hover:shadow-lg transition-shadow">
-              <Statistic
-                title={
-                  <Text className="text-slate-600 flex items-center gap-2">
-                    <TeamOutlined />
-                    Total Records
-                  </Text>
-                }
-                value={localSummary.total}
-                styles={{ color: "#475569", fontWeight: "bold" }}
-              />
-            </Card>
+            <StatCard
+              title="Total Records"
+              value={localSummary.total}
+              icon={<TeamOutlined />}
+              tone="slate"
+            />
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6}>
-            <Card className="border-0 shadow-md rounded-xl bg-emerald-50 hover:shadow-lg transition-shadow">
-              <Statistic
-                title={
-                  <Text className="text-emerald-700 flex items-center gap-2 font-semibold">
-                    <CheckCircleOutlined />
-                    Present
-                  </Text>
-                }
-                value={localSummary.present}
-                styles={{ color: "#059669", fontWeight: "bold" }}
-              />
-            </Card>
+            <StatCard
+              title="Present"
+              value={localSummary.present}
+              icon={<CheckCircleOutlined />}
+              tone="emerald"
+            />
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6}>
-            <Card className="border-0 shadow-md rounded-xl bg-red-50 hover:shadow-lg transition-shadow">
-              <Statistic
-                title={
-                  <Text className="text-red-700 flex items-center gap-2 font-semibold">
-                    <CloseCircleOutlined />
-                    Absent
-                  </Text>
-                }
-                value={localSummary.absent}
-                styles={{ color: "#dc2626", fontWeight: "bold" }}
-              />
-            </Card>
+            <StatCard
+              title="Absent"
+              value={localSummary.absent}
+              icon={<CloseCircleOutlined />}
+              tone="red"
+            />
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6}>
-            <Card className="border-0 shadow-md rounded-xl bg-amber-50 hover:shadow-lg transition-shadow">
-              <Statistic
-                title={
-                  <Text className="text-amber-700 flex items-center gap-2 font-semibold">
-                    <ClockCircleOutlined />
-                    Late
-                  </Text>
-                }
-                value={localSummary.late}
-                styles={{ color: "#d97706", fontWeight: "bold" }}
-              />
-            </Card>
+            <StatCard
+              title="Late"
+              value={localSummary.late}
+              icon={<ClockCircleOutlined />}
+              tone="amber"
+            />
           </Col>
         </Row>
       )}
@@ -532,17 +510,12 @@ const TeacherAttendancePage = () => {
               </Text>
             </div>
           </div>
-        }>
+        }
+      >
         {!selectedClass ? (
-          <Empty
-            description={
-              <div>
-                <Text className="text-slate-600">
-                  Please select a class to view attendance records
-                </Text>
-              </div>
-            }
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          <EmptyState
+            compact
+            title="Please select a class to view attendance records"
           />
         ) : (
           <Table
@@ -566,9 +539,9 @@ const TeacherAttendancePage = () => {
             }}
             locale={{
               emptyText: (
-                <Empty
-                  description="No attendance records found for the selected filters"
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                <EmptyState
+                  compact
+                  title="No attendance records found for the selected filters"
                 />
               ),
             }}

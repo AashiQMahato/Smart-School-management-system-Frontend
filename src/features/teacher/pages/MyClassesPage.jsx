@@ -8,10 +8,8 @@ import {
   Card,
   Row,
   Col,
-  Statistic,
   Tag,
   Spin,
-  Empty,
   Button,
   Tooltip,
   Progress,
@@ -36,7 +34,12 @@ import {
   BarsOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { PageHeader, LoadingScreen, EmptyState } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 import {
   getMyAssignments,
   getStudentsByClass,
@@ -179,9 +182,8 @@ const MyClassesPage = () => {
       // Fetch student counts for each class
       for (const classData of classesArray) {
         try {
-        
           const studentsRes = await getStudentsByClass(classData.id);
-        
+
           classData.totalStudents = studentsRes?.data?.length || 0;
 
           if (isDebugEnabled()) {
@@ -296,53 +298,33 @@ const MyClassesPage = () => {
 
       {/* Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-indigo-500">
-          <Statistic
-            title={
-              <span className="text-gray-600 font-medium">Total Classes</span>
-            }
-            value={classesData.length}
-            prefix={<BookOutlined className="text-indigo-500" />}
-            styles={{ color: "#6366f1", fontWeight: "bold" }}
-          />
-        </Card>
+        <StatCard
+          title="Total Classes"
+          value={classesData.length}
+          icon={<BookOutlined />}
+          tone="indigo"
+        />
 
-        <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-emerald-500">
-          <Statistic
-            title={
-              <span className="text-gray-600 font-medium">Total Students</span>
-            }
-            value={getTotalStudents()}
-            prefix={<TeamOutlined className="text-emerald-500" />}
-            styles={{ color: "#10b981", fontWeight: "bold" }}
-          />
-        </Card>
+        <StatCard
+          title="Total Students"
+          value={getTotalStudents()}
+          icon={<TeamOutlined />}
+          tone="emerald"
+        />
 
-        <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-amber-500">
-          <Statistic
-            title={
-              <span className="text-gray-600 font-medium">
-                Subjects Teaching
-              </span>
-            }
-            value={getTotalSubjects()}
-            prefix={<FileTextOutlined className="text-amber-500" />}
-            styles={{ color: "#f59e0b", fontWeight: "bold" }}
-          />
-        </Card>
+        <StatCard
+          title="Subjects Teaching"
+          value={getTotalSubjects()}
+          icon={<FileTextOutlined />}
+          tone="amber"
+        />
 
-        <Card className="shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-l-rose-500">
-          <Statistic
-            title={
-              <span className="text-gray-600 font-medium">
-                Class Teacher Of
-              </span>
-            }
-            value={getClassTeacherCount()}
-            prefix={<StarOutlined className="text-rose-500" />}
-            styles={{ color: "#f43f5e", fontWeight: "bold" }}
-          />
-        </Card>
+        <StatCard
+          title="Class Teacher Of"
+          value={getClassTeacherCount()}
+          icon={<StarOutlined />}
+          tone="pink"
+        />
       </div>
 
       {/* Classes Grid */}
@@ -353,7 +335,8 @@ const MyClassesPage = () => {
             className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 rounded-2xl overflow-hidden border-0"
             style={{
               background: getGradientColors(index),
-            }}>
+            }}
+          >
             {/* Class Header */}
             <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
@@ -425,7 +408,8 @@ const MyClassesPage = () => {
                           color: "#4f46e5",
                           fontWeight: "500",
                           border: "none",
-                        }}>
+                        }}
+                      >
                         {subject.name}
                       </Tag>
                     ))}
@@ -436,7 +420,8 @@ const MyClassesPage = () => {
                           color: "#4f46e5",
                           fontWeight: "500",
                           border: "none",
-                        }}>
+                        }}
+                      >
                         +{classData.subjects.length - 3} more
                       </Tag>
                     )}
@@ -460,7 +445,8 @@ const MyClassesPage = () => {
                   fontWeight: "600",
                   height: "44px",
                 }}
-                className="hover:opacity-90">
+                className="hover:opacity-90"
+              >
                 View Details
               </Button>
             </div>
@@ -491,7 +477,8 @@ const MyClassesPage = () => {
         onCancel={() => setDetailModalVisible(false)}
         footer={null}
         width={800}
-        className="class-detail-modal">
+        className="class-detail-modal"
+      >
         {selectedClass && (
           <div className="space-y-4">
             {/* Class Info */}
@@ -517,7 +504,8 @@ const MyClassesPage = () => {
                         <Tag
                           key={subject.id}
                           color="indigo"
-                          className="text-sm">
+                          className="text-sm"
+                        >
                           {subject.name}
                         </Tag>
                       ))
@@ -557,7 +545,8 @@ const MyClassesPage = () => {
                             icon={<UserOutlined />}
                             style={{
                               backgroundColor: getAvatarColor(index),
-                            }}>
+                            }}
+                          >
                             {student.rollNumber || index + 1}
                           </Avatar>
                         }
@@ -586,10 +575,7 @@ const MyClassesPage = () => {
                   )}
                 />
               ) : (
-                <Empty
-                  description="No students found in this class"
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                />
+                <EmptyState compact title="No students found in this class" />
               )}
             </div>
           </div>

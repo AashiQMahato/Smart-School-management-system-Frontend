@@ -5,20 +5,11 @@
 
 import React, { useState, useEffect } from "react";
 import { BookOpen } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState } from "../../../components/UI";
 import * as subjectService from "../../../services/subject.service";
 import * as classService from "../../../services/class.service";
 import { getAllTeachers } from "../../../services/admin.service";
-import {
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  message,
-  Dropdown,
-  Empty,
-} from "antd";
+import { Button, Modal, Form, Input, Select, message, Dropdown } from "antd";
 import {
   PlusOutlined,
   ReloadOutlined,
@@ -190,7 +181,8 @@ const SubjectsPage = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => handleOpenModal()}>
+              onClick={() => handleOpenModal()}
+            >
               Add Subject
             </Button>
           </>
@@ -228,7 +220,8 @@ const SubjectsPage = () => {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-green-100 mt-0.5">{s.label}</div>
               </div>
@@ -262,7 +255,8 @@ const SubjectsPage = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse"
+                >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -274,16 +268,13 @@ const SubjectsPage = () => {
               ))}
             </div>
           ) : filteredSubjects.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={
-                <span className="text-slate-500">
-                  {searchQuery
-                    ? "No subjects found matching your search"
-                    : "No subjects found. Create your first subject to get started."}
-                </span>
+            <EmptyState
+              compact
+              title={
+                searchQuery
+                  ? "No subjects found matching your search"
+                  : "No subjects found. Create your first subject to get started."
               }
-              className="my-12"
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -296,7 +287,8 @@ const SubjectsPage = () => {
                 return (
                   <div
                     key={subject._id}
-                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group">
+                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center">
@@ -314,7 +306,8 @@ const SubjectsPage = () => {
                       <Dropdown
                         menu={{ items: getActionItems(subject) }}
                         trigger={["click"]}
-                        placement="bottomRight">
+                        placement="bottomRight"
+                      >
                         <Button
                           type="text"
                           icon={<MoreOutlined />}
@@ -333,7 +326,8 @@ const SubjectsPage = () => {
                             {linkedClasses.slice(0, 2).map((cls) => (
                               <span
                                 key={cls?._id || cls}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                                className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold"
+                              >
                                 <BookOutlined className="text-[10px]" />{" "}
                                 {cls?.name || "Class"}
                                 {cls?.section ? ` - ${cls.section}` : ""}
@@ -390,42 +384,49 @@ const SubjectsPage = () => {
         open={isModalOpen}
         onCancel={handleCloseModal}
         footer={null}
-        width={600}>
+        width={600}
+      >
         <Form
           form={form}
           layout="vertical"
           onFinish={handleSubmit}
-          className="mt-4">
+          className="mt-4"
+        >
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="name"
               label={<span className="font-medium">Subject Name</span>}
-              rules={[{ required: true, message: "Subject name is required" }]}>
+              rules={[{ required: true, message: "Subject name is required" }]}
+            >
               <Input size="large" placeholder="e.g., Mathematics" />
             </Form.Item>
             <Form.Item
               name="code"
               label={<span className="font-medium">Subject Code</span>}
-              rules={[{ required: true, message: "Subject code is required" }]}>
+              rules={[{ required: true, message: "Subject code is required" }]}
+            >
               <Input size="large" placeholder="e.g., MATH101" />
             </Form.Item>
           </div>
           <Form.Item
             name="academicYear"
             label={<span className="font-medium">Academic Year</span>}
-            rules={[{ required: true, message: "Academic year is required" }]}>
+            rules={[{ required: true, message: "Academic year is required" }]}
+          >
             <Input size="large" placeholder="e.g., 2024-2025" />
           </Form.Item>
           <Form.Item
             name="classIds"
-            label={<span className="font-medium">Classes (Optional)</span>}>
+            label={<span className="font-medium">Classes (Optional)</span>}
+          >
             <Select
               size="large"
               mode="multiple"
               placeholder="Select one or more classes"
               allowClear
               showSearch
-              optionFilterProp="children">
+              optionFilterProp="children"
+            >
               {classes.map((cls) => (
                 <Select.Option key={cls._id} value={cls._id}>
                   {cls.name} - {cls.section} ({cls.academicYear})
@@ -437,13 +438,15 @@ const SubjectsPage = () => {
             name="assignedTeacher"
             label={
               <span className="font-medium">Assigned Teacher (Optional)</span>
-            }>
+            }
+          >
             <Select
               size="large"
               placeholder="Select a teacher"
               allowClear
               showSearch
-              optionFilterProp="children">
+              optionFilterProp="children"
+            >
               {teachers.map((teacher) => (
                 <Select.Option key={teacher._id} value={teacher._id}>
                   {teacher.userId?.name || "N/A"} ({teacher.userId?.email || ""}
@@ -454,7 +457,8 @@ const SubjectsPage = () => {
           </Form.Item>
           <Form.Item
             name="description"
-            label={<span className="font-medium">Description (Optional)</span>}>
+            label={<span className="font-medium">Description (Optional)</span>}
+          >
             <Input.TextArea
               rows={3}
               size="large"
@@ -466,7 +470,8 @@ const SubjectsPage = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="bg-green-600 hover:bg-green-700">
+              className="bg-green-600 hover:bg-green-700"
+            >
               {editingSubject ? "Update" : "Create"} Subject
             </Button>
           </div>

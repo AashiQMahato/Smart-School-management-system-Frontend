@@ -39,7 +39,7 @@ import {
 } from "../../../services/calendar.service";
 import { getAllClasses } from "../../../services/class.service";
 
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, StatCard } from "../../../components/UI";
 const AdminCalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState("month");
@@ -255,31 +255,29 @@ const AdminCalendarPage = () => {
       {/* Analytics Cards */}
       {analytics && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <AnalyticsCard
+          <StatCard
             icon={<CalendarIcon size={20} />}
-            label="Events This Month"
+            title="Events This Month"
             value={analytics.totalThisMonth}
-            color="indigo"
+            tone="indigo"
           />
-          <AnalyticsCard
+          <StatCard
             icon={<BookOpen size={20} />}
-            label="Upcoming Exams"
+            title="Upcoming Exams"
             value={analytics.upcomingExams}
-            color="red"
+            tone="red"
           />
-          <AnalyticsCard
+          <StatCard
             icon={<PartyPopper size={20} />}
-            label="Holidays"
+            title="Holidays"
             value={analytics.holidayCount}
-            color="green"
+            tone="emerald"
           />
-          <AnalyticsCard
+          <StatCard
             icon={<AlertTriangle size={20} />}
-            label="Overlapping Events"
+            title="Overlapping Events"
             value={analytics.overlappingWarnings?.length || 0}
-            color={
-              analytics.overlappingWarnings?.length > 0 ? "amber" : "slate"
-            }
+            tone={analytics.overlappingWarnings?.length > 0 ? "amber" : "slate"}
           />
         </div>
       )}
@@ -368,28 +366,6 @@ const AdminCalendarPage = () => {
 };
 
 // ==================== Sub Components ====================
-
-const AnalyticsCard = ({ icon, label, value, color }) => {
-  const colors = {
-    indigo: "bg-indigo-50 text-indigo-600 border-indigo-100",
-    red: "bg-red-50 text-red-600 border-red-100",
-    green: "bg-green-50 text-green-600 border-green-100",
-    amber: "bg-amber-50 text-amber-600 border-amber-100",
-    slate: "bg-slate-50 text-slate-600 border-slate-100",
-  };
-
-  return (
-    <div
-      className={`flex items-center gap-3 p-4 rounded-xl border ${colors[color]} transition-all duration-300 hover:shadow-md`}
-    >
-      <div className="p-2 rounded-lg bg-white/80 shadow-sm">{icon}</div>
-      <div>
-        <div className="text-2xl font-bold">{value}</div>
-        <div className="text-xs font-medium opacity-70">{label}</div>
-      </div>
-    </div>
-  );
-};
 
 const EventDetailPanel = ({
   event,

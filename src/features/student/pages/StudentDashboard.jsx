@@ -113,7 +113,8 @@ const ContactRow = ({ label, tone, name, email, phone }) => (
           href={`mailto:${email}`}
           className={`ssd-chip ssd-tone--${tone}`}
           aria-label={`Email ${name}`}
-          title={email}>
+          title={email}
+        >
           <Mail size={13} aria-hidden="true" />
         </a>
       )}
@@ -122,7 +123,8 @@ const ContactRow = ({ label, tone, name, email, phone }) => (
           href={`tel:${phone}`}
           className={`ssd-chip ssd-tone--${tone}`}
           aria-label={`Call ${name}`}
-          title={phone}>
+          title={phone}
+        >
           <Phone size={13} aria-hidden="true" />
         </a>
       )}
@@ -413,7 +415,8 @@ const StudentDashboard = () => {
             ? "Loading your day…"
             : classLine || "Your class details will appear once assigned."
         }
-        rightContent={<SchoolIllustration />}>
+        rightContent={<SchoolIllustration />}
+      >
         <div className="flex flex-wrap gap-2.5">
           <Link to="/student/assignments" className="ssd-btn ssd-btn--light">
             <FileText size={16} aria-hidden="true" />
@@ -524,18 +527,21 @@ const StudentDashboard = () => {
           title="Academic performance"
           subtitle="Latest published score per subject"
           link={{ to: "/student/academics/results", label: "Results" }}
-          padded>
+          padded
+        >
           {busy ? (
             <Skeleton active paragraph={{ rows: 6 }} />
           ) : performance.length ? (
             <div
               className="ssd-chart"
-              style={{ height: Math.max(180, performance.length * 42 + 30) }}>
+              style={{ height: Math.max(180, performance.length * 42 + 30) }}
+            >
               <ResponsiveContainer>
                 <BarChart
                   data={performance}
                   layout="vertical"
-                  margin={{ left: 0, right: 16, top: 4, bottom: 0 }}>
+                  margin={{ left: 0, right: 16, top: 4, bottom: 0 }}
+                >
                   <CartesianGrid horizontal={false} strokeDasharray="3 4" />
                   <XAxis
                     type="number"
@@ -564,7 +570,8 @@ const StudentDashboard = () => {
                     name="Score"
                     radius={[0, 6, 6, 0]}
                     maxBarSize={22}
-                    animationDuration={900}>
+                    animationDuration={900}
+                  >
                     {performance.map((p) => (
                       <Cell
                         key={p.subject}
@@ -595,7 +602,8 @@ const StudentDashboard = () => {
             year: "numeric",
           })}
           link={{ to: "/student/attendance", label: "Record" }}
-          padded>
+          padded
+        >
           {busy ? (
             <Skeleton active avatar paragraph={{ rows: 4 }} />
           ) : !attendance.ok ? (
@@ -620,7 +628,8 @@ const StudentDashboard = () => {
                 ].map(([label, value, t]) => (
                   <div
                     key={label}
-                    className={`rounded-xl bg-slate-50 p-2.5 text-center ssd-tone--${t}`}>
+                    className={`rounded-xl bg-slate-50 p-2.5 text-center ssd-tone--${t}`}
+                  >
                     <dt className="ssd-chip ssd-chip--dot mb-1">{label}</dt>
                     <dd className="m-0 text-lg font-bold tabular-nums">
                       {value}
@@ -669,7 +678,8 @@ const StudentDashboard = () => {
             tone="sky"
             title="Today's classes"
             subtitle={now.toLocaleDateString("en-US", { weekday: "long" })}
-            link={{ to: "/student/timetable", label: "Timetable" }}>
+            link={{ to: "/student/timetable", label: "Timetable" }}
+          >
             {busy ? (
               <PanelSkeleton rows={4} />
             ) : today.length ? (
@@ -683,7 +693,8 @@ const StudentDashboard = () => {
                   return (
                     <li
                       key={s._id || i}
-                      className={`relative flex gap-3 ${last ? "" : "pb-4"} ssd-tone--${state === "done" ? "slate" : "sky"}`}>
+                      className={`relative flex gap-3 ${last ? "" : "pb-4"} ssd-tone--${state === "done" ? "slate" : "sky"}`}
+                    >
                       {!last && (
                         <span
                           aria-hidden="true"
@@ -702,7 +713,8 @@ const StudentDashboard = () => {
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
                           <b
-                            className={`text-sm font-semibold ${state === "done" ? "text-slate-500" : "text-slate-900"}`}>
+                            className={`text-sm font-semibold ${state === "done" ? "text-slate-500" : "text-slate-900"}`}
+                          >
                             {s.subjectId?.name || "Class"}
                           </b>
                           {state === "now" && (
@@ -738,7 +750,8 @@ const StudentDashboard = () => {
             tone="orange"
             title="Upcoming exams"
             subtitle="From the school calendar"
-            link={{ to: "/student/calendar", label: "Calendar" }}>
+            link={{ to: "/student/calendar", label: "Calendar" }}
+          >
             {eventsLoading ? (
               <PanelSkeleton />
             ) : exams.length ? (
@@ -787,7 +800,8 @@ const StudentDashboard = () => {
             tone="amber"
             title="Announcements"
             subtitle="Events and notices"
-            link={{ to: "/student/calendar", label: "Calendar" }}>
+            link={{ to: "/student/calendar", label: "Calendar" }}
+          >
             {eventsLoading ? (
               <PanelSkeleton />
             ) : notices.length ? (
@@ -825,7 +839,8 @@ const StudentDashboard = () => {
             tone="purple"
             title="Assignment deadlines"
             subtitle="Not yet submitted, soonest first"
-            link={{ to: "/student/assignments", label: "All" }}>
+            link={{ to: "/student/assignments", label: "All" }}
+          >
             {busy ? (
               <PanelSkeleton rows={4} />
             ) : !assignments.ok ? (
@@ -852,7 +867,8 @@ const StudentDashboard = () => {
                       <div className="ssd-list__main">
                         <Link
                           to={`/student/assignments/${a._id}`}
-                          className="truncate font-semibold text-slate-900 hover:underline">
+                          className="truncate font-semibold text-slate-900 hover:underline"
+                        >
                           {a.title}
                         </Link>
                         <small>
@@ -885,7 +901,8 @@ const StudentDashboard = () => {
             title="Learning progress"
             subtitle="Assignments submitted"
             link={{ to: "/student/assignments", label: "Assignments" }}
-            padded>
+            padded
+          >
             {busy ? (
               <Skeleton active avatar paragraph={{ rows: 3 }} />
             ) : work.total > 0 ? (
@@ -961,7 +978,8 @@ const StudentDashboard = () => {
           tone="orange"
           title="Recent results"
           subtitle="Published exam marks"
-          link={{ to: "/student/academics/results", label: "All results" }}>
+          link={{ to: "/student/academics/results", label: "All results" }}
+        >
           {busy ? (
             <PanelSkeleton rows={4} />
           ) : results.data.length ? (
@@ -971,7 +989,8 @@ const StudentDashboard = () => {
                 return (
                   <li key={r._id}>
                     <span
-                      className={`ssd-initials ssd-tone--${r.isPassed === false ? "red" : "orange"}`}>
+                      className={`ssd-initials ssd-tone--${r.isPassed === false ? "red" : "orange"}`}
+                    >
                       {r.grade || (pct != null ? Math.round(pct) : "—")}
                     </span>
                     <div className="ssd-list__main">
@@ -1002,7 +1021,8 @@ const StudentDashboard = () => {
           subtitle={
             subjects.length ? `${subjects.length} this year` : undefined
           }
-          link={{ to: "/student/classes", label: "My class" }}>
+          link={{ to: "/student/classes", label: "My class" }}
+        >
           {busy ? (
             <PanelSkeleton rows={4} />
           ) : subjects.length ? (
@@ -1050,7 +1070,8 @@ const StudentDashboard = () => {
           icon={Users}
           tone="pink"
           title="Contacts"
-          subtitle="Your class teacher and family">
+          subtitle="Your class teacher and family"
+        >
           {profileState.loading ? (
             <PanelSkeleton rows={2} />
           ) : (

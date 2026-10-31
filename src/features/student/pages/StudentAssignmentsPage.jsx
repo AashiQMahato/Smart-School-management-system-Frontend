@@ -151,7 +151,8 @@ const StudentAssignmentsPage = () => {
           <select
             value={filters.subject}
             onChange={(e) => handleFilterChange("subject", e.target.value)}
-            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
             <option value="">All Subjects</option>
             {subjects.map((subject) => (
               <option key={subject._id} value={subject._id}>

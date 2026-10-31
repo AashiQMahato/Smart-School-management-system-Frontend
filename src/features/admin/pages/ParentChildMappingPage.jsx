@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from "react";
 import { Link2 } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -13,7 +13,6 @@ import {
   Select,
   message,
   Dropdown,
-  Empty,
   Input,
   List,
   Popconfirm,
@@ -93,14 +92,14 @@ const ParentChildMappingPage = () => {
                     <Popconfirm
                       key="unlink"
                       title="Unlink this child?"
-                      onConfirm={() =>
-                        handleUnlinkChild(parent._id, child._id)
-                      }>
+                      onConfirm={() => handleUnlinkChild(parent._id, child._id)}
+                    >
                       <Button size="small" danger icon={<DisconnectOutlined />}>
                         Unlink
                       </Button>
                     </Popconfirm>,
-                  ]}>
+                  ]}
+                >
                   <List.Item.Meta
                     avatar={
                       <Avatar
@@ -123,7 +122,7 @@ const ParentChildMappingPage = () => {
               )}
             />
           ) : (
-            <Empty description="No children linked to this parent" />
+            <EmptyState compact title="No children linked to this parent" />
           )}
         </div>
       ),
@@ -257,7 +256,8 @@ const ParentChildMappingPage = () => {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-purple-100 mt-0.5">{s.label}</div>
               </div>
@@ -291,7 +291,8 @@ const ParentChildMappingPage = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse"
+                >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -304,16 +305,13 @@ const ParentChildMappingPage = () => {
               ))}
             </div>
           ) : filteredParents.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={
-                <span className="text-slate-500">
-                  {searchQuery
-                    ? "No parents found matching your search"
-                    : "No parents registered yet"}
-                </span>
+            <EmptyState
+              compact
+              title={
+                searchQuery
+                  ? "No parents found matching your search"
+                  : "No parents registered yet"
               }
-              className="my-12"
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -322,7 +320,8 @@ const ParentChildMappingPage = () => {
                 return (
                   <div
                     key={parent._id}
-                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group">
+                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-purple-600 flex items-center justify-center font-black text-base text-white">
@@ -340,7 +339,8 @@ const ParentChildMappingPage = () => {
                       <Dropdown
                         menu={{ items: getActionItems(parent) }}
                         trigger={["click"]}
-                        placement="bottomRight">
+                        placement="bottomRight"
+                      >
                         <Button
                           type="text"
                           icon={<MoreOutlined />}
@@ -363,7 +363,8 @@ const ParentChildMappingPage = () => {
                             parent.children.map((child, idx) => (
                               <span
                                 key={idx}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold"
+                              >
                                 <UserOutlined className="text-[10px]" />{" "}
                                 {child?.userId?.name || "Unknown"}
                               </span>
@@ -415,7 +416,8 @@ const ParentChildMappingPage = () => {
                 return (
                   <div
                     key={student._id}
-                    className="bg-orange-50 rounded-2xl p-4 border border-orange-100 hover:border-orange-300 transition-all">
+                    className="bg-orange-50 rounded-2xl p-4 border border-orange-100 hover:border-orange-300 transition-all"
+                  >
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center font-black text-white text-sm">
                         {initial}
@@ -446,7 +448,8 @@ const ParentChildMappingPage = () => {
                       block
                       icon={<LinkOutlined />}
                       onClick={() => handleQuickAssign(student)}
-                      className="bg-orange-600 hover:bg-orange-700 border-orange-600">
+                      className="bg-orange-600 hover:bg-orange-700 border-orange-600"
+                    >
                       Assign Parent
                     </Button>
                   </div>
@@ -475,7 +478,8 @@ const ParentChildMappingPage = () => {
           form.resetFields();
         }}
         footer={null}
-        width={600}>
+        width={600}
+      >
         <div className="mb-4 p-4 bg-violet-50 rounded-2xl border border-purple-100">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-purple-600 flex items-center justify-center font-black text-white text-base">
@@ -504,7 +508,8 @@ const ParentChildMappingPage = () => {
                 {selectedParent.children.map((child, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                    className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold"
+                  >
                     {child?.userId?.name}
                   </span>
                 ))}
@@ -524,7 +529,8 @@ const ParentChildMappingPage = () => {
             rules={[
               { required: true, message: "Please select at least one student" },
             ]}
-            extra="You can select multiple students to assign at once">
+            extra="You can select multiple students to assign at once"
+          >
             <Select
               mode="multiple"
               size="large"
@@ -566,7 +572,8 @@ const ParentChildMappingPage = () => {
                   setIsLinkModalOpen(false);
                   setSelectedParent(null);
                   form.resetFields();
-                }}>
+                }}
+              >
                 Cancel
               </Button>
               <Button
@@ -574,7 +581,8 @@ const ParentChildMappingPage = () => {
                 htmlType="submit"
                 icon={<LinkOutlined />}
                 loading={assignLoading}
-                className="bg-blue-600 hover:bg-blue-700">
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 Assign Children
               </Button>
             </div>
@@ -601,7 +609,8 @@ const ParentChildMappingPage = () => {
           quickAssignForm.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         {selectedStudent && (
           <>
             <div className="mb-4 p-4 bg-green-50 rounded-2xl border border-green-100">
@@ -633,11 +642,13 @@ const ParentChildMappingPage = () => {
             <Form
               form={quickAssignForm}
               layout="vertical"
-              onFinish={handleQuickAssignSubmit}>
+              onFinish={handleQuickAssignSubmit}
+            >
               <Form.Item
                 name="parentId"
                 label={<span className="font-medium">Parent</span>}
-                rules={[{ required: true, message: "Please select a parent" }]}>
+                rules={[{ required: true, message: "Please select a parent" }]}
+              >
                 <Select
                   size="large"
                   placeholder="Search and select parent..."
@@ -663,7 +674,8 @@ const ParentChildMappingPage = () => {
                       setIsQuickAssignModalOpen(false);
                       setSelectedStudent(null);
                       quickAssignForm.resetFields();
-                    }}>
+                    }}
+                  >
                     Cancel
                   </Button>
                   <Button
@@ -671,7 +683,8 @@ const ParentChildMappingPage = () => {
                     htmlType="submit"
                     icon={<LinkOutlined />}
                     loading={assignLoading}
-                    className="bg-blue-600 hover:bg-blue-700">
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
                     Assign to Parent
                   </Button>
                 </div>

@@ -110,7 +110,8 @@ const AdminAssignmentsPage = () => {
           <Button
             type="primary"
             icon={<Plus size={16} />}
-            onClick={() => setIsModalOpen(true)}>
+            onClick={() => setIsModalOpen(true)}
+          >
             Create Assignment
           </Button>
         }
@@ -135,7 +136,8 @@ const AdminAssignmentsPage = () => {
           <select
             value={filters.status}
             onChange={(e) => handleFilterChange("status", e.target.value)}
-            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
             <option value="">All Status</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -145,7 +147,8 @@ const AdminAssignmentsPage = () => {
           <select
             value={filters.class}
             onChange={(e) => handleFilterChange("class", e.target.value)}
-            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
             <option value="">All Classes</option>
             {classes.map((cls) => (
               <option key={cls._id} value={cls._id}>
@@ -157,7 +160,8 @@ const AdminAssignmentsPage = () => {
           <select
             value={filters.subject}
             onChange={(e) => handleFilterChange("subject", e.target.value)}
-            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
             <option value="">All Subjects</option>
             {subjects.map((s) => (
               <option key={s._id} value={s._id}>
@@ -169,7 +173,8 @@ const AdminAssignmentsPage = () => {
           <select
             value={filters.teacher}
             onChange={(e) => handleFilterChange("teacher", e.target.value)}
-            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
             <option value="">All Teachers</option>
             {teacherOptions.map((t) => (
               <option key={t.userId} value={t.userId}>

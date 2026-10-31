@@ -3,16 +3,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import {
-  DatePicker,
-  Select,
-  Empty,
-  Table,
-  Spin,
-  message,
-  Tag,
-  Space,
-} from "antd";
+import { DatePicker, Select, Table, message, Tag, Space } from "antd";
 import {
   CalendarOutlined,
   CheckCircleOutlined,
@@ -25,7 +16,7 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { CalendarCheck } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState, LoadingScreen } from "../../../components/UI";
 import {
   getAttendanceForChild,
   getCurrentMonthRange,
@@ -216,7 +207,8 @@ const ParentChildAttendancePage = () => {
         return (
           <Tag
             icon={statusConfig.icon}
-            className={`px-3 py-1 font-medium border ${statusConfig.className}`}>
+            className={`px-3 py-1 font-medium border ${statusConfig.className}`}
+          >
             {statusConfig.label}
           </Tag>
         );
@@ -225,11 +217,7 @@ const ParentChildAttendancePage = () => {
   ];
 
   if (loading && children.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading attendance…" />;
   }
 
   const rateColor =
@@ -272,7 +260,8 @@ const ParentChildAttendancePage = () => {
               ].map(({ label, value, bg }) => (
                 <div
                   key={label}
-                  className={`${bg} backdrop-blur-sm rounded-2xl px-5 py-3 border border-white/20 text-center`}>
+                  className={`${bg} backdrop-blur-sm rounded-2xl px-5 py-3 border border-white/20 text-center`}
+                >
                   <p className="text-xs text-indigo-200">{label}</p>
                   <p className="text-3xl font-black">{value}</p>
                 </div>
@@ -297,7 +286,8 @@ const ParentChildAttendancePage = () => {
               value={selectedChild}
               onChange={setSelectedChild}
               className="w-full sm:w-72"
-              size="large">
+              size="large"
+            >
               {children.map((child) => (
                 <Select.Option key={child._id} value={child._id}>
                   {child.userId?.name || "Student"}
@@ -366,9 +356,11 @@ const ParentChildAttendancePage = () => {
             ].map(({ icon, label, value, bg, light, text }) => (
               <div
                 key={label}
-                className={`${light} rounded-2xl p-4 flex items-center gap-3 border border-white shadow-sm`}>
+                className={`${light} rounded-2xl p-4 flex items-center gap-3 border border-white shadow-sm`}
+              >
                 <div
-                  className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center text-white shrink-0`}>
+                  className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center text-white shrink-0`}
+                >
                   {icon}
                 </div>
                 <div>
@@ -431,7 +423,8 @@ const ParentChildAttendancePage = () => {
                         />
                       </div>
                       <span
-                        className={`text-lg font-black min-w-12 text-right ${rateText}`}>
+                        className={`text-lg font-black min-w-12 text-right ${rateText}`}
+                      >
                         {attendanceRate}%
                       </span>
                     </div>
@@ -516,7 +509,8 @@ const ParentChildAttendancePage = () => {
                     option?.children
                       ?.toLowerCase()
                       .includes(input.toLowerCase())
-                  }>
+                  }
+                >
                   {subjects.map((subject) => (
                     <Select.Option key={subject._id} value={subject._id}>
                       {subject.name}
@@ -565,10 +559,7 @@ const ParentChildAttendancePage = () => {
                 }}
                 locale={{
                   emptyText: (
-                    <Empty
-                      description="No attendance records found"
-                      image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    />
+                    <EmptyState compact title="No attendance records found" />
                   ),
                 }}
               />

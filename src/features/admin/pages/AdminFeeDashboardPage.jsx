@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { Wallet } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState, StatCard } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -19,7 +19,6 @@ import {
   Tooltip,
   Badge,
   Dropdown,
-  Empty,
   Skeleton,
   Popconfirm,
   InputNumber,
@@ -374,67 +373,42 @@ const AdminFeeDashboardPage = () => {
             label: "Total Generated",
             value: `₹${(overall.totalAmount || 0).toLocaleString("en-IN")}`,
             sub: `${(overall.paidCount || 0) + (overall.unpaidCount || 0) + (overall.partialCount || 0) + (overall.overdueCount || 0)} fee records`,
-            iconBg: "bg-blue-600",
-            cardBg: "bg-blue-50",
-            textColor: "text-blue-700",
-            icon: <DollarOutlined className="text-white text-xl" />,
+            tone: "blue",
+            icon: DollarOutlined,
           },
           {
             label: "Total Collected",
             value: `₹${(overall.totalCollected || 0).toLocaleString("en-IN")}`,
             sub: `${collectionRate}% collection rate`,
-            iconBg: "bg-emerald-600",
-            cardBg: "bg-emerald-50",
-            textColor: "text-emerald-700",
-            icon: <CheckCircleOutlined className="text-white text-xl" />,
+            tone: "emerald",
+            icon: CheckCircleOutlined,
             trend: collectionRate >= 70 ? "up" : "down",
           },
           {
             label: "Pending Amount",
             value: `₹${(overall.totalPending || 0).toLocaleString("en-IN")}`,
             sub: `${(overall.unpaidCount || 0) + (overall.partialCount || 0)} unpaid/partial`,
-            iconBg: "bg-amber-500",
-            cardBg: "bg-amber-50",
-            textColor: "text-amber-700",
-            icon: <ClockCircleOutlined className="text-white text-xl" />,
+            tone: "amber",
+            icon: ClockCircleOutlined,
           },
           {
             label: "Overdue Students",
             value: overall.overdueCount || 0,
             sub: "require immediate attention",
-            iconBg: "bg-red-600",
-            cardBg: "bg-red-50",
-            textColor: "text-red-700",
-            icon: <WarningOutlined className="text-white text-xl" />,
+            tone: "red",
+            icon: WarningOutlined,
           },
-        ].map(
-          ({ label, value, sub, iconBg, cardBg, textColor, icon, trend }) => (
-            <Card
-              key={label}
-              className={`border-0 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 ${cardBg}`}>
-              <div className="flex items-start justify-between">
-                <div
-                  className={`w-12 h-12 ${iconBg} rounded-2xl flex items-center justify-center shadow-sm`}>
-                  {icon}
-                </div>
-                {trend && (
-                  <span
-                    className={`text-xs font-bold px-2 py-1 rounded-full ${trend === "up" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
-                    {trend === "up" ? <RiseOutlined /> : <FallOutlined />}{" "}
-                    {trend === "up" ? "Good" : "Low"}
-                  </span>
-                )}
-              </div>
-              <div className="mt-3">
-                <p className="text-slate-500 text-sm">{label}</p>
-                <p className={`text-2xl font-black mt-0.5 ${textColor}`}>
-                  {value}
-                </p>
-                <p className="text-xs text-slate-400 mt-1">{sub}</p>
-              </div>
-            </Card>
-          ),
-        )}
+        ].map(({ label, value, sub, tone, icon, trend }) => (
+          <StatCard
+            key={label}
+            title={label}
+            value={value}
+            icon={icon}
+            tone={tone}
+            hint={sub}
+            badge={trend ? (trend === "up" ? "Good" : "Low") : undefined}
+          />
+        ))}
       </div>
 
       {/* Revenue Charts Row */}
@@ -446,7 +420,8 @@ const AdminFeeDashboardPage = () => {
               Fee Collection by Type
             </span>
           }
-          className="border-0 shadow-sm">
+          className="border-0 shadow-sm"
+        >
           <FeeTypeChart data={stats?.byFeeType || []} />
         </Card>
 
@@ -457,7 +432,8 @@ const AdminFeeDashboardPage = () => {
               Payment Status Distribution
             </span>
           }
-          className="border-0 shadow-sm">
+          className="border-0 shadow-sm"
+        >
           <PaymentStatusPieChart stats={stats} />
         </Card>
       </div>
@@ -525,7 +501,8 @@ const AdminFeeDashboardPage = () => {
                   <div key={item._id} className="flex items-center gap-3">
                     <Tag
                       color={feeConfig?.color || "#6b7280"}
-                      className="min-w-20 text-center">
+                      className="min-w-20 text-center"
+                    >
                       {feeConfig?.label || item._id}
                     </Tag>
                     <div className="flex-1">
@@ -543,7 +520,7 @@ const AdminFeeDashboardPage = () => {
               })}
             </div>
           ) : (
-            <Empty description="No fee data available" />
+            <EmptyState compact title="No fee data available" />
           )}
         </Card>
       </div>
@@ -557,13 +534,15 @@ const AdminFeeDashboardPage = () => {
             <Button type="link" onClick={() => setActiveTab("payments")}>
               View All
             </Button>
-          }>
+          }
+        >
           {stats?.recentPayments && stats.recentPayments.length > 0 ? (
             <div className="space-y-3">
               {stats.recentPayments.slice(0, 5).map((payment) => (
                 <div
                   key={payment._id}
-                  className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                  className="flex items-center justify-between p-3 bg-slate-50 rounded-lg"
+                >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                       <CheckCircleOutlined className="text-emerald-600" />
@@ -585,7 +564,7 @@ const AdminFeeDashboardPage = () => {
               ))}
             </div>
           ) : (
-            <Empty description="No recent payments" />
+            <EmptyState compact title="No recent payments" />
           )}
         </Card>
 
@@ -599,13 +578,15 @@ const AdminFeeDashboardPage = () => {
           className="border-0 shadow-sm"
           extra={
             <Badge count={stats?.defaulters?.length || 0} color="#ef4444" />
-          }>
+          }
+        >
           {stats?.defaulters && stats.defaulters.length > 0 ? (
             <div className="space-y-3">
               {stats.defaulters.slice(0, 5).map((fee) => (
                 <div
                   key={fee._id}
-                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg"
+                >
                   <div>
                     <p className="font-medium text-slate-900">
                       {fee.studentId?.userId?.name || "Student"}
@@ -623,7 +604,7 @@ const AdminFeeDashboardPage = () => {
               ))}
             </div>
           ) : (
-            <Empty description="No defaulters! 🎉" />
+            <EmptyState compact title="No defaulters! 🎉" />
           )}
         </Card>
       </div>
@@ -706,7 +687,8 @@ const AdminFeeDashboardPage = () => {
               title="Assign Fees"
               description="This will create fee records for all students in the class. Continue?"
               onConfirm={() => handleAssignFees(record._id)}
-              okText="Assign">
+              okText="Assign"
+            >
               <Button
                 size="small"
                 type="primary"
@@ -733,7 +715,8 @@ const AdminFeeDashboardPage = () => {
           <Popconfirm
             title="Delete this fee structure?"
             onConfirm={() => handleDeleteStructure(record._id)}
-            okType="danger">
+            okType="danger"
+          >
             <Button size="small" danger icon={<DeleteOutlined />} />
           </Popconfirm>
         </div>
@@ -755,7 +738,8 @@ const AdminFeeDashboardPage = () => {
             structureForm.resetFields();
             setStructureModalOpen(true);
           }}
-          className="bg-blue-600">
+          className="bg-blue-600"
+        >
           Create Structure
         </Button>
       </div>
@@ -840,7 +824,8 @@ const AdminFeeDashboardPage = () => {
       key: "balanceDue",
       render: (balance) => (
         <span
-          className={`font-bold ${balance > 0 ? "text-red-600" : "text-emerald-600"}`}>
+          className={`font-bold ${balance > 0 ? "text-red-600" : "text-emerald-600"}`}
+        >
           ₹{balance?.toLocaleString()}
         </span>
       ),
@@ -913,7 +898,8 @@ const AdminFeeDashboardPage = () => {
             <Popconfirm
               title="Delete this fee?"
               onConfirm={() => handleDeleteFee(record._id)}
-              okType="danger">
+              okType="danger"
+            >
               <Button size="small" danger icon={<DeleteOutlined />} />
             </Popconfirm>
           )}
@@ -943,7 +929,8 @@ const AdminFeeDashboardPage = () => {
             setFeeFilters({ ...feeFilters, paymentStatus: val || "" })
           }
           allowClear
-          className="w-40">
+          className="w-40"
+        >
           <Select.Option value="paid">Paid</Select.Option>
           <Select.Option value="unpaid">Unpaid</Select.Option>
           <Select.Option value="partial">Partial</Select.Option>
@@ -956,7 +943,8 @@ const AdminFeeDashboardPage = () => {
             setFeeFilters({ ...feeFilters, feeType: val || "" })
           }
           allowClear
-          className="w-40">
+          className="w-40"
+        >
           {FEE_TYPES.map((ft) => (
             <Select.Option key={ft.value} value={ft.value}>
               {ft.label}
@@ -970,7 +958,8 @@ const AdminFeeDashboardPage = () => {
             setFeeFilters({ ...feeFilters, classId: val || "" })
           }
           allowClear
-          className="w-48">
+          className="w-48"
+        >
           {classes.map((cls) => (
             <Select.Option key={cls._id} value={cls._id}>
               {cls.name} - {cls.section}
@@ -1059,7 +1048,8 @@ const AdminFeeDashboardPage = () => {
               : status === "failed"
                 ? "error"
                 : "warning"
-          }>
+          }
+        >
           {status?.toUpperCase()}
         </Tag>
       ),
@@ -1133,7 +1123,8 @@ const AdminFeeDashboardPage = () => {
             </Button>
             <Button
               icon={<DownloadOutlined />}
-              onClick={() => generateFeeReport(fees, stats)}>
+              onClick={() => generateFeeReport(fees, stats)}
+            >
               Fee Report PDF
             </Button>
             <Button
@@ -1143,7 +1134,8 @@ const AdminFeeDashboardPage = () => {
                 setEditingStructure(null);
                 structureForm.resetFields();
                 setStructureModalOpen(true);
-              }}>
+              }}
+            >
               New Fee Structure
             </Button>
           </>
@@ -1216,18 +1208,21 @@ const AdminFeeDashboardPage = () => {
           structureForm.resetFields();
         }}
         footer={null}
-        width={700}>
+        width={700}
+      >
         <Form
           form={structureForm}
           layout="vertical"
           onFinish={handleCreateStructure}
-          className="mt-4">
+          className="mt-4"
+        >
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="name"
               label="Structure Name"
               className="col-span-2"
-              rules={[{ required: true, message: "Required" }]}>
+              rules={[{ required: true, message: "Required" }]}
+            >
               <Input placeholder="e.g., Tuition Fee - Class 10" />
             </Form.Item>
 
@@ -1244,14 +1239,16 @@ const AdminFeeDashboardPage = () => {
                 editingStructure
                   ? "Enable to edit fee breakdown by components"
                   : "Creates separate fee structures for each non-zero amount"
-              }>
+              }
+            >
               <Switch />
             </Form.Item>
 
             <Form.Item
               name="classId"
               label="Class"
-              rules={[{ required: true, message: "Required" }]}>
+              rules={[{ required: true, message: "Required" }]}
+            >
               <Select placeholder="Select class">
                 {classes.map((cls) => (
                   <Select.Option key={cls._id} value={cls._id}>
@@ -1288,7 +1285,8 @@ const AdminFeeDashboardPage = () => {
                       <div className="mt-3 grid grid-cols-2 gap-4">
                         <Form.Item
                           label="Tuition Fee (₹)"
-                          name={["amounts", "tuition"]}>
+                          name={["amounts", "tuition"]}
+                        >
                           <InputNumber
                             min={0}
                             className="w-full"
@@ -1297,7 +1295,8 @@ const AdminFeeDashboardPage = () => {
                         </Form.Item>
                         <Form.Item
                           label="Exam Fee (₹)"
-                          name={["amounts", "exam"]}>
+                          name={["amounts", "exam"]}
+                        >
                           <InputNumber
                             min={0}
                             className="w-full"
@@ -1306,7 +1305,8 @@ const AdminFeeDashboardPage = () => {
                         </Form.Item>
                         <Form.Item
                           label="Transport Fee (₹)"
-                          name={["amounts", "transport"]}>
+                          name={["amounts", "transport"]}
+                        >
                           <InputNumber
                             min={0}
                             className="w-full"
@@ -1345,7 +1345,8 @@ const AdminFeeDashboardPage = () => {
                     <Form.Item
                       name="feeType"
                       label="Fee Type"
-                      rules={[{ required: true, message: "Required" }]}>
+                      rules={[{ required: true, message: "Required" }]}
+                    >
                       <Select placeholder="Select type">
                         {FEE_TYPES.map((ft) => (
                           <Select.Option key={ft.value} value={ft.value}>
@@ -1358,7 +1359,8 @@ const AdminFeeDashboardPage = () => {
                     <Form.Item
                       name="amount"
                       label="Amount (₹)"
-                      rules={[{ required: true, message: "Required" }]}>
+                      rules={[{ required: true, message: "Required" }]}
+                    >
                       <InputNumber
                         min={0}
                         className="w-full"
@@ -1373,14 +1375,16 @@ const AdminFeeDashboardPage = () => {
             <Form.Item
               name="academicYear"
               label="Academic Year"
-              rules={[{ required: true, message: "Required" }]}>
+              rules={[{ required: true, message: "Required" }]}
+            >
               <Input placeholder="e.g., 2025-2026" />
             </Form.Item>
 
             <Form.Item
               name="dueDate"
               label="Due Date"
-              rules={[{ required: true, message: "Required" }]}>
+              rules={[{ required: true, message: "Required" }]}
+            >
               <DatePicker className="w-full" />
             </Form.Item>
 
@@ -1396,7 +1400,8 @@ const AdminFeeDashboardPage = () => {
             <Form.Item
               name="description"
               label="Description"
-              className="col-span-2">
+              className="col-span-2"
+            >
               <Input.TextArea rows={2} placeholder="Optional description" />
             </Form.Item>
           </div>
@@ -1406,7 +1411,8 @@ const AdminFeeDashboardPage = () => {
               onClick={() => {
                 setStructureModalOpen(false);
                 structureForm.resetFields();
-              }}>
+              }}
+            >
               Cancel
             </Button>
             <Button type="primary" htmlType="submit" className="bg-blue-600">
@@ -1431,7 +1437,8 @@ const AdminFeeDashboardPage = () => {
           paymentForm.resetFields();
         }}
         footer={null}
-        width={500}>
+        width={500}
+      >
         {selectedFee && (
           <div>
             <div className="bg-slate-50 rounded-xl p-4 mb-4">
@@ -1464,7 +1471,8 @@ const AdminFeeDashboardPage = () => {
             <Form
               form={paymentForm}
               layout="vertical"
-              onFinish={handleRecordPayment}>
+              onFinish={handleRecordPayment}
+            >
               <Form.Item
                 name="amountPaid"
                 label="Payment Amount (₹)"
@@ -1475,7 +1483,8 @@ const AdminFeeDashboardPage = () => {
                     max: selectedFee.balanceDue,
                     message: `Max: ₹${selectedFee.balanceDue}`,
                   },
-                ]}>
+                ]}
+              >
                 <InputNumber
                   min={1}
                   max={selectedFee.balanceDue}
@@ -1487,7 +1496,8 @@ const AdminFeeDashboardPage = () => {
               <Form.Item
                 name="paymentMethod"
                 label="Payment Method"
-                rules={[{ required: true, message: "Required" }]}>
+                rules={[{ required: true, message: "Required" }]}
+              >
                 <Select placeholder="Select method">
                   <Select.Option value="cash">Cash</Select.Option>
                   <Select.Option value="card">Card</Select.Option>
@@ -1513,13 +1523,15 @@ const AdminFeeDashboardPage = () => {
                   onClick={() => {
                     setPaymentModalOpen(false);
                     paymentForm.resetFields();
-                  }}>
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button
                   type="primary"
                   htmlType="submit"
-                  className="bg-emerald-600 hover:bg-emerald-700">
+                  className="bg-emerald-600 hover:bg-emerald-700"
+                >
                   Record Payment
                 </Button>
               </div>

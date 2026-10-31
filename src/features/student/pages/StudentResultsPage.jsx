@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Table, Tag, Empty, Spin, message, Button } from "antd";
+import { Select, Table, Tag, message, Button } from "antd";
 import {
   TrophyOutlined,
   FileTextOutlined,
@@ -10,7 +10,7 @@ import {
   PercentageOutlined,
 } from "@ant-design/icons";
 import { Trophy } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, LoadingScreen } from "../../../components/UI";
 import {
   getMyExamResults,
   getReportCard,
@@ -174,11 +174,7 @@ const StudentResultsPage = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[50vh]">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading results…" />;
   }
 
   return (
@@ -205,7 +201,8 @@ const StudentResultsPage = () => {
                 type="primary"
                 icon={<PrinterOutlined />}
                 onClick={handlePrint}
-                className="no-print">
+                className="no-print"
+              >
                 Download / Print PDF
               </Button>
             )
@@ -270,9 +267,11 @@ const StudentResultsPage = () => {
                     </div>
 
                     <div
-                      className={`${colors.light} rounded-2xl border border-slate-100 shadow-sm p-5 text-center hover:shadow-md transition-shadow`}>
+                      className={`${colors.light} rounded-2xl border border-slate-100 shadow-sm p-5 text-center hover:shadow-md transition-shadow`}
+                    >
                       <div
-                        className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center mx-auto mb-3`}>
+                        className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center mx-auto mb-3`}
+                      >
                         <PercentageOutlined className="text-xl text-white" />
                       </div>
                       <div className={`text-2xl font-bold ${colors.text}`}>
@@ -302,9 +301,11 @@ const StudentResultsPage = () => {
                     </div>
 
                     <div
-                      className={`${summary.allPassed ? "bg-emerald-50" : "bg-red-50"} rounded-2xl border border-slate-100 shadow-sm p-5 text-center hover:shadow-md transition-shadow`}>
+                      className={`${summary.allPassed ? "bg-emerald-50" : "bg-red-50"} rounded-2xl border border-slate-100 shadow-sm p-5 text-center hover:shadow-md transition-shadow`}
+                    >
                       <div
-                        className={`w-12 h-12 ${summary.allPassed ? "bg-emerald-500" : "bg-red-500"} rounded-xl flex items-center justify-center mx-auto mb-3`}>
+                        className={`w-12 h-12 ${summary.allPassed ? "bg-emerald-500" : "bg-red-500"} rounded-xl flex items-center justify-center mx-auto mb-3`}
+                      >
                         {summary.allPassed ? (
                           <CheckCircleOutlined className="text-xl text-white" />
                         ) : (
@@ -312,7 +313,8 @@ const StudentResultsPage = () => {
                         )}
                       </div>
                       <div
-                        className={`text-2xl font-bold ${summary.allPassed ? "text-emerald-600" : "text-red-600"}`}>
+                        className={`text-2xl font-bold ${summary.allPassed ? "text-emerald-600" : "text-red-600"}`}
+                      >
                         {summary.allPassed ? "PASS" : "FAIL"}
                       </div>
                       <div className="text-xs text-slate-400 mt-1">
@@ -350,12 +352,7 @@ const StudentResultsPage = () => {
 
             {/* Report Card */}
             {loadingReport ? (
-              <div className="text-center py-12">
-                <Spin size="large" />
-                <p className="text-sm text-slate-500 mt-3">
-                  Loading report card...
-                </p>
-              </div>
+              <LoadingScreen compact message="Loading report card…" />
             ) : reportCard ? (
               <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
@@ -370,7 +367,8 @@ const StudentResultsPage = () => {
                   <Button
                     icon={<PrinterOutlined />}
                     onClick={handlePrint}
-                    className="no-print">
+                    className="no-print"
+                  >
                     Print / Save PDF
                   </Button>
                 </div>

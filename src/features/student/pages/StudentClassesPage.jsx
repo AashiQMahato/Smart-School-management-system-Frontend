@@ -4,17 +4,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import {
-  Card,
-  Spin,
-  Empty,
-  Tag,
-  Avatar,
-  message,
-  Button,
-  Input,
-  Skeleton,
-} from "antd";
+import { Card, Tag, Avatar, message, Button, Input, Skeleton } from "antd";
 import {
   BookOutlined,
   UserOutlined,
@@ -24,7 +14,7 @@ import {
   MailOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import { PageHeader, EmptyState, LoadingScreen } from "../../../components/UI";
 import {
   getMyStudentProfile,
   getMySubjects,
@@ -76,9 +66,7 @@ const StudentClassesPage = () => {
         />
 
         <Card className="border-0 shadow-sm">
-          <div className="flex items-center justify-center py-16">
-            <Spin size="large" />
-          </div>
+          <LoadingScreen compact message="Loading class information…" />
         </Card>
       </div>
     );
@@ -98,7 +86,7 @@ const StudentClassesPage = () => {
         />
 
         <Card className="border-0 shadow-sm">
-          <Empty description="No class information found" />
+          <EmptyState compact title="No class information found" />
         </Card>
       </div>
     );
@@ -255,11 +243,9 @@ const StudentClassesPage = () => {
         className="border-0 shadow-sm"
       >
         {subjectsLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <Spin />
-          </div>
+          <LoadingScreen compact message="Loading subjects…" />
         ) : subjects.length === 0 ? (
-          <Empty description="No subjects assigned yet" />
+          <EmptyState compact title="No subjects assigned yet" />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {subjects.map((subject) => (

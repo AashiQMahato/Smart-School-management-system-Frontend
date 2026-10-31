@@ -10,11 +10,8 @@ import {
   Avatar,
   Descriptions,
   Tag,
-  Spin,
-  Empty,
   Row,
   Col,
-  Statistic,
   message,
   List,
   Badge,
@@ -31,7 +28,12 @@ import {
   TrophyOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
-import { PageHeader } from "../../../components/UI";
+import {
+  PageHeader,
+  LoadingScreen,
+  EmptyState,
+  StatCard,
+} from "../../../components/UI";
 import { getMyAssignments } from "../../../services/teacher.service";
 
 const TeacherProfilePage = () => {
@@ -104,11 +106,7 @@ const TeacherProfilePage = () => {
   ];
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingScreen compact message="Loading profile…" />;
   }
 
   if (!accountUser) {
@@ -121,7 +119,7 @@ const TeacherProfilePage = () => {
           subtitle="View your profile information"
         />
         <Card>
-          <Empty description="Profile not found" />
+          <EmptyState compact title="Profile not found" />
         </Card>
       </div>
     );
@@ -154,18 +152,21 @@ const TeacherProfilePage = () => {
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                 <Tag
                   icon={<IdcardOutlined />}
-                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm">
+                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm"
+                >
                   Employee ID: {profile.employeeId || "N/A"}
                 </Tag>
                 <Tag
                   icon={<BookOutlined />}
-                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm">
+                  className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm"
+                >
                   {profile.qualification || "Teacher"}
                 </Tag>
                 {profile.department && (
                   <Tag
                     icon={<TeamOutlined />}
-                    className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm">
+                    className="bg-white/20 text-white border-white/30 px-4 py-1.5 text-sm"
+                  >
                     {profile.department}
                   </Tag>
                 )}
@@ -177,46 +178,28 @@ const TeacherProfilePage = () => {
         {/* Stats Row */}
         <Row gutter={[24, 24]} className="mt-6">
           <Col xs={24} sm={8}>
-            <Card className="text-center bg-blue-50 border-blue-200">
-              <Statistic
-                title={
-                  <span className="text-blue-700 font-semibold">
-                    Total Classes
-                  </span>
-                }
-                value={uniqueClasses.length}
-                styles={{ color: "#2563eb" }}
-                prefix={<TeamOutlined />}
-              />
-            </Card>
+            <StatCard
+              title="Total Classes"
+              value={uniqueClasses.length}
+              icon={<TeamOutlined />}
+              tone="blue"
+            />
           </Col>
           <Col xs={24} sm={8}>
-            <Card className="text-center bg-emerald-50 border-emerald-200">
-              <Statistic
-                title={
-                  <span className="text-emerald-700 font-semibold">
-                    Total Subjects
-                  </span>
-                }
-                value={uniqueSubjects.length}
-                styles={{ color: "#059669" }}
-                prefix={<BookOutlined />}
-              />
-            </Card>
+            <StatCard
+              title="Total Subjects"
+              value={uniqueSubjects.length}
+              icon={<BookOutlined />}
+              tone="emerald"
+            />
           </Col>
           <Col xs={24} sm={8}>
-            <Card className="text-center bg-purple-50 border-purple-200">
-              <Statistic
-                title={
-                  <span className="text-purple-700 font-semibold">
-                    Total Assignments
-                  </span>
-                }
-                value={assignments.length}
-                styles={{ color: "#7c3aed" }}
-                prefix={<FileTextOutlined />}
-              />
-            </Card>
+            <StatCard
+              title="Total Assignments"
+              value={assignments.length}
+              icon={<FileTextOutlined />}
+              tone="purple"
+            />
           </Col>
         </Row>
       </Card>
@@ -231,7 +214,8 @@ const TeacherProfilePage = () => {
                 <span>Personal Information</span>
               </div>
             }
-            className="h-full shadow-md border-slate-200">
+            className="h-full shadow-md border-slate-200"
+          >
             <Descriptions column={1} bordered>
               <Descriptions.Item
                 label={
@@ -239,7 +223,8 @@ const TeacherProfilePage = () => {
                     <UserOutlined className="mr-2" />
                     Full Name
                   </span>
-                }>
+                }
+              >
                 {user?.name}
               </Descriptions.Item>
               <Descriptions.Item
@@ -248,7 +233,8 @@ const TeacherProfilePage = () => {
                     <MailOutlined className="mr-2" />
                     Email
                   </span>
-                }>
+                }
+              >
                 {user?.email || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -257,7 +243,8 @@ const TeacherProfilePage = () => {
                     <PhoneOutlined className="mr-2" />
                     Phone
                   </span>
-                }>
+                }
+              >
                 {user?.phone || profile.phone || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -266,7 +253,8 @@ const TeacherProfilePage = () => {
                     <HomeOutlined className="mr-2" />
                     Address
                   </span>
-                }>
+                }
+              >
                 {profile.address || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -275,7 +263,8 @@ const TeacherProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Date of Birth
                   </span>
-                }>
+                }
+              >
                 {profile.dateOfBirth
                   ? new Date(profile.dateOfBirth).toLocaleDateString()
                   : "N/A"}
@@ -286,7 +275,8 @@ const TeacherProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Joining Date
                   </span>
-                }>
+                }
+              >
                 {profile.joiningDate
                   ? new Date(profile.joiningDate).toLocaleDateString()
                   : "N/A"}
@@ -304,7 +294,8 @@ const TeacherProfilePage = () => {
                 <span>Professional Information</span>
               </div>
             }
-            className="h-full shadow-md border-slate-200">
+            className="h-full shadow-md border-slate-200"
+          >
             <Descriptions column={1} bordered>
               <Descriptions.Item
                 label={
@@ -312,7 +303,8 @@ const TeacherProfilePage = () => {
                     <IdcardOutlined className="mr-2" />
                     Employee ID
                   </span>
-                }>
+                }
+              >
                 {profile.employeeId || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -321,7 +313,8 @@ const TeacherProfilePage = () => {
                     <BookOutlined className="mr-2" />
                     Qualification
                   </span>
-                }>
+                }
+              >
                 {profile.qualification || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -330,7 +323,8 @@ const TeacherProfilePage = () => {
                     <BookOutlined className="mr-2" />
                     Specialization
                   </span>
-                }>
+                }
+              >
                 {profile.specialization || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -339,7 +333,8 @@ const TeacherProfilePage = () => {
                     <TeamOutlined className="mr-2" />
                     Department
                   </span>
-                }>
+                }
+              >
                 {profile.department || "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -348,7 +343,8 @@ const TeacherProfilePage = () => {
                     <CalendarOutlined className="mr-2" />
                     Experience
                   </span>
-                }>
+                }
+              >
                 {profile.experience ? `${profile.experience} years` : "N/A"}
               </Descriptions.Item>
               <Descriptions.Item
@@ -357,7 +353,8 @@ const TeacherProfilePage = () => {
                     <UserOutlined className="mr-2" />
                     Status
                   </span>
-                }>
+                }
+              >
                 <Badge
                   status={user?.status === "active" ? "success" : "default"}
                   text={user?.status || "Active"}
@@ -377,7 +374,8 @@ const TeacherProfilePage = () => {
                 <Tag color="purple">{uniqueClasses.length} classes</Tag>
               </div>
             }
-            className="shadow-md border-slate-200">
+            className="shadow-md border-slate-200"
+          >
             {uniqueClasses.length > 0 ? (
               <List
                 dataSource={uniqueClasses}
@@ -404,7 +402,7 @@ const TeacherProfilePage = () => {
                 )}
               />
             ) : (
-              <Empty description="No classes assigned yet" />
+              <EmptyState compact title="No classes assigned yet" />
             )}
           </Card>
         </Col>
@@ -419,7 +417,8 @@ const TeacherProfilePage = () => {
                 <Tag color="blue">{uniqueSubjects.length} subjects</Tag>
               </div>
             }
-            className="shadow-md border-slate-200">
+            className="shadow-md border-slate-200"
+          >
             {uniqueSubjects.length > 0 ? (
               <List
                 dataSource={uniqueSubjects}
@@ -446,7 +445,7 @@ const TeacherProfilePage = () => {
                 )}
               />
             ) : (
-              <Empty description="No subjects assigned yet" />
+              <EmptyState compact title="No subjects assigned yet" />
             )}
           </Card>
         </Col>

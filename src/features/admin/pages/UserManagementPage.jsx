@@ -5,17 +5,8 @@
 
 import { useState, useEffect } from "react";
 import { Users } from "lucide-react";
-import { PageHeader } from "../../../components/UI";
-import {
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  message,
-  Dropdown,
-  Empty,
-} from "antd";
+import { PageHeader, EmptyState } from "../../../components/UI";
+import { Button, Modal, Form, Input, Select, message, Dropdown } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -304,7 +295,8 @@ const UserManagementPage = () => {
                 setGeneratedPassword("");
                 handleGeneratePassword();
                 setIsModalOpen(true);
-              }}>
+              }}
+            >
               Add User
             </Button>
           </>
@@ -335,7 +327,8 @@ const UserManagementPage = () => {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}
+              >
                 <div className="text-2xl font-black text-white">{s.value}</div>
                 <div className="text-xs text-slate-300 mt-0.5">{s.label}</div>
               </div>
@@ -358,11 +351,13 @@ const UserManagementPage = () => {
                     activeTab === tab.key
                       ? "bg-slate-800 text-white shadow-sm"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}>
+                  }`}
+                >
                   {tab.label}
                   {tab.count !== null && (
                     <span
-                      className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${activeTab === tab.key ? "bg-white/20 text-white" : "bg-slate-200 text-slate-500"}`}>
+                      className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${activeTab === tab.key ? "bg-white/20 text-white" : "bg-slate-200 text-slate-500"}`}
+                    >
                       {tab.count}
                     </span>
                   )}
@@ -387,7 +382,8 @@ const UserManagementPage = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse"
+                >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -403,16 +399,13 @@ const UserManagementPage = () => {
               ))}
             </div>
           ) : filteredUsers.length === 0 ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={
-                <span className="text-slate-500">
-                  {searchQuery
-                    ? "No users found matching your search"
-                    : "No users in this category"}
-                </span>
+            <EmptyState
+              compact
+              title={
+                searchQuery
+                  ? "No users found matching your search"
+                  : "No users in this category"
               }
-              className="my-12"
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -424,12 +417,14 @@ const UserManagementPage = () => {
                 return (
                   <div
                     key={user._id}
-                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group">
+                    className="bg-slate-50 rounded-2xl p-5 hover:bg-white hover:shadow-md transition-all border border-slate-100 hover:border-slate-200 group"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div
                           className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-base text-white"
-                          style={{ backgroundColor: roleConfig.color }}>
+                          style={{ backgroundColor: roleConfig.color }}
+                        >
                           {initial}
                         </div>
                         <div>
@@ -444,7 +439,8 @@ const UserManagementPage = () => {
                       <Dropdown
                         menu={{ items: getActionItems(user) }}
                         trigger={["click"]}
-                        placement="bottomRight">
+                        placement="bottomRight"
+                      >
                         <Button
                           type="text"
                           icon={<MoreOutlined />}
@@ -464,7 +460,8 @@ const UserManagementPage = () => {
                           style={{
                             backgroundColor: roleConfig.bgColor,
                             color: roleConfig.color,
-                          }}>
+                          }}
+                        >
                           {roleConfig.label}
                         </span>
                         <span
@@ -472,7 +469,8 @@ const UserManagementPage = () => {
                           style={{
                             backgroundColor: statusConfig.bgColor,
                             color: statusConfig.color,
-                          }}>
+                          }}
+                        >
                           {statusConfig.label}
                         </span>
                       </div>
@@ -514,18 +512,21 @@ const UserManagementPage = () => {
         okButtonProps={{
           className: "bg-blue-600 hover:bg-blue-700",
         }}
-        confirmLoading={loading}>
+        confirmLoading={loading}
+      >
         <Form
           form={form}
           layout="vertical"
           className="mt-6"
           autoComplete="off"
-          onFinish={handleSubmit}>
+          onFinish={handleSubmit}
+        >
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
               name="name"
               label={<span className="font-medium">Full Name</span>}
-              rules={[{ required: true, message: "Please enter user's name" }]}>
+              rules={[{ required: true, message: "Please enter user's name" }]}
+            >
               <Input
                 size="large"
                 placeholder="Enter full name"
@@ -539,7 +540,8 @@ const UserManagementPage = () => {
               rules={[
                 { required: true, message: "Please enter email" },
                 { type: "email", message: "Please enter a valid email" },
-              ]}>
+              ]}
+            >
               <Input
                 size="large"
                 placeholder="user@example.com"
@@ -550,9 +552,8 @@ const UserManagementPage = () => {
             <Form.Item
               name="phone"
               label={<span className="font-medium">Phone Number</span>}
-              rules={[
-                { required: true, message: "Please enter phone number" },
-              ]}>
+              rules={[{ required: true, message: "Please enter phone number" }]}
+            >
               <Input
                 size="large"
                 placeholder="Enter phone number"
@@ -563,11 +564,13 @@ const UserManagementPage = () => {
             <Form.Item
               name="role"
               label={<span className="font-medium">Role</span>}
-              rules={[{ required: true, message: "Please select a role" }]}>
+              rules={[{ required: true, message: "Please select a role" }]}
+            >
               <Select
                 size="large"
                 placeholder="Select role"
-                suffixIcon={<TeamOutlined className="text-slate-400" />}>
+                suffixIcon={<TeamOutlined className="text-slate-400" />}
+              >
                 <Select.Option value="admin">
                   <UserSwitchOutlined /> Admin
                 </Select.Option>
@@ -586,7 +589,8 @@ const UserManagementPage = () => {
             <Form.Item
               name="address"
               label={<span className="font-medium">Address</span>}
-              className="col-span-2">
+              className="col-span-2"
+            >
               <Input.TextArea
                 size="large"
                 placeholder="Enter address"
@@ -614,7 +618,8 @@ const UserManagementPage = () => {
                           size="small"
                           icon={<CopyOutlined />}
                           onClick={() => copyToClipboard(generatedPassword)}
-                          className="hover:bg-blue-100 text-blue-600">
+                          className="hover:bg-blue-100 text-blue-600"
+                        >
                           Copy
                         </Button>
                       </div>
@@ -658,7 +663,8 @@ const UserManagementPage = () => {
         okButtonProps={{
           className: "bg-orange-600 hover:bg-orange-700",
         }}
-        confirmLoading={loading}>
+        confirmLoading={loading}
+      >
         <div className="py-4">
           <p className="text-slate-600 mb-4">
             Set a new password for{" "}
@@ -686,7 +692,8 @@ const UserManagementPage = () => {
                     <div className="flex items-center justify-end gap-2">
                       <Button
                         onClick={() => setGeneratedPassword(generatePassword())}
-                        className="hover:border-orange-500 hover:text-orange-600">
+                        className="hover:border-orange-500 hover:text-orange-600"
+                      >
                         Generate
                       </Button>
                       <Button
@@ -694,7 +701,8 @@ const UserManagementPage = () => {
                         icon={<CopyOutlined />}
                         onClick={() => copyToClipboard(generatedPassword)}
                         disabled={!generatedPassword}
-                        className="hover:bg-orange-100 text-orange-600">
+                        className="hover:bg-orange-100 text-orange-600"
+                      >
                         Copy
                       </Button>
                     </div>

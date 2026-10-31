@@ -4,9 +4,10 @@
  */
 
 import { useState, useEffect, useMemo } from "react";
-import { Modal, Button, Spin, Alert, Divider } from "antd";
+import { Modal, Button, Alert, Divider } from "antd";
 import { DownloadOutlined, PrinterOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
+import { LoadingScreen } from "../../../components/UI";
 
 const SCHOOL_NAME = "Sunrise School Management System";
 const SCHOOL_ADDRESS = "123 Education Lane, Knowledge City - 400001";
@@ -112,7 +113,8 @@ export default function BillPreviewModal({
             type="primary"
             icon={<DownloadOutlined />}
             onClick={() => onDownload?.(student, fees, summary, billNumber)}
-            className="bg-blue-600 hover:bg-blue-700">
+            className="bg-blue-600 hover:bg-blue-700"
+          >
             Download PDF
           </Button>
         </div>
@@ -121,11 +123,10 @@ export default function BillPreviewModal({
       styles={{
         body: { padding: 0 },
       }}
-      destroyOnClose>
+      destroyOnClose
+    >
       {loading ? (
-        <div className="flex items-center justify-center py-32">
-          <Spin size="large" />
-        </div>
+        <LoadingScreen compact message="Loading bill preview…" />
       ) : (
         <div className="bg-white">
           {/* Bill Preview Container */}
@@ -136,7 +137,8 @@ export default function BillPreviewModal({
               maxWidth: "210mm",
               minHeight: "297mm",
               padding: "20mm",
-            }}>
+            }}
+          >
             {/* Header Section */}
             <div className="bg-[var(--ssd-hero)] text-white rounded-lg p-6 mb-6 shadow-sm">
               <div className="flex items-start justify-between">
@@ -250,7 +252,8 @@ export default function BillPreviewModal({
                         key={type}
                         className={`border-b border-slate-100 ${
                           idx % 2 === 0 ? "bg-white" : "bg-slate-50"
-                        }`}>
+                        }`}
+                      >
                         <td className="py-3 px-4 text-sm text-slate-800">
                           {getFeeTypeLabel(type)}
                         </td>
@@ -290,7 +293,8 @@ export default function BillPreviewModal({
                   <span
                     className={`font-bold text-xl ${
                       balanceDue > 0 ? "text-red-600" : "text-green-600"
-                    }`}>
+                    }`}
+                  >
                     {formatCurrency(balanceDue)}
                   </span>
                 </div>

@@ -16,47 +16,7 @@ import scheduleService from "../../../services/schedule.service";
 import { useAuth } from "../../../hooks/useAuth";
 
 import { Button } from "antd";
-import { PageHeader } from "../../../components/UI";
-// Stat Card Component
-const StatCard = ({ icon: Icon, label, value, color, subtext }) => {
-  const colorClasses = {
-    indigo: {
-      iconBg: "bg-indigo-100",
-      iconColor: "text-indigo-600",
-    },
-    emerald: {
-      iconBg: "bg-emerald-100",
-      iconColor: "text-emerald-600",
-    },
-    violet: {
-      iconBg: "bg-violet-100",
-      iconColor: "text-violet-600",
-    },
-    amber: {
-      iconBg: "bg-amber-100",
-      iconColor: "text-amber-600",
-    },
-  };
-
-  const colors = colorClasses[color] || colorClasses.indigo;
-
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:shadow-md">
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <p className="text-sm font-medium text-slate-500 mb-1">{label}</p>
-          <p className="text-2xl font-bold text-slate-800">{value}</p>
-          {subtext && <p className="text-xs text-slate-400 mt-1">{subtext}</p>}
-        </div>
-        <div
-          className={`w-11 h-11 rounded-xl ${colors.iconBg} flex items-center justify-center`}
-        >
-          <Icon className={`w-5 h-5 ${colors.iconColor}`} />
-        </div>
-      </div>
-    </div>
-  );
-};
+import { PageHeader, StatCard } from "../../../components/UI";
 
 const TimetablePage = () => {
   const { user } = useAuth();
@@ -174,31 +134,31 @@ const TimetablePage = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           icon={BookOpen}
-          label="Total Classes"
+          title="Total Classes"
           value={stats.totalClasses}
-          color="indigo"
-          subtext="Per week"
+          tone="indigo"
+          hint="Per week"
         />
         <StatCard
           icon={Calendar}
-          label="School Days"
+          title="School Days"
           value={stats.schoolDays}
-          color="emerald"
-          subtext="Days per week"
+          tone="emerald"
+          hint="Days per week"
         />
         <StatCard
           icon={Clock}
-          label="Hours/Week"
+          title="Hours/Week"
           value={stats.totalHours}
-          color="violet"
-          subtext="Total class hours"
+          tone="violet"
+          hint="Total class hours"
         />
         <StatCard
           icon={GraduationCap}
-          label="Subjects"
+          title="Subjects"
           value={stats.uniqueSubjects}
-          color="amber"
-          subtext="This semester"
+          tone="amber"
+          hint="This semester"
         />
       </div>
 
