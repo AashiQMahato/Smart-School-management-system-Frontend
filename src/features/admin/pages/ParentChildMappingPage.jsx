@@ -510,7 +510,9 @@ const ParentChildMappingPage = () => {
               </div>
               <div className="flex flex-wrap gap-1">
                 {selectedParent.children.map((child, idx) => (
-                  <span key={idx} className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                  <span
+                    key={idx}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
                     {child?.userId?.name}
                   </span>
                 ))}
@@ -519,7 +521,9 @@ const ParentChildMappingPage = () => {
           )}
         </div>
 
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">Select Students to Assign</p>
+        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">
+          Select Students to Assign
+        </p>
 
         <Form form={form} layout="vertical" onFinish={handleLinkChild}>
           <Form.Item
@@ -593,7 +597,9 @@ const ParentChildMappingPage = () => {
             <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center">
               <UserOutlined className="text-emerald-600" />
             </div>
-            <span className="text-lg font-bold text-slate-900">Assign Student to Parent</span>
+            <span className="text-lg font-bold text-slate-900">
+              Assign Student to Parent
+            </span>
           </div>
         }
         open={isQuickAssignModalOpen}
@@ -628,7 +634,9 @@ const ParentChildMappingPage = () => {
               </div>
             </div>
 
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">Select Parent</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">
+              Select Parent
+            </p>
 
             <Form
               form={quickAssignForm}

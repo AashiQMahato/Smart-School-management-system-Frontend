@@ -159,8 +159,12 @@ const ClassesPage = () => {
               <BookOutlined className="text-2xl text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-white">Class Management</h1>
-              <p className="text-violet-200 text-sm mt-0.5">Manage school classes, sections, and class teachers</p>
+              <h1 className="text-2xl font-black text-white">
+                Class Management
+              </h1>
+              <p className="text-violet-200 text-sm mt-0.5">
+                Manage school classes, sections, and class teachers
+              </p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -179,12 +183,30 @@ const ClassesPage = () => {
         {/* Mini stats strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
           {[
-            { label: "Total Classes", value: classes.length, color: "bg-white/15" },
-            { label: "With Teachers", value: classes.filter((c) => c.classTeacher).length, color: "bg-blue-500/30" },
-            { label: "Total Teachers", value: teachers.length, color: "bg-emerald-500/30" },
-            { label: "Active Classes", value: classes.filter((c) => c.isActive).length, color: "bg-amber-500/30" },
+            {
+              label: "Total Classes",
+              value: classes.length,
+              color: "bg-white/15",
+            },
+            {
+              label: "With Teachers",
+              value: classes.filter((c) => c.classTeacher).length,
+              color: "bg-blue-500/30",
+            },
+            {
+              label: "Total Teachers",
+              value: teachers.length,
+              color: "bg-emerald-500/30",
+            },
+            {
+              label: "Active Classes",
+              value: classes.filter((c) => c.isActive).length,
+              color: "bg-amber-500/30",
+            },
           ].map((s) => (
-            <div key={s.label} className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+            <div
+              key={s.label}
+              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
               <div className="text-2xl font-black text-white">{s.value}</div>
               <div className="text-xs text-violet-100 mt-0.5">{s.label}</div>
             </div>
@@ -215,7 +237,9 @@ const ClassesPage = () => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                <div
+                  key={i}
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -231,7 +255,9 @@ const ClassesPage = () => {
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
                 <span className="text-slate-500">
-                  {searchQuery ? "No classes found matching your search" : "No classes found. Create your first class to get started."}
+                  {searchQuery
+                    ? "No classes found matching your search"
+                    : "No classes found. Create your first class to get started."}
                 </span>
               }
               className="my-12"
@@ -248,15 +274,23 @@ const ClassesPage = () => {
                         <BookOutlined className="text-xl text-white" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-slate-900 text-sm leading-tight">{classItem.name} - {classItem.section}</h3>
-                        <p className="text-xs text-slate-500 mt-0.5">{classItem.academicYear}</p>
+                        <h3 className="font-bold text-slate-900 text-sm leading-tight">
+                          {classItem.name} - {classItem.section}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {classItem.academicYear}
+                        </p>
                       </div>
                     </div>
                     <Dropdown
                       menu={{ items: getActionItems(classItem) }}
                       trigger={["click"]}
                       placement="bottomRight">
-                      <Button type="text" icon={<MoreOutlined />} className="opacity-0 group-hover:opacity-100 hover:bg-slate-200 rounded-xl" />
+                      <Button
+                        type="text"
+                        icon={<MoreOutlined />}
+                        className="opacity-0 group-hover:opacity-100 hover:bg-slate-200 rounded-xl"
+                      />
                     </Dropdown>
                   </div>
                   <div className="space-y-2.5">
@@ -265,7 +299,10 @@ const ClassesPage = () => {
                         <div className="w-6 h-6 rounded-lg bg-blue-100 flex items-center justify-center">
                           <UserOutlined className="text-blue-600 text-[10px]" />
                         </div>
-                        <span className="font-medium">{classItem.classTeacher.userId?.name || "Not Assigned"}</span>
+                        <span className="font-medium">
+                          {classItem.classTeacher.userId?.name ||
+                            "Not Assigned"}
+                        </span>
                       </div>
                     ) : (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full text-xs">
@@ -292,35 +329,63 @@ const ClassesPage = () => {
             <div className="w-9 h-9 bg-violet-100 rounded-xl flex items-center justify-center">
               <BookOutlined className="text-violet-700" />
             </div>
-            <span className="text-lg font-bold text-slate-900">{editingClass ? "Edit Class" : "Add New Class"}</span>
+            <span className="text-lg font-bold text-slate-900">
+              {editingClass ? "Edit Class" : "Add New Class"}
+            </span>
           </div>
         }
         open={isModalOpen}
         onCancel={handleCloseModal}
         footer={null}
         width={600}>
-        <Form form={form} layout="vertical" onFinish={handleSubmit} className="mt-4">
-          <Form.Item name="name" label={<span className="font-medium">Class Name</span>} rules={[{ required: true, message: "Class name is required" }]}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          className="mt-4">
+          <Form.Item
+            name="name"
+            label={<span className="font-medium">Class Name</span>}
+            rules={[{ required: true, message: "Class name is required" }]}>
             <Input size="large" placeholder="e.g., Grade 10" />
           </Form.Item>
-          <Form.Item name="section" label={<span className="font-medium">Section</span>} rules={[{ required: true, message: "Section is required" }]}>
+          <Form.Item
+            name="section"
+            label={<span className="font-medium">Section</span>}
+            rules={[{ required: true, message: "Section is required" }]}>
             <Input size="large" placeholder="e.g., A, B, C" />
           </Form.Item>
-          <Form.Item name="academicYear" label={<span className="font-medium">Academic Year</span>} rules={[{ required: true, message: "Academic year is required" }]}>
+          <Form.Item
+            name="academicYear"
+            label={<span className="font-medium">Academic Year</span>}
+            rules={[{ required: true, message: "Academic year is required" }]}>
             <Input size="large" placeholder="e.g., 2024-2025" />
           </Form.Item>
-          <Form.Item name="classTeacher" label={<span className="font-medium">Class Teacher (Optional)</span>}>
-            <Select size="large" placeholder="Select a teacher" allowClear showSearch optionFilterProp="children">
+          <Form.Item
+            name="classTeacher"
+            label={
+              <span className="font-medium">Class Teacher (Optional)</span>
+            }>
+            <Select
+              size="large"
+              placeholder="Select a teacher"
+              allowClear
+              showSearch
+              optionFilterProp="children">
               {teachers.map((teacher) => (
                 <Select.Option key={teacher._id} value={teacher._id}>
-                  {teacher.userId?.name || "N/A"} ({teacher.userId?.email || ""})
+                  {teacher.userId?.name || "N/A"} ({teacher.userId?.email || ""}
+                  )
                 </Select.Option>
               ))}
             </Select>
           </Form.Item>
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <Button onClick={handleCloseModal}>Cancel</Button>
-            <Button type="primary" htmlType="submit" className="bg-violet-600 hover:bg-violet-700">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="bg-violet-600 hover:bg-violet-700">
               {editingClass ? "Update" : "Create"} Class
             </Button>
           </div>

@@ -230,8 +230,12 @@ const StudentEnrollmentPage = () => {
               <UserOutlined className="text-2xl text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-white">Student Enrollment</h1>
-              <p className="text-emerald-200 text-sm mt-0.5">Enroll students and manage class assignments</p>
+              <h1 className="text-2xl font-black text-white">
+                Student Enrollment
+              </h1>
+              <p className="text-emerald-200 text-sm mt-0.5">
+                Enroll students and manage class assignments
+              </p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -241,7 +245,12 @@ const StudentEnrollmentPage = () => {
               <ReloadOutlined /> Refresh
             </button>
             <button
-              onClick={() => { setEditingStudent(null); form.resetFields(); setGeneratedPassword(""); setIsModalOpen(true); }}
+              onClick={() => {
+                setEditingStudent(null);
+                form.resetFields();
+                setGeneratedPassword("");
+                setIsModalOpen(true);
+              }}
               className="flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-800 rounded-2xl text-sm font-bold hover:bg-emerald-50 transition-all shadow-lg">
               <PlusOutlined /> Enroll Student
             </button>
@@ -250,12 +259,30 @@ const StudentEnrollmentPage = () => {
         {/* Mini stats strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
           {[
-            { label: "Total Students", value: students.length, color: "bg-white/15" },
-            { label: "Classes", value: classes.length, color: "bg-teal-500/30" },
-            { label: "Parents", value: parents.length, color: "bg-emerald-400/30" },
-            { label: "Without Parent", value: students.filter((s) => !s.parentId).length, color: "bg-orange-400/30" },
+            {
+              label: "Total Students",
+              value: students.length,
+              color: "bg-white/15",
+            },
+            {
+              label: "Classes",
+              value: classes.length,
+              color: "bg-teal-500/30",
+            },
+            {
+              label: "Parents",
+              value: parents.length,
+              color: "bg-emerald-400/30",
+            },
+            {
+              label: "Without Parent",
+              value: students.filter((s) => !s.parentId).length,
+              color: "bg-orange-400/30",
+            },
           ].map((s) => (
-            <div key={s.label} className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+            <div
+              key={s.label}
+              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
               <div className="text-2xl font-black text-white">{s.value}</div>
               <div className="text-xs text-emerald-100 mt-0.5">{s.label}</div>
             </div>
@@ -272,7 +299,10 @@ const StudentEnrollmentPage = () => {
             </div>
             <div>
               <h2 className="font-bold text-slate-900 text-sm">All Students</h2>
-              <p className="text-xs text-slate-500">{filteredStudents.length} record{filteredStudents.length !== 1 ? "s" : ""}</p>
+              <p className="text-xs text-slate-500">
+                {filteredStudents.length} record
+                {filteredStudents.length !== 1 ? "s" : ""}
+              </p>
             </div>
           </div>
           <Input.Search
@@ -289,7 +319,9 @@ const StudentEnrollmentPage = () => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-slate-50 rounded-2xl p-5 animate-pulse">
+                <div
+                  key={i}
+                  className="bg-slate-50 rounded-2xl p-5 animate-pulse">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
                     <div className="flex-1">
@@ -305,7 +337,9 @@ const StudentEnrollmentPage = () => {
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={
                 <span className="text-slate-500">
-                  {searchQuery ? "No students found matching your search" : "No students enrolled yet"}
+                  {searchQuery
+                    ? "No students found matching your search"
+                    : "No students enrolled yet"}
                 </span>
               }
               className="my-12"
@@ -324,15 +358,23 @@ const StudentEnrollmentPage = () => {
                           {initial}
                         </div>
                         <div>
-                          <h3 className="font-bold text-slate-900 text-sm leading-tight">{student.userId?.name || "N/A"}</h3>
-                          <p className="text-xs text-slate-500 mt-0.5">{student.userId?.email || "N/A"}</p>
+                          <h3 className="font-bold text-slate-900 text-sm leading-tight">
+                            {student.userId?.name || "N/A"}
+                          </h3>
+                          <p className="text-xs text-slate-500 mt-0.5">
+                            {student.userId?.email || "N/A"}
+                          </p>
                         </div>
                       </div>
                       <Dropdown
                         menu={{ items: getActionItems(student) }}
                         trigger={["click"]}
                         placement="bottomRight">
-                        <Button type="text" icon={<MoreOutlined />} className="opacity-0 group-hover:opacity-100 hover:bg-slate-200 rounded-xl" />
+                        <Button
+                          type="text"
+                          icon={<MoreOutlined />}
+                          className="opacity-0 group-hover:opacity-100 hover:bg-slate-200 rounded-xl"
+                        />
                       </Dropdown>
                     </div>
                     <div className="space-y-2.5">
@@ -342,7 +384,8 @@ const StudentEnrollmentPage = () => {
                         </span>
                         {student.classId && (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700">
-                            <BookOutlined /> {student.classId?.name} - {student.classId?.section}
+                            <BookOutlined /> {student.classId?.name} -{" "}
+                            {student.classId?.section}
                           </span>
                         )}
                       </div>
@@ -382,28 +425,81 @@ const StudentEnrollmentPage = () => {
             <div className="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center">
               <UserOutlined className="text-white" />
             </div>
-            <span className="text-lg font-bold text-slate-900">{editingStudent ? "Edit Student" : "Enroll New Student"}</span>
+            <span className="text-lg font-bold text-slate-900">
+              {editingStudent ? "Edit Student" : "Enroll New Student"}
+            </span>
           </div>
         }
         open={isModalOpen}
-        onCancel={() => { setIsModalOpen(false); setEditingStudent(null); form.resetFields(); }}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setEditingStudent(null);
+          form.resetFields();
+        }}
         footer={null}
         width={700}>
-        <Form form={form} layout="vertical" onFinish={handleSubmit} className="mt-4">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-1">Personal Information</p>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          className="mt-4">
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-1">
+            Personal Information
+          </p>
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item name="name" label={<span className="font-medium">Full Name</span>} rules={[{ required: true, message: "Please enter student name" }]}>
-              <Input size="large" prefix={<UserOutlined className="text-slate-400" />} placeholder="Enter full name" disabled={!!editingStudent} />
+            <Form.Item
+              name="name"
+              label={<span className="font-medium">Full Name</span>}
+              rules={[
+                { required: true, message: "Please enter student name" },
+              ]}>
+              <Input
+                size="large"
+                prefix={<UserOutlined className="text-slate-400" />}
+                placeholder="Enter full name"
+                disabled={!!editingStudent}
+              />
             </Form.Item>
-            <Form.Item name="email" label={<span className="font-medium">Email</span>} rules={[{ required: true, message: "Please enter email" }, { type: "email", message: "Please enter a valid email" }]}>
-              <Input size="large" prefix={<MailOutlined className="text-slate-400" />} placeholder="Enter email" disabled={!!editingStudent} />
+            <Form.Item
+              name="email"
+              label={<span className="font-medium">Email</span>}
+              rules={[
+                { required: true, message: "Please enter email" },
+                { type: "email", message: "Please enter a valid email" },
+              ]}>
+              <Input
+                size="large"
+                prefix={<MailOutlined className="text-slate-400" />}
+                placeholder="Enter email"
+                disabled={!!editingStudent}
+              />
             </Form.Item>
-            <Form.Item name="phone" label={<span className="font-medium">Phone Number</span>} rules={[{ required: true, message: "Please enter phone number" }]}>
-              <Input size="large" prefix={<PhoneOutlined className="text-slate-400" />} placeholder="Enter phone number" disabled={!!editingStudent} />
+            <Form.Item
+              name="phone"
+              label={<span className="font-medium">Phone Number</span>}
+              rules={[
+                { required: true, message: "Please enter phone number" },
+              ]}>
+              <Input
+                size="large"
+                prefix={<PhoneOutlined className="text-slate-400" />}
+                placeholder="Enter phone number"
+                disabled={!!editingStudent}
+              />
             </Form.Item>
             {!editingStudent && (
-              <Form.Item name="password" label={<span className="font-medium">Password</span>} rules={[{ required: true, message: "Please enter password" }, { min: 6, message: "Password must be at least 6 characters" }]}>
-                <Input.Password size="large" prefix={<LockOutlined className="text-slate-400" />} placeholder="Enter password" />
+              <Form.Item
+                name="password"
+                label={<span className="font-medium">Password</span>}
+                rules={[
+                  { required: true, message: "Please enter password" },
+                  { min: 6, message: "Password must be at least 6 characters" },
+                ]}>
+                <Input.Password
+                  size="large"
+                  prefix={<LockOutlined className="text-slate-400" />}
+                  placeholder="Enter password"
+                />
               </Form.Item>
             )}
           </div>
@@ -411,41 +507,96 @@ const StudentEnrollmentPage = () => {
           {generatedPassword && !editingStudent && (
             <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
               <div className="flex items-center justify-between">
-                <code className="text-sm font-mono text-blue-700 font-semibold">{generatedPassword}</code>
-                <Button type="text" size="small" icon={<CopyOutlined />} onClick={() => copyToClipboard(generatedPassword)} className="text-blue-600">Copy</Button>
+                <code className="text-sm font-mono text-blue-700 font-semibold">
+                  {generatedPassword}
+                </code>
+                <Button
+                  type="text"
+                  size="small"
+                  icon={<CopyOutlined />}
+                  onClick={() => copyToClipboard(generatedPassword)}
+                  className="text-blue-600">
+                  Copy
+                </Button>
               </div>
-              <p className="text-xs text-blue-500 mt-1">⚠️ Save this password — it will only be shown once!</p>
+              <p className="text-xs text-blue-500 mt-1">
+                ⚠️ Save this password — it will only be shown once!
+              </p>
             </div>
           )}
 
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">Academic Information</p>
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">
+            Academic Information
+          </p>
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item name="classId" label={<span className="font-medium">Class</span>} rules={[{ required: true, message: "Please select class" }]}>
+            <Form.Item
+              name="classId"
+              label={<span className="font-medium">Class</span>}
+              rules={[{ required: true, message: "Please select class" }]}>
               <Select size="large" placeholder="Select class">
-                {classes.map((c) => (<Select.Option key={c._id} value={c._id}>{c.name} - {c.section}</Select.Option>))}
+                {classes.map((c) => (
+                  <Select.Option key={c._id} value={c._id}>
+                    {c.name} - {c.section}
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
-            <Form.Item name="section" label={<span className="font-medium">Section</span>} rules={[{ required: true, message: "Please enter section" }]}>
+            <Form.Item
+              name="section"
+              label={<span className="font-medium">Section</span>}
+              rules={[{ required: true, message: "Please enter section" }]}>
               <Input size="large" placeholder="e.g., A, B, C" />
             </Form.Item>
-            <Form.Item name="rollNumber" label={<span className="font-medium">Roll Number</span>} rules={[{ required: true, message: "Please enter roll number" }]}>
+            <Form.Item
+              name="rollNumber"
+              label={<span className="font-medium">Roll Number</span>}
+              rules={[{ required: true, message: "Please enter roll number" }]}>
               <Input size="large" placeholder="Enter roll number" />
             </Form.Item>
-            <Form.Item name="academicYear" label={<span className="font-medium">Academic Year</span>} rules={[{ required: true, message: "Please enter academic year" }]} initialValue="2025-2026">
+            <Form.Item
+              name="academicYear"
+              label={<span className="font-medium">Academic Year</span>}
+              rules={[
+                { required: true, message: "Please enter academic year" },
+              ]}
+              initialValue="2025-2026">
               <Input size="large" placeholder="e.g., 2025-2026" />
             </Form.Item>
           </div>
 
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">Parent Assignment (Optional)</p>
-          <Form.Item name="parentId" label={<span className="font-medium">Assign Parent</span>}>
-            <Select size="large" placeholder="Select parent (optional)" allowClear showSearch optionFilterProp="children">
-              {parents.map((p) => (<Select.Option key={p._id} value={p._id}>{p.userId?.name || "N/A"} ({p.userId?.email || "N/A"})</Select.Option>))}
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 mt-2">
+            Parent Assignment (Optional)
+          </p>
+          <Form.Item
+            name="parentId"
+            label={<span className="font-medium">Assign Parent</span>}>
+            <Select
+              size="large"
+              placeholder="Select parent (optional)"
+              allowClear
+              showSearch
+              optionFilterProp="children">
+              {parents.map((p) => (
+                <Select.Option key={p._id} value={p._id}>
+                  {p.userId?.name || "N/A"} ({p.userId?.email || "N/A"})
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
 
           <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
-            <Button onClick={() => { setIsModalOpen(false); setEditingStudent(null); form.resetFields(); }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" className="bg-emerald-600 hover:bg-emerald-700">
+            <Button
+              onClick={() => {
+                setIsModalOpen(false);
+                setEditingStudent(null);
+                form.resetFields();
+              }}>
+              Cancel
+            </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="bg-emerald-600 hover:bg-emerald-700">
               {editingStudent ? "Update Student" : "Enroll Student"}
             </Button>
           </div>
@@ -459,33 +610,72 @@ const StudentEnrollmentPage = () => {
             <div className="w-9 h-9 bg-purple-100 rounded-xl flex items-center justify-center">
               <SwapOutlined className="text-purple-600" />
             </div>
-            <span className="text-lg font-bold text-slate-900">Change Class — {selectedStudent?.userId?.name}</span>
+            <span className="text-lg font-bold text-slate-900">
+              Change Class — {selectedStudent?.userId?.name}
+            </span>
           </div>
         }
         open={isChangeClassModalOpen}
-        onCancel={() => { setIsChangeClassModalOpen(false); setSelectedStudent(null); changeClassForm.resetFields(); }}
+        onCancel={() => {
+          setIsChangeClassModalOpen(false);
+          setSelectedStudent(null);
+          changeClassForm.resetFields();
+        }}
         footer={null}
         width={500}>
-        <Form form={changeClassForm} layout="vertical" onFinish={handleChangeClassSubmit} className="mt-4">
-          <Form.Item name="currentClass" label={<span className="font-medium">Current Class</span>}>
+        <Form
+          form={changeClassForm}
+          layout="vertical"
+          onFinish={handleChangeClassSubmit}
+          className="mt-4">
+          <Form.Item
+            name="currentClass"
+            label={<span className="font-medium">Current Class</span>}>
             <Input size="large" disabled />
           </Form.Item>
-          <Form.Item name="newClassId" label={<span className="font-medium">New Class</span>} rules={[{ required: true, message: "Please select new class" }]}>
+          <Form.Item
+            name="newClassId"
+            label={<span className="font-medium">New Class</span>}
+            rules={[{ required: true, message: "Please select new class" }]}>
             <Select size="large" placeholder="Select new class">
-              {classes.map((c) => (<Select.Option key={c._id} value={c._id}>{c.name} - {c.section}</Select.Option>))}
+              {classes.map((c) => (
+                <Select.Option key={c._id} value={c._id}>
+                  {c.name} - {c.section}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item name="newSection" label={<span className="font-medium">Section</span>} rules={[{ required: true, message: "Please enter section" }]}>
+            <Form.Item
+              name="newSection"
+              label={<span className="font-medium">Section</span>}
+              rules={[{ required: true, message: "Please enter section" }]}>
               <Input size="large" placeholder="Enter section" />
             </Form.Item>
-            <Form.Item name="newRollNumber" label={<span className="font-medium">New Roll Number</span>} rules={[{ required: true, message: "Please enter new roll number" }]}>
+            <Form.Item
+              name="newRollNumber"
+              label={<span className="font-medium">New Roll Number</span>}
+              rules={[
+                { required: true, message: "Please enter new roll number" },
+              ]}>
               <Input size="large" placeholder="Enter new roll number" />
             </Form.Item>
           </div>
           <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
-            <Button onClick={() => { setIsChangeClassModalOpen(false); setSelectedStudent(null); changeClassForm.resetFields(); }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" className="bg-purple-600 hover:bg-purple-700">Change Class</Button>
+            <Button
+              onClick={() => {
+                setIsChangeClassModalOpen(false);
+                setSelectedStudent(null);
+                changeClassForm.resetFields();
+              }}>
+              Cancel
+            </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="bg-purple-600 hover:bg-purple-700">
+              Change Class
+            </Button>
           </div>
         </Form>
       </Modal>
