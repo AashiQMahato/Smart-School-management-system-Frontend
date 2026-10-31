@@ -4,6 +4,8 @@
  */
 
 import { useState, useEffect } from "react";
+import { GraduationCap } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -222,73 +224,63 @@ const StudentEnrollmentPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <UserOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Student Enrollment
-              </h1>
-              <p className="text-emerald-200 text-sm mt-0.5">
-                Enroll students and manage class assignments
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={fetchData}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm">
-              <ReloadOutlined /> Refresh
-            </button>
-            <button
+      <PageHeader
+        icon={GraduationCap}
+        tone="blue"
+        title="Student Enrollment"
+        subtitle="Enroll students and manage class assignments"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchData}>
+              Refresh
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
               onClick={() => {
                 setEditingStudent(null);
                 form.resetFields();
                 setGeneratedPassword("");
                 setIsModalOpen(true);
-              }}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-800 rounded-2xl text-sm font-bold hover:bg-emerald-50 transition-all shadow-lg">
-              <PlusOutlined /> Enroll Student
-            </button>
+              }}>
+              Enroll Student
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                label: "Total Students",
+                value: students.length,
+                color: "bg-white/15",
+              },
+              {
+                label: "Classes",
+                value: classes.length,
+                color: "bg-teal-500/30",
+              },
+              {
+                label: "Parents",
+                value: parents.length,
+                color: "bg-emerald-400/30",
+              },
+              {
+                label: "Without Parent",
+                value: students.filter((s) => !s.parentId).length,
+                color: "bg-orange-400/30",
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-emerald-100 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-        </div>
-        {/* Mini stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              label: "Total Students",
-              value: students.length,
-              color: "bg-white/15",
-            },
-            {
-              label: "Classes",
-              value: classes.length,
-              color: "bg-teal-500/30",
-            },
-            {
-              label: "Parents",
-              value: parents.length,
-              color: "bg-emerald-400/30",
-            },
-            {
-              label: "Without Parent",
-              value: students.filter((s) => !s.parentId).length,
-              color: "bg-orange-400/30",
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-emerald-100 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">

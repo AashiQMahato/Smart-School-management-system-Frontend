@@ -5,6 +5,8 @@
  */
 
 import { useState, useEffect, useMemo } from "react";
+import { Wallet } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -1119,43 +1121,34 @@ const AdminFeeDashboardPage = () => {
 
   return (
     <div className="bg-slate-50">
-      {/* Header */}
-      <div className="sticky top-0 z-10 bg-slate-50 pb-4 mb-6">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <BankOutlined className="text-blue-600" />
-                Fee Management
-              </h1>
-              <p className="text-slate-500 mt-1">
-                Manage fee structures, track payments, and monitor collections
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Button icon={<ReloadOutlined />} onClick={fetchInitialData}>
-                Refresh
-              </Button>
-              <Button
-                icon={<DownloadOutlined />}
-                onClick={() => generateFeeReport(fees, stats)}>
-                Fee Report PDF
-              </Button>
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                onClick={() => {
-                  setEditingStructure(null);
-                  structureForm.resetFields();
-                  setStructureModalOpen(true);
-                }}
-                className="bg-blue-600">
-                New Fee Structure
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        icon={Wallet}
+        tone="teal"
+        title="Fee Management"
+        subtitle="Manage fee structures, track payments, and monitor collections"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchInitialData}>
+              Refresh
+            </Button>
+            <Button
+              icon={<DownloadOutlined />}
+              onClick={() => generateFeeReport(fees, stats)}>
+              Fee Report PDF
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setEditingStructure(null);
+                structureForm.resetFields();
+                setStructureModalOpen(true);
+              }}>
+              New Fee Structure
+            </Button>
+          </>
+        }
+      />
 
       {/* Tabs */}
       <Card className="border-0 shadow-sm">

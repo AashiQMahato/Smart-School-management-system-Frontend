@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect, useMemo } from "react";
+import { PageHeader } from "../../../components/UI";
+import { Button } from "antd";
 import {
   Plus,
   RefreshCw,
@@ -14,6 +16,7 @@ import {
   Filter,
   BookOpen,
   Calendar,
+  CalendarDays,
   Clock,
   Users,
 } from "lucide-react";
@@ -214,61 +217,57 @@ const SchedulesPage = () => {
 
   return (
     <div className="space-y-6 p-1">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <Calendar className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Manage Schedules
-              </h1>
-              <p className="text-indigo-200 text-sm mt-0.5">
-                Create and manage class timetables for the school
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
+      <PageHeader
+        icon={CalendarDays}
+        tone="sky"
+        title="Manage Schedules"
+        subtitle="Create and manage class timetables for the school"
+        actions={
+          <>
+            <Button
               onClick={fetchSchedules}
               disabled={loading}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm">
-              <RefreshCw
-                className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
-              />
+              icon={
+                <RefreshCw
+                  className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
+                />
+              }>
               Refresh
-            </button>
-            <button
-              onClick={handleAddSchedule}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-800 rounded-2xl text-sm font-bold hover:bg-indigo-50 transition-all shadow-lg">
-              <Plus className="w-4 h-4" />
+            </Button>
+            <Button
+              type="primary"
+              icon={<Plus className="w-4 h-4" />}
+              onClick={handleAddSchedule}>
               Add Schedule
-            </button>
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                icon: Calendar,
+                label: "Total Schedules",
+                value: stats.totalSchedules,
+              },
+              { icon: Clock, label: "Active Days", value: stats.activeDays },
+              { icon: Users, label: "Teachers", value: stats.uniqueTeachers },
+              {
+                icon: BookOpen,
+                label: "Subjects",
+                value: stats.uniqueSubjects,
+              },
+            ].map((s, i) => (
+              <div
+                key={i}
+                className="bg-white/15 rounded-2xl p-3 text-center border border-white/10">
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-indigo-100 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-        </div>
-        {/* Stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              icon: Calendar,
-              label: "Total Schedules",
-              value: stats.totalSchedules,
-            },
-            { icon: Clock, label: "Active Days", value: stats.activeDays },
-            { icon: Users, label: "Teachers", value: stats.uniqueTeachers },
-            { icon: BookOpen, label: "Subjects", value: stats.uniqueSubjects },
-          ].map((s, i) => (
-            <div
-              key={i}
-              className="bg-white/15 rounded-2xl p-3 text-center border border-white/10">
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-indigo-100 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Admin Filters */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">

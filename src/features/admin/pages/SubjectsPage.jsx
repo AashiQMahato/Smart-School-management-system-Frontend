@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { BookOpen } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import * as subjectService from "../../../services/subject.service";
 import * as classService from "../../../services/class.service";
 import { getAllTeachers } from "../../../services/admin.service";
@@ -175,75 +177,65 @@ const SubjectsPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <BookOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Subject Management
-              </h1>
-              <p className="text-green-200 text-sm mt-0.5">
-                Manage school subjects, assign teachers, and link to classes
-              </p>
-            </div>
+      <PageHeader
+        icon={BookOpen}
+        tone="sky"
+        title="Subject Management"
+        subtitle="Manage school subjects, assign teachers, and link to classes"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchSubjects}>
+              Refresh
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => handleOpenModal()}>
+              Add Subject
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                label: "Total Subjects",
+                value: subjects.length,
+                color: "bg-white/15",
+              },
+              {
+                label: "With Teachers",
+                value: subjects.filter((s) => s.assignedTeacher).length,
+                color: "bg-blue-500/30",
+              },
+              {
+                label: "Total Classes",
+                value: classes.length,
+                color: "bg-purple-500/30",
+              },
+              {
+                label: "Assigned to Class",
+                value: subjects.filter((s) => {
+                  const ids = Array.isArray(s.classIds)
+                    ? s.classIds
+                    : s.classId
+                      ? [s.classId]
+                      : [];
+                  return ids.length > 0;
+                }).length,
+                color: "bg-amber-500/30",
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-green-100 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-          <div className="flex gap-3">
-            <button
-              onClick={fetchSubjects}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm">
-              <ReloadOutlined /> Refresh
-            </button>
-            <button
-              onClick={() => handleOpenModal()}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-green-800 rounded-2xl text-sm font-bold hover:bg-green-50 transition-all shadow-lg">
-              <PlusOutlined /> Add Subject
-            </button>
-          </div>
-        </div>
-        {/* Mini stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              label: "Total Subjects",
-              value: subjects.length,
-              color: "bg-white/15",
-            },
-            {
-              label: "With Teachers",
-              value: subjects.filter((s) => s.assignedTeacher).length,
-              color: "bg-blue-500/30",
-            },
-            {
-              label: "Total Classes",
-              value: classes.length,
-              color: "bg-purple-500/30",
-            },
-            {
-              label: "Assigned to Class",
-              value: subjects.filter((s) => {
-                const ids = Array.isArray(s.classIds)
-                  ? s.classIds
-                  : s.classId
-                    ? [s.classId]
-                    : [];
-                return ids.length > 0;
-              }).length,
-              color: "bg-amber-500/30",
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-green-100 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">

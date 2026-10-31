@@ -4,6 +4,8 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
+import { CalendarCheck } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   Button,
   message,
@@ -377,66 +379,57 @@ const AdminAttendancePage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <CalendarOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Attendance Management
-              </h1>
-              <p className="text-blue-100 text-sm mt-0.5">
-                Manage all attendance records across the institution
-              </p>
-            </div>
-          </div>
-          <button
+      <PageHeader
+        icon={CalendarCheck}
+        tone="emerald"
+        title="Attendance Management"
+        subtitle="Manage all attendance records across the institution"
+        actions={
+          <Button
+            icon={<ReloadOutlined className={loading ? "animate-spin" : ""} />}
             onClick={fetchAttendance}
-            disabled={loading || !selectedClass}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm disabled:opacity-50">
-            <ReloadOutlined className={loading ? "animate-spin" : ""} />
+            disabled={loading || !selectedClass}>
             Refresh
-          </button>
-        </div>
-
-        {/* Stats strip — visible when a class is selected */}
-        {selectedClass && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-            {[
-              {
-                label: "Total Records",
-                value: localSummary.total,
-                bg: "bg-white/15",
-              },
-              {
-                label: "Present",
-                value: localSummary.present,
-                bg: "bg-emerald-500/30",
-              },
-              {
-                label: "Absent",
-                value: localSummary.absent,
-                bg: "bg-red-500/30",
-              },
-              {
-                label: "Late",
-                value: localSummary.late,
-                bg: "bg-amber-500/30",
-              },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}>
-                <div className="text-2xl font-black text-white">{s.value}</div>
-                <div className="text-xs text-blue-100 mt-0.5">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+          </Button>
+        }
+        summary={
+          selectedClass ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                {
+                  label: "Total Records",
+                  value: localSummary.total,
+                  bg: "bg-white/15",
+                },
+                {
+                  label: "Present",
+                  value: localSummary.present,
+                  bg: "bg-emerald-500/30",
+                },
+                {
+                  label: "Absent",
+                  value: localSummary.absent,
+                  bg: "bg-red-500/30",
+                },
+                {
+                  label: "Late",
+                  value: localSummary.late,
+                  bg: "bg-amber-500/30",
+                },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className={`${s.bg} rounded-2xl p-3 text-center border border-white/10`}>
+                  <div className="text-2xl font-black text-white">
+                    {s.value}
+                  </div>
+                  <div className="text-xs text-blue-100 mt-0.5">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          ) : null
+        }
+      />
 
       {/* Filter Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6">

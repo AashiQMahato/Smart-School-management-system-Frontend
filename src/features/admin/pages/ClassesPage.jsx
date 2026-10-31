@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { School } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import * as classService from "../../../services/class.service";
 import { getAllTeachers } from "../../../services/admin.service";
 import {
@@ -151,68 +153,58 @@ const ClassesPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <BookOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Class Management
-              </h1>
-              <p className="text-violet-200 text-sm mt-0.5">
-                Manage school classes, sections, and class teachers
-              </p>
-            </div>
+      <PageHeader
+        icon={School}
+        tone="sky"
+        title="Class Management"
+        subtitle="Manage school classes, sections, and class teachers"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchClasses}>
+              Refresh
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => handleOpenModal()}>
+              Add Class
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                label: "Total Classes",
+                value: classes.length,
+                color: "bg-white/15",
+              },
+              {
+                label: "With Teachers",
+                value: classes.filter((c) => c.classTeacher).length,
+                color: "bg-blue-500/30",
+              },
+              {
+                label: "Total Teachers",
+                value: teachers.length,
+                color: "bg-emerald-500/30",
+              },
+              {
+                label: "Active Classes",
+                value: classes.filter((c) => c.isActive).length,
+                color: "bg-amber-500/30",
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-violet-100 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-          <div className="flex gap-3">
-            <button
-              onClick={fetchClasses}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm">
-              <ReloadOutlined /> Refresh
-            </button>
-            <button
-              onClick={() => handleOpenModal()}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-violet-800 rounded-2xl text-sm font-bold hover:bg-violet-50 transition-all shadow-lg">
-              <PlusOutlined /> Add Class
-            </button>
-          </div>
-        </div>
-        {/* Mini stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              label: "Total Classes",
-              value: classes.length,
-              color: "bg-white/15",
-            },
-            {
-              label: "With Teachers",
-              value: classes.filter((c) => c.classTeacher).length,
-              color: "bg-blue-500/30",
-            },
-            {
-              label: "Total Teachers",
-              value: teachers.length,
-              color: "bg-emerald-500/30",
-            },
-            {
-              label: "Active Classes",
-              value: classes.filter((c) => c.isActive).length,
-              color: "bg-amber-500/30",
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-violet-100 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">

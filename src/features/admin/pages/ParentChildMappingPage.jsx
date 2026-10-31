@@ -4,6 +4,8 @@
  */
 
 import { useState, useEffect } from "react";
+import { Link2 } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -217,62 +219,52 @@ const ParentChildMappingPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <LinkOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                Parent-Child Mapping
-              </h1>
-              <p className="text-purple-200 text-sm mt-0.5">
-                Link parents to their children for attendance and academic
-                tracking
-              </p>
-            </div>
+      <PageHeader
+        icon={Link2}
+        tone="pink"
+        title="Parent-Child Mapping"
+        subtitle="Link parents to their children for attendance and academic tracking"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchData}>
+              Refresh
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                label: "Total Parents",
+                value: parents.length,
+                color: "bg-white/15",
+              },
+              {
+                label: "With Children",
+                value: parentsWithChildren,
+                color: "bg-emerald-500/30",
+              },
+              {
+                label: "Without Children",
+                value: parentsWithoutChildren,
+                color: "bg-orange-500/30",
+              },
+              {
+                label: "Students No Parent",
+                value: studentsWithoutParent,
+                color: "bg-red-500/30",
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-purple-100 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-          <button
-            onClick={fetchData}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm w-fit">
-            <ReloadOutlined /> Refresh
-          </button>
-        </div>
-        {/* Mini stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              label: "Total Parents",
-              value: parents.length,
-              color: "bg-white/15",
-            },
-            {
-              label: "With Children",
-              value: parentsWithChildren,
-              color: "bg-emerald-500/30",
-            },
-            {
-              label: "Without Children",
-              value: parentsWithoutChildren,
-              color: "bg-orange-500/30",
-            },
-            {
-              label: "Students No Parent",
-              value: studentsWithoutParent,
-              color: "bg-red-500/30",
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-purple-100 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
