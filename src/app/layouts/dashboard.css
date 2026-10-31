@@ -990,36 +990,289 @@
    Shared dashboard primitives
    ===================================================================== */
 
-/* page header */
-.ssd-page-head {
+/* =====================================================================
+   Page header (components/UI/PageHeader.jsx)
+   Compact card under the topbar: icon, title, subtitle, actions, and an
+   optional dark summary band. Colour comes from the page's module tone.
+   ===================================================================== */
+.ssd-ph {
+  --ph-glow: color-mix(in oklab, var(--tone) 14%, transparent);
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      520px 160px at var(--ph-x, 0%) 0%,
+      var(--ph-glow),
+      transparent 70%
+    ),
+    var(--ssl-surface);
+  border: 1px solid var(--ssl-line);
+  box-shadow: var(--ssl-shadow-sm);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    box-shadow 0.3s var(--ssl-ease),
+    border-color 0.3s var(--ssl-ease),
+    --ph-x 0.6s var(--ssl-ease);
+  animation: ssd-ph-in 0.45s var(--ssl-ease) both;
+}
+
+/* thin accent line along the top edge */
+.ssd-ph::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--tone),
+    color-mix(in oklab, var(--tone) 0%, transparent) 65%
+  );
+  opacity: 0.75;
+}
+
+.ssd-ph:hover {
+  --ph-x: 18%;
+  border-color: var(--tone-line, var(--ssl-line-2));
+  box-shadow: var(--ssl-shadow-md);
+}
+
+[data-theme="dark"] .ssd-ph {
+  --ph-glow: color-mix(in oklab, var(--tone) 22%, transparent);
+  background:
+    radial-gradient(
+      520px 170px at var(--ph-x, 0%) 0%,
+      var(--ph-glow),
+      transparent 70%
+    ),
+    linear-gradient(180deg, rgb(255 255 255 / 0.025), transparent 60%),
+    color-mix(in oklab, var(--ssd-hero) 70%, var(--ssl-surface));
+  backdrop-filter: saturate(150%) blur(10px);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+  border-color: rgb(255 255 255 / 0.07);
+}
+
+@property --ph-x {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@keyframes ssd-ph-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ssd-ph-icon-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ssd-ph-text-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ssd-ph__main {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 22px;
+  gap: 14px 20px;
+  padding: 16px 18px;
 }
 
-.ssd-page-head h1,
-.ssd-page-head h2 {
+.ssd-ph__lead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1 1 260px;
+}
+
+.ssd-ph__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--tone-bg);
+  color: var(--tone-ink);
+  font-size: 21px;
+  box-shadow:
+    inset 0 0 0 1px var(--tone-line),
+    0 6px 16px -10px var(--tone);
+  animation: ssd-ph-icon-in 0.5s var(--ssl-ease) 0.08s both;
+  transition: transform 0.35s var(--ssl-ease);
+}
+
+.ssd-ph__icon svg {
+  transition: transform 0.35s var(--ssl-ease);
+}
+
+.ssd-ph:hover .ssd-ph__icon {
+  transform: translateY(-1px) rotate(-6deg) scale(1.05);
+}
+
+.ssd-ph:hover .ssd-ph__icon svg {
+  transform: scale(1.06);
+}
+
+[data-theme="dark"] .ssd-ph__icon {
+  background: color-mix(in oklab, var(--tone) 20%, transparent);
+  color: color-mix(in oklab, var(--tone) 55%, #ffffff);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--tone) 35%, transparent),
+    0 8px 20px -10px var(--tone);
+}
+
+.ssd-ph__text {
+  min-width: 0;
+  animation: ssd-ph-text-in 0.45s var(--ssl-ease) 0.12s both;
+}
+
+.ssd-ph__crumbs {
+  margin-bottom: 2px;
+  font-size: 0.78rem;
+}
+
+.ssd-ph__title {
   margin: 0;
-  font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.7rem);
+  font-size: clamp(1.15rem, 1.02rem + 0.5vw, 1.4rem);
   font-weight: 720;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
   color: var(--ssl-ink);
+  text-wrap: balance;
 }
 
-.ssd-page-head p {
-  margin: 6px 0 0;
+.ssd-ph__subtitle {
+  margin: 3px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
   color: var(--ssl-muted);
-  max-width: 64ch;
+  max-width: 68ch;
 }
 
-.ssd-page-head__actions {
+.ssd-ph__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+  animation: ssd-ph-text-in 0.45s var(--ssl-ease) 0.18s both;
+}
+
+.ssd-ph__actions .ant-btn {
+  height: 38px;
+  border-radius: 11px;
+  font-weight: 600;
+  transition:
+    background-color 0.18s,
+    border-color 0.18s,
+    color 0.18s,
+    box-shadow 0.2s,
+    translate 0.2s var(--ssl-ease),
+    transform 0.12s;
+}
+
+.ssd-ph__actions .ant-btn:not(:disabled):hover {
+  translate: 0 -1px;
+}
+
+.ssd-ph__actions .ant-btn .anticon,
+.ssd-ph__actions .ant-btn svg {
+  transition: transform 0.3s var(--ssl-ease);
+}
+
+.ssd-ph__actions .ant-btn:not(:disabled):hover .anticon-reload,
+.ssd-ph__actions .ant-btn:not(:disabled):hover .lucide-refresh-cw {
+  transform: rotate(120deg);
+}
+
+.ssd-ph__actions .ant-btn-primary:not(:disabled):hover .anticon-plus,
+.ssd-ph__actions .ant-btn-primary:not(:disabled):hover .lucide-plus {
+  transform: rotate(90deg);
+}
+
+/* optional dark summary band (stat tiles designed for a navy surface) */
+.ssd-ph__summary {
+  margin: 0 8px 8px;
+  padding: 14px;
+  border-radius: 13px;
+  background: var(--ssd-hero);
+  color: #fff;
+  animation: ssd-ph-text-in 0.45s var(--ssl-ease) 0.22s both;
+}
+
+[data-theme="dark"] .ssd-ph__summary {
+  background: rgb(0 0 0 / 0.18);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+/* tablet */
+@media (min-width: 640px) {
+  .ssd-ph__main {
+    padding: 18px 22px;
+  }
+}
+
+/* phones: actions drop under the title and share the row */
+@media (max-width: 639px) {
+  .ssd-ph__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .ssd-ph__actions {
+    width: 100%;
+  }
+
+  .ssd-ph__actions > * {
+    flex: 1 1 0;
+    min-width: max-content;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ssd-ph,
+  .ssd-ph__icon,
+  .ssd-ph__text,
+  .ssd-ph__actions,
+  .ssd-ph__summary {
+    animation: none !important;
+  }
+
+  .ssd-ph,
+  .ssd-ph__icon,
+  .ssd-ph__icon svg {
+    transition: none !important;
+  }
+
+  .ssd-ph:hover .ssd-ph__icon,
+  .ssd-ph:hover .ssd-ph__icon svg {
+    transform: none;
+  }
 }
 
 /* welcome / feature banner */

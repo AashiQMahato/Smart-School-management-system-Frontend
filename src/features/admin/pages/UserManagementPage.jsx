@@ -4,6 +4,8 @@
  */
 
 import { useState, useEffect } from "react";
+import { Users } from "lucide-react";
+import { PageHeader } from "../../../components/UI";
 import {
   Button,
   Modal,
@@ -283,74 +285,64 @@ const UserManagementPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Gradient Header */}
-      <div className="bg-[var(--ssd-hero)] rounded-2xl p-8 text-white">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <TeamOutlined className="text-2xl text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">
-                User Management
-              </h1>
-              <p className="text-slate-300 text-sm mt-0.5">
-                Manage all system users, roles, and permissions
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={fetchUsers}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-sm font-medium transition-all border border-white/20 backdrop-blur-sm">
-              <ReloadOutlined /> Refresh
-            </button>
-            <button
+      <PageHeader
+        icon={Users}
+        tone="blue"
+        title="User Management"
+        subtitle="Manage all system users, roles, and permissions"
+        actions={
+          <>
+            <Button icon={<ReloadOutlined />} onClick={fetchUsers}>
+              Refresh
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
               onClick={() => {
                 setEditingUser(null);
                 form.resetFields();
                 setGeneratedPassword("");
                 handleGeneratePassword();
                 setIsModalOpen(true);
-              }}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-800 rounded-2xl text-sm font-bold hover:bg-slate-100 transition-all shadow-lg">
-              <PlusOutlined /> Add User
-            </button>
+              }}>
+              Add User
+            </Button>
+          </>
+        }
+        summary={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              {
+                label: "Total Users",
+                value: stats.totalUsers || 0,
+                color: "bg-white/15",
+              },
+              {
+                label: "Active",
+                value: stats.activeUsers || 0,
+                color: "bg-emerald-500/30",
+              },
+              {
+                label: "Suspended",
+                value: stats.suspendedUsers || 0,
+                color: "bg-orange-500/30",
+              },
+              {
+                label: "Classes",
+                value: stats.totalClasses || 0,
+                color: "bg-purple-500/30",
+              },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
+                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-xs text-slate-300 mt-0.5">{s.label}</div>
+              </div>
+            ))}
           </div>
-        </div>
-        {/* Mini stats strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-          {[
-            {
-              label: "Total Users",
-              value: stats.totalUsers || 0,
-              color: "bg-white/15",
-            },
-            {
-              label: "Active",
-              value: stats.activeUsers || 0,
-              color: "bg-emerald-500/30",
-            },
-            {
-              label: "Suspended",
-              value: stats.suspendedUsers || 0,
-              color: "bg-orange-500/30",
-            },
-            {
-              label: "Classes",
-              value: stats.totalClasses || 0,
-              color: "bg-purple-500/30",
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className={`${s.color} rounded-2xl p-3 text-center border border-white/10`}>
-              <div className="text-2xl font-black text-white">{s.value}</div>
-              <div className="text-xs text-slate-300 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Panel */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
